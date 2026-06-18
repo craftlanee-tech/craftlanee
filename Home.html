@@ -1,0 +1,1136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Craftlanee</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Segoe UI', sans-serif;
+  max-width: 100%;
+}
+
+html, body {
+  overflow-x: hidden;
+}
+
+section {
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+body.menu-open {
+  overflow: hidden;
+}
+
+body {
+  background: linear-gradient(135deg, #071326, #020617);
+  color: white;
+  overflow-x: hidden; /* Added to prevent horizontal scroll */
+}
+
+/* ================= NAVBAR ================= */
+.navbar {
+  position: sticky;
+  top: 0;
+  width: 100%;
+  backdrop-filter: blur(18px);
+  background: rgba(10, 20, 40, 0.2);
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 6px 60px;
+  z-index: 1000;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 0; 
+}
+
+.logo img {
+  width: 85px;
+  display: block;
+  margin-right: -20px; 
+}
+
+.logo span {
+  font-size: 24px;
+  font-weight: 700;
+  color: white;
+  letter-spacing: 1px;
+  margin-top: -5px; 
+}
+
+/* Nav Links */
+.nav-links {
+  display: flex;
+  gap: 30px;
+  align-items: center;
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: #8fa3c7;
+  font-size: 14px;
+  position: relative;
+  transition: 0.3s;
+}
+
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -5px;
+  width: 0%;
+  height: 2px;
+  background: #4fc3ff;
+  transition: 0.3s;
+}
+
+.nav-links a:hover {
+  color: #4fc3ff;
+}
+
+.nav-links a:hover::after {
+  width: 100%;
+}
+
+/* Contact Button */
+.btn-contact {
+  padding: 10px 18px;
+  border-radius: 8px;
+  background: #4fc3ff;
+  color: #fff;
+  text-decoration: none;
+  font-weight: bold;
+  transition: 0.3s;
+}
+
+.btn-contact:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 20px rgba(79,195,255,0.4);
+}
+
+/* TOGGLE BUTTON - ONLY FOR MOBILE */
+.menu-btn {
+  display: none;
+  font-size: 24px;
+  cursor: pointer;
+  color: white;
+}
+
+/* ================= HERO ================= */
+.hero {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 60px 60px;
+  gap: 30px;
+}
+
+.hero-text {
+  max-width: 550px;
+}
+
+.tag {
+  background: rgba(0,255,150,0.1);
+  color: #00ffa6;
+  padding: 6px 12px;
+  border-radius: 5px;
+  font-size: 12px;
+  margin-bottom: 15px;
+  display: inline-block;
+}
+
+.hero-text h1 {
+  font-size: 52px;
+  margin-bottom: 15px;
+}
+
+.hero-text h1 span {
+  color: #4fc3ff;
+}
+
+.hero-text p {
+  color: #9fb0d0;
+  margin-bottom: 25px;
+  line-height: 1.6;
+}
+
+.buttons {
+  display: flex;
+  gap: 12px;
+}
+
+.btn {
+  padding: 12px 20px;
+  border-radius: 6px;
+  text-decoration: none;
+  font-weight: bold;
+  transition: 0.3s;
+}
+
+.btn-primary {
+  background: linear-gradient(90deg, #3acfff, #2a8cff);
+  color: black;
+}
+
+.btn-primary:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 25px rgba(58,207,255,0.5);
+}
+
+.btn-secondary {
+  border: 1px dashed #3acfff;
+  color: #00ffa6;
+}
+
+.btn-secondary:hover {
+  background: #0b223f;
+  transform: translateY(-3px);
+}
+
+.hero-image {
+  width: 300px; 
+  border-radius: 12px;
+  overflow: hidden;
+  background: #0c1a33;
+  transition: 0.4s;
+  margin-top: 15px; 
+}
+
+.hero-image img {
+  width: 100%;
+  display: block;
+  transition: 0.4s;
+}
+
+.hero-image:hover {
+  transform: translateY(-10px) scale(1.04);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.6);
+}
+
+.hero-image:hover img {
+  transform: scale(1.08);
+}
+
+/* ================= WHY SECTION ================= */
+.why-section {
+  padding: 80px 60px;
+}
+
+.why-header h2 {
+  font-size: 42px;
+  margin-bottom: 10px;
+}
+
+.why-header span {
+  color: #7CFC00;
+}
+
+.why-header p {
+  color: #9fb0d0;
+  max-width: 600px;
+  margin-bottom: 40px;
+}
+
+.why-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 25px;
+}
+
+.why-card {
+  background: #0c1a33;
+  padding: 25px;
+  border-radius: 12px;
+  transition: 0.3s;
+}
+
+.why-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+}
+
+.why-card h3 {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.why-card p {
+  color: #9fb0d0;
+  font-size: 14px;
+}
+
+.icon {
+  font-size: 22px;
+}
+
+.highlight {
+  background: #2a3347;
+}
+
+/* ================= TRUST SECTION ================= */
+.trust-section {
+  padding: 80px 60px;
+  background: linear-gradient(180deg, #020617, #071326);
+}
+
+.trust-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 40px;
+}
+
+.trust-header h2 {
+  font-size: 42px;
+}
+
+.trust-header span {
+  color: #4fc3ff;
+}
+
+.trust-header p {
+  color: #9fb0d0;
+  max-width: 500px;
+  margin-top: 10px;
+}
+
+.trust-nav button {
+  background: transparent;
+  border: 1px solid rgba(255,255,255,0.1);
+  color: white;
+  padding: 8px 12px;
+  margin-left: 10px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.trust-nav button:hover {
+  background: #0c1a33;
+}
+
+.trust-cards {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 25px;
+}
+
+.trust-card {
+  background: #0c1a33;
+  padding: 30px;
+  border-radius: 12px;
+  position: relative;
+  transition: 0.3s;
+}
+
+.trust-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 15px 30px rgba(0,0,0,0.5);
+}
+
+.quote {
+  font-style: italic;
+  color: #cbd5f5;
+  line-height: 1.6;
+  margin-bottom: 25px;
+  position: relative;
+}
+
+.quote::after {
+  content: "❝";
+  position: absolute;
+  right: 0;
+  top: -10px;
+  font-size: 40px;
+  color: rgba(79,195,255,0.3);
+}
+
+.client {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.client img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+
+.client h4 {
+  font-size: 14px;
+}
+
+.client span {
+  font-size: 11px;
+  color: #9fb0d0;
+}
+
+/* ================= CTA ================= */
+.cta-section {
+  padding: 80px 60px;
+}
+
+.cta-box {
+  background: linear-gradient(135deg, #0c2d48, #0b3d2e);
+  padding: 60px;
+  border-radius: 14px;
+}
+
+.cta-box h2 {
+  font-size: 42px;
+  margin-bottom: 15px;
+}
+
+.cta-box span {
+  color: #7CFC00;
+}
+
+.cta-box p {
+  color: #9fb0d0;
+  margin-bottom: 25px;
+}
+
+.cta-buttons {
+  display: flex;
+  gap: 15px;
+}
+
+.cta-primary {
+  background: #6ec1ff;
+  padding: 12px 20px;
+  color: black;
+  text-decoration: none;
+  border-radius: 6px;
+  font-weight: bold;
+  transition: 0.3s;
+}
+
+.cta-primary:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 25px rgba(110,193,255,0.5);
+}
+
+.cta-secondary {
+  border: 1px dashed #6ec1ff;
+  padding: 12px 20px;
+  color: #6ec1ff;
+  text-decoration: none;
+  border-radius: 6px;
+  transition: 0.3s;
+}
+
+.cta-secondary:hover {
+  background: #0b223f;
+  transform: translateY(-4px);
+  box-shadow: 0 10px 20px rgba(110,193,255,0.3);
+}
+
+/* ================= FOOTER ================= */
+.footer {
+  background: #020617;
+  padding: 60px;
+}
+
+.footer-container {
+  display: flex;
+  justify-content: space-between;
+  gap: 40px;
+  flex-wrap: wrap;
+}
+
+.footer-col h3,
+.footer-col h4 {
+  margin-bottom: 15px;
+  color: #7CFC00;
+}
+
+.footer-col p {
+  color: #9fb0d0;
+  max-width: 300px;
+}
+
+.footer-col a {
+  display: block;
+  color: #9fb0d0;
+  text-decoration: none;
+  margin-bottom: 8px;
+  transition: 0.3s;
+}
+
+.footer-col a:hover {
+  color: #4fc3ff;
+}
+
+.footer-bottom {
+  text-align: center;
+  margin-top: 40px;
+  color: #6b7c99;
+  font-size: 14px;
+}
+
+.social-icons {
+  margin-top: 20px;
+  display: flex;
+  gap: 15px;
+}
+
+.social-icons a {
+  width: 40px;
+  height: 40px;
+  background: #0c1a33;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  color: white;
+  font-size: 16px;
+  transition: 0.3s;
+}
+
+.social-icons a:hover {
+  background: linear-gradient(90deg, #4fc3ff, #7CFC00);
+  color: black;
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(79,195,255,0.4);
+}
+
+#topBtn {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  width: 50px;
+  height: 50px;
+  background: white;
+  border: none;
+  border-radius: 50%;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 999;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+  transition: 0.3s;
+}
+
+.chevron {
+  width: 12px;
+  height: 12px;
+  border-left: 3px solid black;
+  border-top: 3px solid black;
+  transform: rotate(45deg);
+}
+
+#topBtn:hover {
+  transform: translateY(-6px);
+  background: #4fc3ff;
+  box-shadow: 0 12px 25px rgba(79,195,255,0.6);
+}
+
+#topBtn:hover .chevron {
+  border-color: white;
+}
+
+/* WRAPPER */
+.clients-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 30px 20px;
+  position: relative;
+}
+
+/* SCROLL AREA */
+.clients-scroll {
+  overflow: hidden;
+  width: 80%;
+}
+
+/* TRACK */
+.scroll-track {
+  display: flex;
+  gap: 20px;
+  transition: transform 0.4s ease;
+}
+
+/* CARD */
+.client-card {
+  min-width: 250px;
+  background: rgba(20,30,60,0.6);
+  padding: 20px;
+  border-radius: 16px;
+  text-align: center;
+  flex: 0 0 auto;
+  position: relative;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.client-card:hover {
+  transform: translateY(-8px);
+}
+
+/* IMAGE */
+.client-card img {
+  width: 140px;
+  height: 70px;
+  object-fit: contain;
+  margin-bottom: 10px;
+}
+
+/* 🔥 HOVER TEXT FIX */
+.client-info {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background: rgba(0,0,0,0.85);
+  color: #fff;
+  font-size: 13px;
+  padding: 15px;
+  border-radius: 0 0 16px 16px;
+
+  opacity: 0;
+  transform: translateY(100%);
+  transition: 0.3s;
+}
+
+/* SHOW ON HOVER */
+.client-card:hover .client-info {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ARROWS */
+.arrow {
+  background: #0c1a33;
+  border: none;
+  color: white;
+  font-size: 22px;
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.arrow:hover {
+  background: linear-gradient(90deg, #4fc3ff, #7CFC00);
+  color: black;
+}
+
+.client-card.active .client-info {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ================= NEW RESPONSIVE OVERRIDES ================= */
+@media(max-width: 900px) {
+  .navbar {
+    padding: 15px 30px;
+  }
+
+  /* Toggle button appears */
+  .menu-btn {
+    display: block;
+  }
+
+  /* Nav Links become a vertical side menu */
+  .nav-links {
+    position: fixed;
+    top: 70px;
+    right: -100%; /* Hidden by default */
+    width: 250px;
+    height: calc(100vh - 70px);
+    background: #0a1428;
+    flex-direction: column;
+    padding: 40px;
+    gap: 30px;
+    transition: 0.4s;
+    box-shadow: -10px 0 20px rgba(0,0,0,0.5);
+    align-items: flex-start; /* Ensure links align to left in toggle menu */
+  }
+
+  /* Show menu when active */
+  .nav-links.active {
+    right: 0;
+  }
+
+  .btn-contact {
+    display: none; /* Hide top contact button on mobile */
+  }
+
+  /* Toggle version of Get in Touch (added via logic below) */
+  .nav-links .btn-contact-toggle {
+    display: block !important;
+    width: 100%;
+    text-align: center;
+    margin-top: 10px;
+    color: #fff;
+  }
+
+  .hero {
+    flex-direction: column;
+    text-align: center;
+    padding: 40px 20px;
+  }
+
+  .hero-text h1 {
+    font-size: 36px;
+  }
+
+  .buttons {
+    justify-content: center;
+  }
+
+  .why-grid, .trust-cards {
+    grid-template-columns: 1fr;
+  }
+
+  .why-section, .trust-section, .cta-section {
+    padding: 60px 20px;
+  }
+
+  .trust-header {
+    flex-direction: column;
+    gap: 20px;
+    text-align: center;
+  }
+
+  .cta-box {
+    padding: 40px 20px;
+    text-align: center;
+  }
+
+  .cta-buttons {
+    justify-content: center;
+    flex-direction: column;
+  }
+
+  .footer-container {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .footer-col p {
+    margin: 0 auto 20px auto;
+  }
+
+  .social-icons {
+    justify-content: center;
+  }
+}
+
+/* Hidden by default on desktop */
+.btn-contact-toggle {
+  display: none;
+}
+</style>
+</head>
+
+<body>
+
+<div class="navbar">
+
+  <div class="logo">
+    <a href="Home.html" class="logo" style="text-decoration: none;">
+      <img src="Craftlanee_logo.png" alt="logo">
+      <span>
+        Craft<span style="color: orange;">lanee</span>
+      </span>
+    </a>
+  </div>
+
+  <div class="menu-btn" id="menuBtn">
+    <i class="fas fa-bars"></i>
+  </div>
+
+  <div class="nav-links" id="navLinks">
+    <a href="Home.html">HOME</a>
+    <a href="about.html">ABOUT</a>
+    <a href="service.html">SERVICES</a>
+    <a href="Portfolio.html">PORTFOLIO</a>
+    <a href="Contact.html" class="btn-contact btn-contact-toggle">GET IN TOUCH</a>
+  </div>
+
+  <a href="Contact.html" class="btn-contact desktop-btn">GET IN TOUCH</a>
+
+</div>
+
+<section class="hero" id="home">
+
+  <div class="hero-text">
+    <div class="tag">ARCHITECTING DIGITAL VELOCITY</div>
+
+    <h1>
+      The Kinetic <br>
+      <span>Architect, Digital Marketing.</span>
+    </h1>
+
+    <p>
+      Craftlanee is a modern digital marketing and web development company that merges technical precision with creative momentum.
+    </p>
+
+    <div class="buttons">
+      <a href="service.html" class="btn btn-primary">OUR SERVICES</a>
+      <a href="Contact.html" class="btn btn-secondary">START A PROJECT →</a>
+    </div>
+  </div>
+
+  <div class="hero-image">
+    <img src="Hero.png" alt="digital marketing">
+  </div>
+
+</section>
+
+<section class="why-section" id="about">
+
+  <div class="why-header">
+    <h2>Why Choose <span>Us.</span></h2>
+    <p>
+      Craftlanee stands out because of its commitment to quality,
+      engineering every digital touchpoint to be as functional as it is beautiful.
+    </p>
+  </div>
+
+  <div class="why-grid">
+
+    <div class="why-card">
+      <div class="icon">🛠️</div>
+      <h3>Structural Integrity</h3>
+      <p>
+        We don't just build websites; we engineer digital foundations that scale.
+        Our development ensures clean code and high performance.
+      </p>
+    </div>
+
+    <div class="why-card highlight">
+      <div class="icon">📈</div>
+      <h3>Market Velocity</h3>
+      <p>
+        Strategic digital marketing designed to boost your brand’s momentum
+        and visibility in competitive markets.
+      </p>
+    </div>
+
+    <div class="why-card">
+      <div class="icon">🎨</div>
+      <h3>Editorial UI</h3>
+      <p>
+        High-end UI/UX design that makes every screen feel like a premium product.
+      </p>
+    </div>
+
+    <div class="why-card">
+        <div class="icon">⭐</div>
+        <h3>Commitment to Quality</h3>
+        <p>
+            We ensure top-notch quality in every project, focusing on performance,
+            precision, and long-term reliability for your business growth.
+        </p>
+        </div>
+  </div>
+</section>
+
+
+<div class="clients-wrapper">
+
+  <button class="arrow left" id="leftBtn">&#10094;</button>
+
+  <div class="clients-scroll" id="clientsContainer">
+    <div class="scroll-track" id="scrollTrack">
+
+      <div class="client-card">
+        <img src="Eco.png">
+        <h4>Eco-Trio Solutions</h4>
+        <p class="client-info">We built a modern website to improve their online presence.</p>
+      </div>
+
+      <div class="client-card">
+        <img src="Danush_Salon.png">
+        <h4>One & Only Affordable Salon</h4>
+        <p class="client-info">Full data analysis system with customer tracking, billing, and graphs.</p>
+      </div>
+
+      <div class="client-card">
+        <img src="SMT.png">
+        <h4>SMT Manufacturing</h4>
+        <p class="client-info">Billing system for sales, vendor invoices, and database storage.</p>
+      </div>
+
+      <div class="client-card">
+        <img src="gs.png">
+        <h4>GS Constructions</h4>
+        <p class="client-info">Digital marketing, SEO campaigns, and web development solutions.</p>
+      </div>
+
+      <div class="client-card">
+        <img src="Amar.png">
+        <h4>Amar Square Properties</h4>
+        <p class="client-info">Real estate platform with listings, SEO, and marketing strategy.</p>
+      </div>
+
+    </div>
+  </div>
+
+  <button class="arrow right" id="rightBtn">&#10095;</button>
+
+</div>
+
+<section class="trust-section">
+
+        <div class="trust-header">
+        <h2>Client <span>Trust.</span></h2>
+
+        <p id="trust-text">
+            Our clients trust Craftlanee for delivering reliable and effective digital solutions
+            that define their industry presence.
+        </p>
+
+        <div class="trust-nav">
+            <button id="prevBtn">←</button>
+            <button id="nextBtn">→</button>
+        </div>
+        </div>
+
+  <div class="trust-cards">
+
+    <div class="trust-card">
+      <p class="quote">
+        "The level of intentionality Craftlanee brings to web development is unparalleled.
+        They didn't just build a site; they built a brand environment."
+      </p>
+
+      <div class="client">
+        <img src="Danush_Salon.png" alt="Marcus Thorne">
+        <div>
+          <h4>Anitha Reddy</h4>
+          <span>One & Only Affordable Salon</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="trust-card">
+      <p class="quote">
+        "Their kinetic approach to marketing transformed our engagement rates within months.
+        A true partner in our digital growth journey."
+      </p>
+
+      <div class="client">
+        <img src="SMT.png" alt="Elena Vance">
+        <div>
+          <h4>Surya</h4>
+          <span>Founder, SMT Manufacturing</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+</section>
+
+<section class="cta-section">
+
+  <div class="cta-box">
+    <h2>
+      Ready to grow your business <br>
+      <span>with Craftlanee?</span>
+    </h2>
+
+    <p>
+      Get in touch with us today to start architecting your digital future.
+    </p>
+
+    <div class="cta-buttons">
+      <a href="Contact.html" class="cta-primary">CONNECT NOW</a>
+      <a href="service.html" class="cta-secondary">OUR SERVICES →</a>
+    </div>
+  </div>
+
+</section>
+
+<footer class="footer">
+
+  <div class="footer-container">
+
+    <div class="footer-col">
+      <h3>CRAFTLANEE</h3>
+      <p>
+        The Kinetic Architect. Engineering digital experiences that define the
+        boundaries of innovation and performance.
+      </p>
+
+      <div class="social-icons">
+        <a href="https://www.instagram.com/craftlanee?igsh=cXh6bmI2Nmh6OWMw" target="_blank"><i class="fab fa-instagram"></i></a>
+        <a href="https://wa.me/qr/YXVOSEH42RVUM1" target="_blank"><i class="fab fa-whatsapp"></i></a>
+        <a href="https://in.linkedin.com/in/craft-lanee-7319a3403" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+        <a href="https://twitter.com/yourhandle" target="_blank"><i class="fab fa-facebook-f"></i></a>
+      </div>
+    </div>
+
+    <div class="footer-col">
+      <h4>NAVIGATION</h4>
+      <a href="about.html">Our Story</a>
+      <a href="Portfolio.html">Case Studies</a>
+    </div>
+
+    <div class="footer-col">
+      <h4>LEGAL</h4>
+      <a href="Contact.html">Contact</a>
+      <a href="https://docs.google.com/document/d/13M4qlfeYJS7lVpv6dENWsrwmcfrx8hFO/edit?usp=drive_link&ouid=115995155148279308071&rtpof=true&sd=true">Privacy Policy</a>
+      <a href="https://docs.google.com/document/d/1WxTnoq0zd-ErRHPBDwwFLStgO4owz7tW/edit?usp=drive_link&ouid=115995155148279308071&rtpof=true&sd=true">Terms of Service</a>
+    </div>
+
+  </div>
+
+  <div class="footer-bottom">
+    Developed by Chaitanya Annaluru
+    <br>
+    <br>
+    © 2026 Craftlanee. All rights reserved.
+  </div>
+
+  <button id="topBtn">
+    <span class="chevron"></span>
+  </button>
+
+</footer>
+
+<script>
+
+// --- TOGGLE MENU LOGIC ---
+const menuBtn = document.getElementById('menuBtn');
+const navLinks = document.getElementById('navLinks');
+
+menuBtn.addEventListener('click', () => {
+  navLinks.classList.toggle('active');
+
+  // Toggle icon (bars ↔ close)
+  const icon = menuBtn.querySelector('i');
+  icon.classList.toggle('fa-bars');
+  icon.classList.toggle('fa-times');
+
+  // ✅ FIX: use class instead of inline overflow
+  document.body.classList.toggle('menu-open');
+});
+
+// Close menu when a link is clicked
+document.querySelectorAll('.nav-links a').forEach(link => {
+  link.addEventListener('click', () => {
+    navLinks.classList.remove('active');
+
+    const icon = menuBtn.querySelector('i');
+    icon.classList.add('fa-bars');
+    icon.classList.remove('fa-times');
+
+    // ✅ remove scroll lock
+    document.body.classList.remove('menu-open');
+  });
+});
+
+// --- ORIGINAL LOGIC ---
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+  anchor.addEventListener("click", function(e) {
+    e.preventDefault();
+    document.querySelector(this.getAttribute("href"))
+      .scrollIntoView({ behavior: "smooth" });
+  });
+});
+
+
+const captions = [
+  "Our clients trust Craftlanee for delivering reliable and effective digital solutions that define their industry presence.",
+  "Craftlanee helps brands grow with powerful digital strategies and modern web solutions.",
+  "We create high-performance digital experiences that elevate your business to the next level."
+];
+
+let index = 0;
+
+const text = document.getElementById("trust-text");
+const nextBtn = document.getElementById("nextBtn");
+const prevBtn = document.getElementById("prevBtn");
+
+nextBtn.addEventListener("click", () => {
+  index = (index + 1) % captions.length;
+  text.innerText = captions[index];
+});
+
+prevBtn.addEventListener("click", () => {
+  index = (index - 1 + captions.length) % captions.length;
+  text.innerText = captions[index];
+});
+
+/* top button */
+const topBtn = document.getElementById("topBtn");
+
+window.onscroll = function () {
+  if (document.documentElement.scrollTop > 200) {
+    topBtn.style.display = "flex"; 
+  } else {
+    topBtn.style.display = "none";
+  }
+};
+
+// Trusted Brands Arrow move logic
+
+document.addEventListener("DOMContentLoaded", function () {
+
+  const track = document.getElementById("scrollTrack");
+  const cards = document.querySelectorAll(".client-card");
+  const nextBtn = document.getElementById("rightBtn");
+  const prevBtn = document.getElementById("leftBtn");
+
+  let index = 0;
+
+  function moveSlider() {
+    const cardWidth = cards[0].offsetWidth + 20; // gap
+    track.style.transform = "translateX(-" + (index * cardWidth) + "px)";
+  }
+
+  nextBtn.addEventListener("click", () => {
+    if (index < cards.length - 1) {
+      index++;
+      moveSlider();
+    }
+  });
+
+  prevBtn.addEventListener("click", () => {
+    if (index > 0) {
+      index--;
+      moveSlider();
+    }
+  });
+
+});
+
+// Mobile click to show info
+const clientCards = document.querySelectorAll(".client-card");
+
+clientCards.forEach(card => {
+  card.addEventListener("click", () => {
+
+    // Remove active from others
+    clientCards.forEach(c => c.classList.remove("active"));
+
+    // Add active to clicked one
+    card.classList.add("active");
+
+  });
+});
+
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,1153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>About - Craftlanee</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Segoe UI', sans-serif;
+  max-width: 100%;
+}
+
+html, body {
+  overflow-x: hidden;
+}
+
+section {
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+body.menu-open {
+  overflow: hidden;
+}
+
+
+body {
+  background: linear-gradient(135deg, #071326, #020617);
+  color: white;
+}
+
+/* ================= NAVBAR ================= */
+.navbar {
+  position: sticky;
+  top: 0;
+  width: 100%;
+  backdrop-filter: blur(18px);
+  background: rgba(10, 20, 40, 0.2);
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 6px 60px;
+  z-index: 1000;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 0; /* remove gap completely */
+  
+}
+
+/* FIX IMAGE SPACING */
+.logo img {
+  width: 85px;
+  display: block;
+  margin-right: -20px; /* pulls text closer */
+}
+
+/* TEXT */
+.logo span {
+  font-size: 24px;
+  font-weight: 700;
+  color: white;
+  letter-spacing: 1px;
+  margin-top: -5px; /* vertically align with logo */
+}
+
+/* Nav Links */
+.nav-links {
+  display: flex;
+  gap: 30px;
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: #8fa3c7;
+  font-size: 14px;
+  position: relative;
+  transition: 0.3s;
+}
+
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -5px;
+  width: 0%;
+  height: 2px;
+  background: #4fc3ff;
+  transition: 0.3s;
+}
+
+.nav-links a:hover {
+  color: #4fc3ff;
+}
+
+.nav-links a:hover::after {
+  width: 100%;
+}
+
+/* Contact Button */
+.btn-contact {
+  padding: 10px 18px;
+  border-radius: 8px;
+  background: #4fc3ff;
+  color: #fff;
+  text-decoration: none;
+  font-weight: bold;
+  transition: 0.3s;
+}
+
+.btn-contact:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 20px rgba(79,195,255,0.4);
+}
+
+
+/* ================= ABOUT HERO ================= */
+.about-hero {
+  padding: 30px 60px;
+}
+
+.about-content {
+  max-width: 900px;
+}
+
+.about-tag {
+  display: inline-block;
+  background: rgba(124, 252, 0, 0.1);
+  color: #7CFC00;
+  padding: 6px 14px;
+  font-size: 11px;
+  border-radius: 20px;
+  letter-spacing: 1px;
+  margin-bottom: 20px;
+}
+
+.about-content h1 {
+  font-size: 64px;
+  font-weight: 700;
+  line-height: 1.2;
+  margin-bottom: 20px;
+  color: #dbeafe;
+}
+
+.about-content h1 span {
+  background: linear-gradient(90deg, #4fc3ff, #7CFC00);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.about-content p {
+  max-width: 600px;
+  color: #9fb0d0;
+  font-size: 16px;
+  line-height: 1.7;
+}
+
+/* ================= ABOUT DETAILS ================= */
+.about-details {
+  padding: 10px 60px 80px;
+}
+
+.about-grid {
+  display: grid;
+  grid-template-columns: 1.3fr 1fr;
+  gap: 30px;
+  align-items: stretch;
+}
+
+/* LEFT CARD */
+.about-left {
+  background: #0c1a33;
+  padding: 30px;
+  border-radius: 12px;
+  transition: 0.3s;
+}
+
+.about-left:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+}
+
+.about-left .icon {
+  color: #7CFC00;
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+
+.about-left h3 {
+  margin-bottom: 12px;
+}
+
+.about-left p {
+  color: #9fb0d0;
+  line-height: 1.6;
+  margin-bottom: 12px;
+}
+
+/* RIGHT SIDE */
+.about-right {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  height: 100%;
+}
+
+/* STATS */
+.stats {
+  display: flex;
+  gap: 15px;
+}
+
+.stat-box {
+  flex: 1;
+  background: #1c2a44;
+  padding: 25px;
+  border-radius: 12px;
+  text-align: center;
+  transition: 0.3s;
+}
+
+.stat-box:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+}
+
+.stat-box h2 {
+  color: #4fc3ff;
+  margin-bottom: 5px;
+}
+
+.stat-box span {
+  font-size: 11px;
+  color: #9fb0d0;
+}
+
+.stat-box.highlight {
+  background: #1e3a2f;
+}
+
+.stat-box.highlight h2 {
+  color: #7CFC00;
+}
+
+/* TEAM CARD */
+.team-card {
+  position: relative;
+  border-radius: 12px;
+  overflow: hidden;
+  background: #0c1a33;
+  height: 220px;
+}
+
+.team-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  opacity: 0.9;
+}
+
+.team-card p {
+  position: absolute;
+  bottom: 15px;
+  left: 15px;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+/* ================= RESPONSIVE ================= */
+@media(max-width: 900px) {
+  .about-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .stats {
+    flex-direction: column;
+  }
+}
+
+/* SECTION */
+.about-story {
+  padding: 100px 60px;
+  background: radial-gradient(circle at top, #0a0f2c, #020617);
+}
+
+/* WRAPPER */
+.about-wrapper {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 60px;
+  align-items: center;
+}
+
+/* LEFT SIDE */
+.about-left h2 {
+  font-size: 48px;
+  line-height: 1.2;
+  font-weight: 700;
+  color: #c9d6ff;
+}
+
+/* GRADIENT TEXT */
+.about-left span {
+  background: linear-gradient(90deg, #4fc3ff, #7CFC00);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* RIGHT SIDE */
+.about-right {
+  border-left: 2px solid #7CFC00;
+  padding-left: 25px;
+}
+
+/* TEXT */
+.about-right p {
+  color: #9fb0d0;
+  font-size: 16px;
+  line-height: 1.8;
+  margin-bottom: 18px;
+  transition: 0.3s;
+}
+
+/* HOVER EFFECT */
+.about-right p:hover {
+  color: #c9d6ff;
+  transform: translateX(5px);
+}
+
+/* RESPONSIVE */
+@media(max-width: 900px) {
+
+  .about-wrapper {
+    grid-template-columns: 1fr;
+  }
+
+  .about-left h2 {
+    font-size: 32px;
+  }
+
+  .about-right {
+    border-left: none;
+    border-top: 2px solid #7CFC00;
+    padding-left: 0;
+    padding-top: 15px;
+  }
+}
+
+/* ================= HOW WE SOLVE ================= */
+.solve-section {
+  padding: 100px 60px;
+}
+
+/* GRID */
+.solve-container {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 70px;
+}
+
+/* LEFT */
+.solve-left h2 {
+  font-size: 48px;
+  line-height: 1.2;
+}
+
+.solve-left span {
+  color: #7CFC00;
+  border-bottom: 3px solid #7CFC00;
+}
+
+/* RIGHT */
+.solve-right {
+  display: flex;
+  flex-direction: column;
+  gap: 60px;
+}
+
+/* ITEM */
+.solve-item {
+  display: flex;
+  gap: 30px;
+  align-items: flex-start;
+  transition: 0.3s;
+  cursor: pointer;
+}
+
+/* HOVER MOVE */
+.solve-item:hover {
+  transform: translateX(12px);
+}
+
+/* BIG NUMBERS */
+.number {
+  font-size: 70px;
+  color: rgba(255,255,255,0.05);
+  font-weight: bold;
+  transition: 0.4s ease;
+}
+
+/* HOVER EFFECT (GRADIENT + GLOW) */
+.solve-item:hover .number {
+  background: linear-gradient(90deg, #4fc3ff, #7CFC00);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  transform: scale(1.15);
+  text-shadow: 0 0 20px rgba(79,195,255,0.4);
+}
+
+/* TEXT */
+.solve-item h3 {
+  margin-bottom: 10px;
+  transition: 0.3s;
+}
+
+/* TEXT HOVER */
+.solve-item:hover h3 {
+  color: #4fc3ff;
+}
+
+.solve-item p {
+  color: #9fb0d0;
+  line-height: 1.6;
+  max-width: 500px;
+  transition: 0.3s;
+}
+
+/* OPTIONAL: Slight text brighten */
+.solve-item:hover p {
+  color: #cbd5f5;
+}
+
+/* ================= RESPONSIVE ================= */
+@media(max-width: 900px) {
+  .solve-container {
+    grid-template-columns: 1fr;
+  }
+
+  .solve-left h2 {
+    font-size: 36px;
+  }
+
+  .number {
+    font-size: 50px;
+  }
+}
+
+@media(max-width: 768px) {
+  .about-content h1 {
+    font-size: 40px;
+  }
+
+   .navbar {
+    flex-direction: row; /* 🔥 keep in one line */
+    justify-content: space-between;
+    align-items: center;
+  }
+}
+
+
+/* SECTION */
+.locations-section {
+  padding: 80px 60px;
+  background: radial-gradient(circle at top, #0a0f2c, #020617);
+  text-align: center;
+}
+
+/* TITLE */
+.locations-title {
+  font-size: 34px;
+  margin-bottom: 10px; /* ✅ 10px gap */
+  font-weight: 700;
+  background: linear-gradient(90deg, #4fc3ff, #7CFC00);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* CONTAINER */
+.locations-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 25px;
+  margin-top: 30px;
+}
+
+/* CARD */
+.location-card {
+  background: rgba(20, 30, 60, 0.5);
+  padding: 25px;
+  border-radius: 18px;
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255,255,255,0.08);
+  transition: 0.3s;
+}
+
+/* HOVER */
+.location-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 10px 35px rgba(79,195,255,0.2);
+}
+
+/* ICON */
+.loc-icon {
+  font-size: 28px;
+  color: #7CFC00;
+  margin-bottom: 10px;
+}
+
+/* TITLE */
+.location-card h3 {
+  font-size: 18px;
+  margin-bottom: 5px;
+}
+
+/* CITY */
+.location-card p {
+  color: #9fb0d0;
+  font-size: 14px;
+}
+
+/* TAG */
+.location-card span {
+  display: inline-block;
+  margin-top: 8px;
+  font-size: 12px;
+  padding: 4px 10px;
+  border-radius: 20px;
+  background: rgba(79,195,255,0.1);
+  color: #4fc3ff;
+}
+
+/* RESPONSIVE */
+@media(max-width: 768px) {
+  .locations-title {
+    font-size: 26px;
+  }
+}
+
+/* ================= MISSION ================= */
+.mission-section {
+  padding: 100px 60px;
+}
+
+/* BOX */
+.mission-box {
+  max-width: 1000px;
+  margin: auto;
+  padding: 60px;
+  border-radius: 20px;
+
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(20px);
+
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+/* SUBTLE BACKGROUND SHAPE */
+.mission-box::before {
+  content: "";
+  position: absolute;
+  width: 300px;
+  height: 300px;
+  background: rgba(255,255,255,0.03);
+  border-radius: 50%;
+  top: -80px;
+  left: -80px;
+}
+
+.mission-box::after {
+  content: "";
+  position: absolute;
+  width: 250px;
+  height: 250px;
+  background: rgba(255,255,255,0.03);
+  border-radius: 50%;
+  bottom: -60px;
+  right: -60px;
+}
+
+/* TEXT */
+.mission-box h2 {
+  font-size: 32px;
+  line-height: 1.5;
+  font-weight: 600;
+  color: #dbeafe;
+}
+
+/* HIGHLIGHT TEXT */
+.mission-box span {
+  background: linear-gradient(90deg, #4fc3ff, #7CFC00);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* AUTHOR */
+.mission-author {
+  margin-top: 25px;
+  font-size: 12px;
+  letter-spacing: 1px;
+  color: #7CFC00;
+}
+
+/* ================= HOVER EFFECT ================= */
+.mission-box:hover {
+  transform: translateY(-5px);
+  transition: 0.3s;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.6);
+}
+
+/* ================= RESPONSIVE ================= */
+@media(max-width: 768px) {
+  .mission-box {
+    padding: 40px 20px;
+  }
+
+  .mission-box h2 {
+    font-size: 22px;
+  }
+}
+
+/* ================= FOOTER ================= */
+.footer {
+  background: #020617;
+  padding: 60px;
+}
+
+.footer-container {
+  display: flex;
+  justify-content: space-between;
+  gap: 40px;
+  flex-wrap: wrap;
+}
+
+.footer-col h3,
+.footer-col h4 {
+  margin-bottom: 15px;
+  color: #7CFC00;
+}
+
+.footer-col p {
+  color: #9fb0d0;
+  max-width: 300px;
+}
+
+.footer-col a {
+  display: block;
+  color: #9fb0d0;
+  text-decoration: none;
+  margin-bottom: 8px;
+  transition: 0.3s;
+}
+
+.footer-col a:hover {
+  color: #4fc3ff;
+}
+
+.footer-bottom {
+  text-align: center;
+  margin-top: 40px;
+  color: #6b7c99;
+  font-size: 14px;
+}
+
+/* ================= SOCIAL ICONS ================= */
+.social-icons {
+  margin-top: 20px;
+  display: flex;
+  gap: 15px;
+}
+
+.social-icons a {
+  width: 40px;
+  height: 40px;
+  background: #0c1a33;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  color: white;
+  font-size: 16px;
+  transition: 0.3s;
+}
+
+.social-icons a:hover {
+  background: linear-gradient(90deg, #4fc3ff, #7CFC00);
+  color: black;
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(79,195,255,0.4);
+}
+
+/* ================= BACK TO TOP ================= */
+#topBtn {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  width: 50px;
+  height: 50px;
+  background: white;
+  border: none;
+  border-radius: 50%;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 999;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+  transition: 0.3s;
+}
+
+/* Chevron */
+.chevron {
+  width: 12px;
+  height: 12px;
+  border-left: 3px solid black;
+  border-top: 3px solid black;
+  transform: rotate(45deg);
+}
+
+/* Hover */
+#topBtn:hover {
+  transform: translateY(-6px);
+  background: #4fc3ff;
+  box-shadow: 0 12px 25px rgba(79,195,255,0.6);
+}
+
+#topBtn:hover .chevron {
+  border-color: white;
+}
+
+/* ================= MOBILE NAV ================= */
+
+.nav-toggle {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  cursor: pointer;
+  z-index: 2000;
+}
+
+.nav-toggle span {
+  width: 28px;
+  height: 3px;
+  background: #4fc3ff;
+  border-radius: 5px;
+  transition: 0.3s;
+}
+
+/* Hide mobile button on desktop */
+.mobile-only-btn { display: none;}
+
+@media (max-width: 992px) {
+
+  .navbar {
+    padding: 10px 30px;
+  }
+
+  .nav-toggle {
+    display: flex;
+  }
+
+  .desktop-only-btn {
+    display: none;
+  }
+
+  .mobile-only-btn {
+    display: block;
+    margin-top: 20px;
+  }
+
+  .nav-links {
+    position: fixed;
+    top: 0;
+    right: -100%;
+    width: 260px;
+    height: 100vh;
+    background: #071326;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+    transition: 0.4s;
+    box-shadow: -10px 0 30px rgba(0,0,0,0.5);
+    z-index: 1999;
+  }
+
+  .nav-links.active {
+    right: 0;
+  }
+
+  /* Hamburger animation */
+  .nav-toggle.open span:nth-child(1) {
+    transform: rotate(45deg) translate(5px, 6px);
+  }
+
+  .nav-toggle.open span:nth-child(2) {
+    opacity: 0;
+  }
+
+  .nav-toggle.open span:nth-child(3) {
+    transform: rotate(-45deg) translate(5px, -6px);
+  }
+
+  /* GENERAL RESPONSIVE FIXES */
+  .about-content h1 { font-size: 36px; }
+  .solve-left h2 { font-size: 32px; }
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- ================= NAVBAR ================= -->
+<div class="navbar">
+
+  <div class="logo">
+    <a href="Home.html" class="logo" style="text-decoration: none;">
+      <img src="Craftlanee_logo.png" alt="logo">
+      <span>
+        Craft<span style="color: orange;">lanee</span>
+      </span>
+    </a>
+  </div>
+
+  <!-- TOGGLE BUTTON -->
+  <div class="nav-toggle" id="navToggle">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+
+  <div class="nav-links" id="navLinks">
+    <a href="Home.html">HOME</a>
+    <a href="about.html">ABOUT</a>
+    <a href="service.html">SERVICES</a>
+    <a href="Portfolio.html">PORTFOLIO</a>
+    <a href="Contact.html" class="btn-contact mobile-only-btn" style="color: #fff;">GET IN TOUCH</a>
+  </div>
+
+  <a href="Contact.html" class="btn-contact desktop-only-btn">GET IN TOUCH</a>
+</div>
+
+<!-- ================= ABOUT HERO ================= -->
+<section class="about-hero">
+  <div class="about-content">
+    <div class="about-tag">THE KINETIC ARCHITECT</div>
+
+    <h1>
+      Crafting High-Velocity <br>
+      <span>Digital Foundations.</span>
+    </h1>
+
+    <p>
+      Craftlanee is a results-driven digital marketing agency dedicated to
+      delivering high-quality solutions that bridge the gap between technical
+      precision and human strategy.
+    </p>
+  </div>
+</section>
+
+<!-- ================= ABOUT DETAILS ================= -->
+<section class="about-details">
+  <div class="about-grid">
+
+    <div class="about-left">
+      <div class="icon">🛠️</div>
+      <h3>A Legacy of Intentionality</h3>
+
+      <p>
+        At Craftlanee, we go beyond conventional development. Every digital product
+        we build is engineered with precision, performance, and scalability in mind.
+      </p>
+
+      <p>
+        Our approach blends technical expertise with creative thinking, ensuring that
+        every interface is not only visually compelling but also structurally sound.
+      </p>
+
+      <p>
+        We design systems that adapt, evolve, and thrive in fast-paced digital environments,
+        delivering long-term value and measurable impact.
+      </p>
+    </div>
+
+    <div class="about-right">
+
+      <div class="stats">
+        <div class="stat-box">
+          <h2>127+</h2>
+          <span>PROJECTS DELIVERED</span>
+        </div>
+
+        <div class="stat-box highlight">
+          <h2>98%</h2>
+          <span>CLIENT RETENTION</span>
+        </div>
+      </div>
+
+      <div class="team-card">
+        <img src="team.png" alt="team">
+        <p>The Creative Command Center</p>
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+<section class="about-story">
+
+  <div class="about-wrapper">
+
+    <!-- LEFT SIDE -->
+    <div class="about-left">
+      <h2>
+        About <br>
+        <span>Craftlanee</span>
+      </h2>
+    </div>
+
+    <!-- RIGHT SIDE -->
+    <div class="about-right">
+      <p>
+        With a couple of years of hands-on experience, Craftlanee has grown into a reliable IT and digital solutions provider, delivering high-quality services across multiple industries.
+      </p>
+
+      <p>
+        We specialize in all kinds of development including web, mobile applications, e-commerce platforms, and complete digital marketing solutions tailored to business needs.
+      </p>
+
+      <p>
+        Our commitment to excellence ensures that every client we work with is fully satisfied, as we focus on performance, innovation, and long-term success.
+      </p>
+    </div>
+
+  </div>
+
+</section>
+
+<!-- ================= HOW WE SOLVE ================= -->
+<section class="solve-section">
+
+  <div class="solve-container">
+
+    <!-- LEFT TITLE -->
+    <div class="solve-left">
+      <h2>
+        How We <br>
+        <span>Solve.</span>
+      </h2>
+    </div>
+
+    <!-- RIGHT CONTENT -->
+    <div class="solve-right">
+
+      <div class="solve-item">
+        <div class="number">01</div>
+        <div>
+          <h3>Deep Context Immersion</h3>
+          <p>
+            We dive deep into your brand's DNA. Our team prioritizes a profound
+            understanding of client goals before a single pixel is placed,
+            ensuring every strategy is bespoke.
+          </p>
+        </div>
+      </div>
+
+      <div class="solve-item">
+        <div class="number">02</div>
+        <div>
+          <h3>Structural Engineering</h3>
+          <p>
+            Strategies aren't just ideas—they are architectures. We map out the
+            user journey with clinical precision to maximize conversion and engagement velocity.
+          </p>
+        </div>
+      </div>
+
+      <div class="solve-item">
+        <div class="number">03</div>
+        <div>
+          <h3>Continuous Evolution</h3>
+          <p>
+            The digital landscape is kinetic. We provide persistent monitoring
+            and real-time adjustments, ensuring your brand stays at the forefront of innovation.
+          </p>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+<section class="locations-section">
+
+  <h2 class="locations-title">Office Locations</h2>
+
+  <div class="locations-container">
+
+    <div class="location-card">
+      <div class="loc-icon"><i class="fas fa-map-marker-alt"></i></div>
+      <h3>Bangalore (Head Quarters)</h3>
+      <p>Electronic City</p>
+      <span>Arjun</span>
+    </div>
+
+    <div class="location-card">
+      <div class="loc-icon"><i class="fas fa-map-marker-alt"></i></div>
+      <h3>Andhra Pradesh</h3>
+      <p>Kuppam</p>
+      <span>Pavan Chandra</span>
+    </div>
+
+    <div class="location-card">
+      <div class="loc-icon"><i class="fas fa-map-marker-alt"></i></div>
+      <h3>Tamil Nadu</h3>
+      <p>Krishnagiri</p>
+      <span>Dinesh</span>
+    </div>
+
+    <div class="location-card">
+      <div class="loc-icon"><i class="fas fa-map-marker-alt"></i></div>
+      <h3>Dubai</h3>
+      <p>Barsha Heights</p>
+      <span>Pradeep</span>
+    </div>
+
+  </div>
+
+</section>
+
+<!-- ================= MISSION SECTION ================= -->
+<section class="mission-section">
+
+  <div class="mission-box">
+    <h2>
+      “Our mission is to translate complex 
+      business challenges into 
+      <span>elegant digital solutions</span> 
+      that perform.”
+    </h2>
+
+    <p class="mission-author">- THE CRAFTLANEE MANIFEST</p>
+  </div>
+
+</section>
+
+<!-- ================= FOOTER ================= -->
+<footer class="footer">
+
+  <div class="footer-container">
+
+    <!-- COLUMN 1 -->
+    <div class="footer-col">
+      <h3>CRAFTLANEE</h3>
+      <p>
+        The Kinetic Architect. Engineering digital experiences that define the
+        boundaries of innovation and performance.
+      </p>
+
+      <!-- SOCIAL ICONS -->
+      <div class="social-icons">
+        <a href="https://www.instagram.com/craftlanee?igsh=cXh6bmI2Nmh6OWMw" target="_blank"><i class="fab fa-instagram"></i></a>
+        <a href="https://wa.me/qr/YXVOSEH42RVUM1" target="_blank"><i class="fab fa-whatsapp"></i></a>
+        <a href="https://in.linkedin.com/in/craft-lanee-7319a3403" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+        <a href="https://twitter.com/yourhandle" target="_blank"><i class="fab fa-facebook-f"></i></a>
+      </div>
+    </div>
+
+    <!-- COLUMN 2 -->
+    <div class="footer-col">
+      <h4>NAVIGATION</h4>
+      <a href="about.html">Our Story</a>
+      <a href="Portfolio.html">Case Studies</a>
+    </div>
+
+    <!-- COLUMN 3 -->
+    <div class="footer-col">
+      <h4>LEGAL</h4>
+      <a href="Contact.html">Contact</a>
+      <a href="https://docs.google.com/document/d/13M4qlfeYJS7lVpv6dENWsrwmcfrx8hFO/edit?usp=drive_link&ouid=115995155148279308071&rtpof=true&sd=true">Privacy Policy</a>
+      <a href="https://docs.google.com/document/d/1WxTnoq0zd-ErRHPBDwwFLStgO4owz7tW/edit?usp=drive_link&ouid=115995155148279308071&rtpof=true&sd=true">Terms of Service</a>
+    </div>
+
+  </div>
+
+  <div class="footer-bottom">
+    Developed by Chaitanya Annaluru
+    <br>
+    <br>
+    © 2026 Craftlanee. All rights reserved.
+  </div>
+
+  <!-- BACK TO TOP -->
+  <button id="topBtn">
+    <span class="chevron"></span>
+  </button>
+
+</footer>
+
+<script>
+    /* top button */
+const topBtn = document.getElementById("topBtn");
+
+window.onscroll = function () {
+  if (document.documentElement.scrollTop > 200) {
+    topBtn.style.display = "flex"; /* 👈 important */
+  } else {
+    topBtn.style.display = "none";
+  }
+};
+
+topBtn.onclick = function () {
+  window.scrollTo({ top: 0, behavior: "smooth" });
+};
+
+/* Mobile Toggle */
+const navToggle = document.getElementById("navToggle");
+const navLinks = document.getElementById("navLinks");
+
+navToggle.addEventListener("click", () => {
+  navLinks.classList.toggle("active");
+  navToggle.classList.toggle("open");
+
+  // ✅ FIX: use class instead of inline style
+  document.body.classList.toggle("menu-open");
+});
+
+/* Close menu on link click */
+document.querySelectorAll(".nav-links a").forEach(link => {
+  link.addEventListener("click", () => {
+    navLinks.classList.remove("active");
+    navToggle.classList.remove("open");
+    document.body.classList.remove("menu-open"); // ✅ important
+  });
+});
+
+</script>
+
+</body>
+</html>
