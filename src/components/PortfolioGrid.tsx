@@ -2,7 +2,7 @@
 
 import Card from './Card';
 import Image from 'next/image';
-import content from '../../content.json';
+import content from '../content';
 
 export default function PortfolioGrid() {
   return (

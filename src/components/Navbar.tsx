@@ -4,7 +4,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { useState } from 'react';
 import { Menu, X } from 'lucide-react';
-import content from '../../content.json';
+import content from '../content';
 import Button from './Button';
 
 export default function Navbar() {

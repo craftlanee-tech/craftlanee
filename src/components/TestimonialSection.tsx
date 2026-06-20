@@ -1,6 +1,6 @@
 'use client';
 
-import content from '../../content.json';
+import content from '../content';
 
 export default function TestimonialSection() {
   return (

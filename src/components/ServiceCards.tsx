@@ -1,16 +1,15 @@
 'use client';
 
+import type { ReactNode } from 'react';
 import Card from './Card';
-import { BarChart3, Laptop, Search, Target, TrendingUp, Workflow } from 'lucide-react';
-import content from '../../content.json';
+import { BarChart3, Laptop, Target, TrendingUp } from 'lucide-react';
+import content from '../content';
 
-const icons = {
-  Target: <Target size={26} />,
-  Laptop: <Laptop size={26} />,
-  TrendingUp: <TrendingUp size={26} />,
-  Search: <Search size={26} />,
-  Workflow: <Workflow size={26} />,
-  BarChart3: <BarChart3 size={26} />,
+const icons: Record<string, ReactNode> = {
+  'IT Consulting & Technology Solutions': <Laptop size={26} />,
+  'Digital Marketing Services': <Target size={26} />,
+  'Creative Services': <TrendingUp size={26} />,
+  'CraftLanee Media Studio': <BarChart3 size={26} />,
 };
 
 export default function ServiceCards() {
@@ -24,13 +23,13 @@ export default function ServiceCards() {
         </div>
 
         <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-3">
-          {content.services.items.map((item) => (
-            <Card key={item.title} icon={icons[item.icon as keyof typeof icons]} title={item.title} description={item.description}>
+          {content.services.groups.map((group) => (
+            <Card key={group.category} icon={icons[group.category]} title={group.category} description={group.description}>
               <div className="mt-6 grid gap-2">
-                {item.deliverables.map((deliverable) => (
-                  <div key={deliverable} className="flex items-center gap-2 text-sm text-slate-300">
+                {group.items.map((item) => (
+                  <div key={item} className="flex items-center gap-2 text-sm text-slate-300">
                     <span className="h-1.5 w-1.5 rounded-full bg-brand-primary" />
-                    <span>{deliverable}</span>
+                    <span>{item}</span>
                   </div>
                 ))}
               </div>

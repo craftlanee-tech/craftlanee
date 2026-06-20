@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import emailjs from '@emailjs/browser';
-import content from '../../content.json';
+import content from '../content';
 import Button from './Button';
 
 export default function ContactForm() {

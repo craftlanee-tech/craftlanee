@@ -1,7 +1,7 @@
 import Navbar from '../../components/Navbar';
 import Footer from '../../components/Footer';
 import SectionHeader from '../../components/SectionHeader';
-import content from '../../../content.json';
+import content from '../../content';
 
 export default function AboutPage() {
   return (

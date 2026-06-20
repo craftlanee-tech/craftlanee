@@ -2,7 +2,7 @@
 
 import Button from './Button';
 import SectionIntro from './SectionIntro';
-import content from '../../content.json';
+import content from '../content';
 import Image from 'next/image';
 
 export default function HeroSection() {

@@ -1,4 +1,4 @@
-{
+﻿{
   "siteTitle": "Craftlanee",
   "meta": {
     "description": "Craftlanee provides IT services, web development, SEO, paid ads, social media marketing, branding, analytics, and growth automation for modern businesses.",
@@ -21,51 +21,71 @@
       { "label": "Explore Services", "href": "/services", "variant": "secondary" }
     ],
     "stats": [
-      { "value": "360", "label": "digital growth setup" },
-      { "value": "SEO + Ads", "label": "acquisition engine" },
-      { "value": "Web + CRM", "label": "technology stack" }
+      { "value": "360+", "label": "Digital growth setup" },
+      { "value": "SEO + Ads", "label": "Acquisition engine" },
+      { "value": "Web + CRM", "label": "Technology stack" }
     ],
     "focus": ["Website development", "SEO", "Google Ads", "Social media", "Brand design", "Automation"]
   },
   "services": {
     "title": "IT and digital marketing services",
     "subtitle": "Everything your business needs to look credible, attract the right audience, and convert attention into sales conversations.",
-    "items": [
+    "groups": [
       {
-        "title": "Website & App Development",
-        "description": "Fast, mobile-first websites, landing pages, booking flows, and business apps built around conversions.",
-        "icon": "Laptop",
-        "deliverables": ["Business websites", "Landing pages", "Lead forms", "Performance setup"]
+        "category": "IT Consulting & Technology Solutions",
+        "description": "Technical strategy and software delivery that make your digital systems faster, smarter, and easier to manage.",
+        "items": [
+          "Website Development",
+          "E-commerce Development",
+          "Mobile App Development",
+          "Software Development",
+          "UI/UX Design",
+          "Cloud Solutions",
+          "Business Automation",
+          "Technical Consulting"
+        ]
       },
       {
-        "title": "SEO & Local Search",
-        "description": "Technical SEO, content planning, keyword targeting, and Google Business Profile optimization for long-term visibility.",
-        "icon": "Search",
-        "deliverables": ["Keyword mapping", "On-page SEO", "Local SEO", "Content briefs"]
+        "category": "Digital Marketing Services",
+        "description": "Growth programs designed to attract the right audience, improve visibility, and generate measurable leads.",
+        "items": [
+          "Social Media Management",
+          "Search Engine Optimization (SEO)",
+          "Meta & Google Ads",
+          "Branding & Strategy",
+          "Content Marketing",
+          "Lead Generation",
+          "Influencer Marketing",
+          "Personal Branding"
+        ]
       },
       {
-        "title": "Paid Ads & Lead Generation",
-        "description": "Google, Meta, and retargeting campaigns planned around cost per lead, funnel quality, and measurable ROI.",
-        "icon": "TrendingUp",
-        "deliverables": ["Campaign setup", "Ad creatives", "Retargeting", "Lead tracking"]
+        "category": "Creative Services",
+        "description": "Creative production that makes your brand more memorable through design, video, and storytelling.",
+        "items": [
+          "Graphic Design",
+          "Video Editing",
+          "Ad Film Production",
+          "Product Photography",
+          "Corporate Branding",
+          "Reels & Short Video Creation",
+          "Motion Graphics",
+          "Presentation Design"
+        ]
       },
       {
-        "title": "Branding & Social Media",
-        "description": "Brand identity, social content systems, launch campaigns, and creative direction that make your business easier to trust.",
-        "icon": "Target",
-        "deliverables": ["Brand kit", "Content calendar", "Social creatives", "Launch strategy"]
-      },
-      {
-        "title": "CRM & Automation",
-        "description": "Connect forms, WhatsApp, email follow-ups, sheets, CRMs, and dashboards so inquiries do not get lost.",
-        "icon": "Workflow",
-        "deliverables": ["CRM setup", "Email flows", "WhatsApp routing", "Dashboards"]
-      },
-      {
-        "title": "Analytics & Reporting",
-        "description": "Clean tracking for traffic, leads, calls, campaigns, and revenue signals so you can see what is working.",
-        "icon": "BarChart3",
-        "deliverables": ["GA4 setup", "Pixel tracking", "Monthly reports", "Conversion goals"]
+        "category": "CraftLanee Media Studio",
+        "description": "A professional studio space for premium content production, campaigns, and visual storytelling.",
+        "items": [
+          "Podcasts",
+          "Product Shoots",
+          "Corporate Videos",
+          "Interviews",
+          "Reels & Content Creation",
+          "Brand Promotions",
+          "YouTube Videos",
+          "Training Sessions"
+        ]
       }
     ]
   },
@@ -75,7 +95,7 @@
     "items": [
       {
         "title": "Local Service Growth Stack",
-        "description": "Website redesign, Google Business Profile improvements, SEO pages, and lead forms for a service company.",
+        "description": "Website redesign, GBP improvements, SEO pages, and lead forms for a service company.",
         "image": "/images/ROI.png",
         "result": "More calls, clearer tracking"
       },
@@ -87,7 +107,7 @@
       },
       {
         "title": "Eco Brand Launch",
-        "description": "Brand messaging, ecommerce-ready site design, launch creatives, and SEO content structure for a new brand.",
+        "description": "Brand messaging, ecommerce-ready design, launch creatives, and SEO content structure for a new brand.",
         "image": "/images/Eco.png",
         "result": "Launch-ready presence"
       }
