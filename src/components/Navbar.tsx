@@ -3,11 +3,13 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { useState } from 'react';
+import { usePathname } from 'next/navigation';
 import { Menu, X } from 'lucide-react';
 import content from '../content';
 import Button from './Button';
 
 export default function Navbar() {
+  const pathname = usePathname();
   const [open, setOpen] = useState(false);
 
   return (
@@ -17,15 +19,25 @@ export default function Navbar() {
           <div className="relative h-10 w-10 md:h-12 md:w-12">
             <Image src="/images/Craftlanee_logo.png" alt="Craftlanee logo" fill sizes="(max-width: 640px) 40px, 48px" className="object-contain" />
           </div>
-          <span className="text-lg font-semibold md:text-xl">Craftlanee</span>
+          <span className="text-lg font-semibold md:text-xl">
+            <span className="text-white">Craft</span>
+            <span className="text-brand-primary">lanee</span>
+          </span>
         </Link>
 
         <nav className="hidden items-center gap-8 md:flex">
-          {content.nav.map((item) => (
-            <Link key={item.href} href={item.href} className="text-sm font-medium text-slate-300 transition hover:text-white">
-              {item.label}
-            </Link>
-          ))}
+          {content.nav.map((item) => {
+            const isActive = pathname === item.href;
+            return (
+              <Link
+                key={item.href}
+                href={item.href}
+                className={`text-sm font-medium transition ${isActive ? 'text-white underline decoration-brand-primary underline-offset-4 decoration-2' : 'text-slate-300 hover:text-white'}`}
+              >
+                {item.label}
+              </Link>
+            );
+          })}
           <Button href="/contact" variant="primary">Book a Call</Button>
         </nav>
 
@@ -42,16 +54,19 @@ export default function Navbar() {
       {open ? (
         <div className="border-t border-white/10 bg-black/95 md:hidden">
           <div className="flex flex-col gap-3 px-6 py-6">
-            {content.nav.map((item) => (
-              <Link
-                key={item.href}
-                href={item.href}
-                className="block rounded-2xl px-4 py-3 text-sm font-medium text-slate-200 transition hover:bg-white/5"
-                onClick={() => setOpen(false)}
-              >
-                {item.label}
-              </Link>
-            ))}
+            {content.nav.map((item) => {
+              const isActive = pathname === item.href;
+              return (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  className={`block rounded-2xl px-4 py-3 text-sm font-medium transition ${isActive ? 'text-white bg-white/5' : 'text-slate-200 hover:bg-white/5'}`}
+                  onClick={() => setOpen(false)}
+                >
+                  {item.label}
+                </Link>
+              );
+            })}
             <Button href="/contact" variant="primary" onClick={() => setOpen(false)}>
               Book a Call
             </Button>

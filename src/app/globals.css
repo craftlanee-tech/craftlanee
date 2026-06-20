@@ -8,14 +8,14 @@
 
 /* Theme tokens (kept in sync with theme.json) */
 :root {
-  --color-primary: #4fc3ff;
-  --color-secondary: #7CFC00;
-  --color-accent: #00c6ff;
-  --color-background: #020617;
-  --color-surface: #0c1a33;
-  --text-primary: #e5f2ff;
-  --text-secondary: #9fb0d0;
-  --link: #6ec1ff;
+  --color-primary: #ff7a00;
+  --color-secondary: #ffffff;
+  --color-accent: #ff9a2e;
+  --color-background: #050505;
+  --color-surface: #111111;
+  --text-primary: #ffffff;
+  --text-secondary: #d8d8d8;
+  --link: #ff7a00;
 }
 
 html {
@@ -52,7 +52,7 @@ img {
 
 @layer utilities {
   .shadow-glow {
-    box-shadow: 0 20px 60px rgba(79, 195, 255, 0.18);
+    box-shadow: 0 20px 60px rgba(255, 122, 0, 0.18);
   }
   .brand-bg { background-color: var(--color-background); }
   .brand-surface { background-color: var(--color-surface); }
