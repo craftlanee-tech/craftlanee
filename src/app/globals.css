@@ -6,16 +6,48 @@
   font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
 }
 
-/* Theme tokens (kept in sync with theme.json) */
 :root {
   --color-primary: #ff7a00;
   --color-secondary: #ffffff;
   --color-accent: #ff9a2e;
   --color-background: #050505;
   --color-surface: #111111;
-  --text-primary: #ffffff;
-  --text-secondary: #d8d8d8;
-  --link: #ff7a00;
+  --color-surface-alt: #161616;
+  --color-surface-soft: rgba(255, 255, 255, 0.06);
+  --color-border: rgba(255, 255, 255, 0.12);
+  --color-muted: #9ca3af;
+  --color-text: #ffffff;
+  --color-text-secondary: #d8d8d8;
+  --color-link: #ff7a00;
+  --hero-gradient: linear-gradient(135deg, #071326, #020617);
+}
+
+:root[data-theme='light'] {
+  color-scheme: light;
+  --color-background: #f8f8f8;
+  --color-surface: #ffffff;
+  --color-surface-alt: #f3f4f6;
+  --color-surface-soft: rgba(15, 23, 42, 0.04);
+  --color-border: rgba(15, 23, 42, 0.12);
+  --color-muted: #6b7280;
+  --color-text: #111827;
+  --color-text-secondary: #4b5563;
+  --color-link: #ff7a00;
+  --hero-gradient: linear-gradient(135deg, #fff7ed, #ffecd1);
+}
+
+:root[data-theme='dark'] {
+  color-scheme: dark;
+  --color-background: #050505;
+  --color-surface: #111111;
+  --color-surface-alt: #161616;
+  --color-surface-soft: rgba(255, 255, 255, 0.06);
+  --color-border: rgba(255, 255, 255, 0.12);
+  --color-muted: #9ca3af;
+  --color-text: #ffffff;
+  --color-text-secondary: #d8d8d8;
+  --color-link: #ff7a00;
+  --hero-gradient: linear-gradient(135deg, #071326, #020617);
 }
 
 html {
@@ -26,7 +58,7 @@ body {
   min-height: 100vh;
   margin: 0;
   background-color: var(--color-background);
-  color: var(--text-primary);
+  color: var(--color-text);
 }
 
 * {
@@ -46,16 +78,23 @@ img {
 }
 
 ::selection {
-  background: rgba(79, 195, 255, 0.35);
-  color: white;
+  background: rgba(255, 122, 0, 0.20);
+  color: var(--color-secondary);
 }
 
 @layer utilities {
   .shadow-glow {
     box-shadow: 0 20px 60px rgba(255, 122, 0, 0.18);
   }
-  .brand-bg { background-color: var(--color-background); }
-  .brand-surface { background-color: var(--color-surface); }
-  .brand-primary { color: var(--color-primary); }
+  .bg-hero-gradient { background-image: var(--hero-gradient); }
+  .bg-theme-background { background-color: var(--color-background); }
+  .bg-theme-surface { background-color: var(--color-surface); }
+  .bg-theme-surface-alt { background-color: var(--color-surface-alt); }
+  .bg-theme-surface-soft { background-color: var(--color-surface-soft); }
+  .border-theme { border-color: var(--color-border); }
+  .text-theme-primary { color: var(--color-text); }
+  .text-theme-secondary { color: var(--color-text-secondary); }
+  .text-theme-muted { color: var(--color-muted); }
+  .text-theme-link { color: var(--color-link); }
   .bg-brand-primary { background-color: var(--color-primary); }
 }

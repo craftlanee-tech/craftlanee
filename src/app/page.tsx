@@ -8,7 +8,7 @@ import PageFooter from '../components/PageFooter';
 
 export default function HomePage() {
   return (
-    <main className="min-h-screen bg-brand-background text-white">
+    <main className="min-h-screen bg-theme-background text-theme-primary">
       <Navbar />
       <HeroSection />
       <ServiceCards />

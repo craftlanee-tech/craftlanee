@@ -12,8 +12,8 @@ type ButtonProps = {
 const baseStyles = 'inline-flex items-center justify-center rounded-2xl px-6 py-3 font-semibold transition-all focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-primary';
 const variants = {
   primary: 'bg-brand-primary text-black hover:bg-brand-accent shadow-glow',
-  secondary: 'border border-brand-primary text-brand-secondary bg-transparent hover:bg-white/5',
-  ghost: 'text-white/85 hover:text-white',
+  secondary: 'border border-brand-primary text-theme-secondary bg-transparent hover:bg-theme-surface-soft',
+  ghost: 'text-theme-primary hover:text-brand-primary',
 };
 
 export default function Button({ variant = 'primary', href, children, ...props }: ButtonProps) {

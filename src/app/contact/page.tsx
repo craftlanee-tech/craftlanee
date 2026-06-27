@@ -2,11 +2,13 @@ import Navbar from '../../components/Navbar';
 import Footer from '../../components/Footer';
 import SectionHeader from '../../components/SectionHeader';
 import ContactForm from '../../components/ContactForm';
-import content from '../../content';
+import { getContent } from '../../lib/content';
+
+const content = getContent();
 
 export default function ContactPage() {
   return (
-    <main className="min-h-screen bg-brand-background text-white">
+    <main className="min-h-screen bg-theme-background text-theme-primary">
       <Navbar />
 
       <section className="relative overflow-hidden bg-hero-gradient px-6 py-20 sm:px-10">
@@ -18,13 +20,13 @@ export default function ContactPage() {
 
       <section className="px-6 py-20 sm:px-10">
         <div className="mx-auto grid gap-10 lg:grid-cols-[1fr_0.95fr] max-w-7xl">
-          <div className="space-y-6 rounded-[32px] border border-white/10 bg-white/5 p-8 shadow-glow backdrop-blur-xl">
-            <h2 className="text-2xl font-semibold text-white">Contact details</h2>
+          <div className="space-y-6 rounded-[32px] border border-theme bg-theme-surface-soft p-8 shadow-glow backdrop-blur-xl">
+            <h2 className="text-2xl font-semibold text-theme-primary">Contact details</h2>
             <div className="space-y-4">
               {content.contact.details.map((detail) => (
-                <div key={detail.label} className="rounded-3xl bg-black/60 p-5">
+                <div key={detail.label} className="rounded-3xl bg-theme-surface-soft p-5">
                   <p className="text-sm uppercase tracking-[0.35em] text-brand-primary">{detail.label}</p>
-                  <p className="mt-2 text-lg font-medium text-white">{detail.value}</p>
+                  <p className="mt-2 text-lg font-medium text-theme-primary">{detail.value}</p>
                 </div>
               ))}
             </div>

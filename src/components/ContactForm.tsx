@@ -2,8 +2,10 @@
 
 import { useState } from 'react';
 import emailjs from '@emailjs/browser';
-import content from '../content';
+import { getContent } from '../lib/content';
 import Button from './Button';
+
+const content = getContent();
 
 export default function ContactForm() {
   const [status, setStatus] = useState<'idle' | 'sending' | 'success' | 'error'>('idle');
@@ -38,9 +40,9 @@ export default function ContactForm() {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-6 rounded-[32px] border border-white/10 bg-white/5 p-8 shadow-glow backdrop-blur-xl">
+    <form onSubmit={handleSubmit} className="space-y-6 rounded-[32px] border border-theme bg-theme-surface-soft p-8 shadow-glow backdrop-blur-xl">
       <div className="space-y-1">
-        <label htmlFor="name" className="text-sm font-medium text-white">{content.contact.form.name}</label>
+        <label htmlFor="name" className="text-sm font-medium text-theme-primary">{content.contact.form.name}</label>
         <input
           id="name"
           name="name"
@@ -48,12 +50,12 @@ export default function ContactForm() {
           value={form.name}
           onChange={handleChange}
           required
-          className="w-full rounded-3xl border border-white/10 bg-black/60 px-4 py-3 text-white outline-none transition focus:border-brand-primary"
+          className="w-full rounded-3xl border border-theme bg-theme-surface-alt px-4 py-3 text-theme-primary outline-none transition focus:border-brand-primary"
         />
       </div>
 
       <div className="space-y-1">
-        <label htmlFor="email" className="text-sm font-medium text-white">{content.contact.form.email}</label>
+        <label htmlFor="email" className="text-sm font-medium text-theme-primary">{content.contact.form.email}</label>
         <input
           id="email"
           name="email"
@@ -61,12 +63,12 @@ export default function ContactForm() {
           value={form.email}
           onChange={handleChange}
           required
-          className="w-full rounded-3xl border border-white/10 bg-black/60 px-4 py-3 text-white outline-none transition focus:border-brand-primary"
+          className="w-full rounded-3xl border border-theme bg-theme-surface-alt px-4 py-3 text-theme-primary outline-none transition focus:border-brand-primary"
         />
       </div>
 
       <div className="space-y-1">
-        <label htmlFor="subject" className="text-sm font-medium text-white">{content.contact.form.subject}</label>
+        <label htmlFor="subject" className="text-sm font-medium text-theme-primary">{content.contact.form.subject}</label>
         <input
           id="subject"
           name="subject"
@@ -74,12 +76,12 @@ export default function ContactForm() {
           value={form.subject}
           onChange={handleChange}
           required
-          className="w-full rounded-3xl border border-white/10 bg-black/60 px-4 py-3 text-white outline-none transition focus:border-brand-primary"
+          className="w-full rounded-3xl border border-theme bg-theme-surface-alt px-4 py-3 text-theme-primary outline-none transition focus:border-brand-primary"
         />
       </div>
 
       <div className="space-y-1">
-        <label htmlFor="message" className="text-sm font-medium text-white">{content.contact.form.message}</label>
+        <label htmlFor="message" className="text-sm font-medium text-theme-primary">{content.contact.form.message}</label>
         <textarea
           id="message"
           name="message"
@@ -87,7 +89,7 @@ export default function ContactForm() {
           value={form.message}
           onChange={handleChange}
           required
-          className="w-full rounded-3xl border border-white/10 bg-black/60 px-4 py-3 text-white outline-none transition focus:border-brand-primary"
+          className="w-full rounded-3xl border border-theme bg-theme-surface-alt px-4 py-3 text-theme-primary outline-none transition focus:border-brand-primary"
         />
       </div>
 

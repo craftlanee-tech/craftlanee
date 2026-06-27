@@ -25,7 +25,7 @@
       { "value": "SEO + Ads", "label": "Acquisition engine" },
       { "value": "Web + CRM", "label": "Technology stack" }
     ],
-    "focus": ["Website development", "SEO", "Google Ads", "Social media", "Brand design", "Automation"]
+    "focus": ["SEO", "Google Ads", "Social media", "Brand design", "Automation", "Website development"]
   },
   "services": {
     "title": "IT and digital marketing services",
@@ -35,14 +35,14 @@
         "category": "IT Consulting & Technology Solutions",
         "description": "Technical strategy and software delivery that make your digital systems faster, smarter, and easier to manage.",
         "items": [
-          "Website Development",
           "E-commerce Development",
           "Mobile App Development",
           "Software Development",
           "UI/UX Design",
           "Cloud Solutions",
           "Business Automation",
-          "Technical Consulting"
+          "Technical Consulting",
+          "Website Development"
         ]
       },
       {

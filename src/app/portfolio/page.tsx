@@ -5,7 +5,7 @@ import PortfolioGrid from '../../components/PortfolioGrid';
 
 export default function PortfolioPage() {
   return (
-    <main className="min-h-screen bg-brand-background text-white">
+    <main className="min-h-screen bg-theme-background text-theme-primary">
       <Navbar />
 
       <section className="relative overflow-hidden bg-hero-gradient px-6 py-20 sm:px-10">

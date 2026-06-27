@@ -1,11 +1,13 @@
 import Navbar from '../../components/Navbar';
 import Footer from '../../components/Footer';
 import SectionHeader from '../../components/SectionHeader';
-import content from '../../content';
+import { getContent } from '../../lib/content';
+
+const content = getContent();
 
 export default function AboutPage() {
   return (
-    <main className="min-h-screen bg-brand-background text-white">
+    <main className="min-h-screen bg-theme-background text-theme-primary">
       <Navbar />
 
       <section className="relative overflow-hidden bg-hero-gradient px-6 py-20 sm:px-10">
@@ -18,9 +20,9 @@ export default function AboutPage() {
       <section className="px-6 py-20 sm:px-10">
         <div className="mx-auto max-w-7xl grid gap-8 lg:grid-cols-3">
           {content.about.values.map((value) => (
-            <div key={value.title} className="rounded-[32px] border border-white/10 bg-white/5 p-8 shadow-glow backdrop-blur-xl transition hover:-translate-y-1">
-              <h3 className="text-xl font-semibold text-white">{value.title}</h3>
-              <p className="mt-4 text-slate-300 leading-7">{value.description}</p>
+            <div key={value.title} className="rounded-[32px] border border-theme bg-theme-surface-soft p-8 shadow-glow backdrop-blur-xl transition hover:-translate-y-1">
+              <h3 className="text-xl font-semibold text-theme-primary">{value.title}</h3>
+              <p className="mt-4 text-theme-secondary leading-7">{value.description}</p>
             </div>
           ))}
         </div>
