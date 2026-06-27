@@ -162,9 +162,11 @@ export const rawContent = {
       'Share your business goal and current digital setup. We will respond with a practical next step and the right service mix.',
     form: {
       name: 'Name',
+      businessName: 'Business Name',
+      mobile: 'Mobile Number',
       email: 'Email',
-      subject: 'Service Needed',
-      message: 'Tell us about your business goal',
+      serviceNeeded: 'Service Needed',
+      message: "What's the business?",
     },
     details: [
       { label: 'Email', value: 'hello@craftlanee.com' },

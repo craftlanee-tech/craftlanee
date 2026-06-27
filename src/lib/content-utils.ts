@@ -60,8 +60,10 @@ export type Content = {
     description: string;
     form: {
       name: string;
+      businessName: string;
+      mobile: string;
       email: string;
-      subject: string;
+      serviceNeeded: string;
       message: string;
     };
     details: {
@@ -221,8 +223,10 @@ export function convertContent(rawContent: unknown): Content {
       description: toString(contact.description, 'content.contact.description'),
       form: {
         name: toString(contactForm.name, 'content.contact.form.name'),
+        businessName: toString(contactForm.businessName, 'content.contact.form.businessName'),
+        mobile: toString(contactForm.mobile, 'content.contact.form.mobile'),
         email: toString(contactForm.email, 'content.contact.form.email'),
-        subject: toString(contactForm.subject, 'content.contact.form.subject'),
+        serviceNeeded: toString(contactForm.serviceNeeded, 'content.contact.form.serviceNeeded'),
         message: toString(contactForm.message, 'content.contact.form.message'),
       },
       details: toArray(contact.details, 'content.contact.details', toLabelValue),
