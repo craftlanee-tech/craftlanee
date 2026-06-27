@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import emailjs from '@emailjs/browser';
 import { getContent } from '../lib/content';
 import Button from './Button';
@@ -16,6 +16,8 @@ type ContactFormState = {
   serviceNeeded: string[];
   message: string;
 };
+
+type ContactFormErrors = Partial<Record<keyof ContactFormState, string>>;
 
 const initialForm: ContactFormState = {
   name: '',
@@ -43,13 +45,23 @@ function formatServices(services: string[]) {
   return services.join(', ');
 }
 
+function getServiceSummary(services: string[]) {
+  if (services.length === 0) {
+    return 'Select services';
+  }
+
+  if (services.length === 1) {
+    return services[0];
+  }
+
+  return `${services.length} services selected`;
+}
+
 function buildLeadEmail(form: ContactFormState) {
-  const subject = buildLeadSubject(form);
   const services = formatServices(form.serviceNeeded);
 
   return [
-    subject,
-    '',
+    'New lead',
     `Name: ${form.name}`,
     `Business Name: ${form.businessName}`,
     `Mobile: ${form.mobile}`,
@@ -110,9 +122,22 @@ function buildLeadEmailHtml(form: ContactFormState) {
 export default function ContactForm() {
   const [status, setStatus] = useState<'idle' | 'sending' | 'success' | 'error'>('idle');
   const [form, setForm] = useState<ContactFormState>(initialForm);
+  const [errors, setErrors] = useState<ContactFormErrors>({});
+  const [servicesOpen, setServicesOpen] = useState(false);
+  const nameRef = useRef<HTMLInputElement>(null);
+  const businessNameRef = useRef<HTMLInputElement>(null);
+  const mobileRef = useRef<HTMLInputElement>(null);
+  const emailRef = useRef<HTMLInputElement>(null);
+  const serviceNeededRef = useRef<HTMLButtonElement>(null);
+  const messageRef = useRef<HTMLTextAreaElement>(null);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    setForm({ ...form, [event.target.name]: event.target.value });
+    const { name, value } = event.target;
+    const field = name as keyof ContactFormState;
+
+    setForm({ ...form, [name]: value });
+    setErrors((currentErrors) => ({ ...currentErrors, [field]: undefined }));
+    setStatus('idle');
   };
 
   const handleServiceChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -124,10 +149,72 @@ export default function ContactForm() {
         ? [...currentForm.serviceNeeded, value]
         : currentForm.serviceNeeded.filter((service) => service !== value),
     }));
+    setErrors((currentErrors) => ({ ...currentErrors, serviceNeeded: undefined }));
+    setStatus('idle');
+  };
+
+  const focusField = (field: keyof ContactFormState) => {
+    const refs = {
+      name: nameRef,
+      businessName: businessNameRef,
+      mobile: mobileRef,
+      email: emailRef,
+      serviceNeeded: serviceNeededRef,
+      message: messageRef,
+    };
+    const fieldRef = refs[field];
+
+    if (field === 'serviceNeeded') {
+      setServicesOpen(true);
+    }
+
+    fieldRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    window.setTimeout(() => fieldRef.current?.focus(), 250);
+  };
+
+  const validateForm = () => {
+    const nextErrors: ContactFormErrors = {};
+
+    if (!form.name.trim()) {
+      nextErrors.name = 'Name is required.';
+    }
+
+    if (!form.businessName.trim()) {
+      nextErrors.businessName = 'Business name is required.';
+    }
+
+    if (!form.mobile.trim()) {
+      nextErrors.mobile = 'Mobile number is required.';
+    }
+
+    if (!form.email.trim()) {
+      nextErrors.email = 'Email is required.';
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email.trim())) {
+      nextErrors.email = 'Enter a valid email address.';
+    }
+
+    if (form.serviceNeeded.length === 0) {
+      nextErrors.serviceNeeded = 'Select at least one service.';
+    }
+
+    if (!form.message.trim()) {
+      nextErrors.message = 'Business details are required.';
+    }
+
+    return nextErrors;
   };
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    const nextErrors = validateForm();
+    const firstInvalidField = Object.keys(nextErrors)[0] as keyof ContactFormState | undefined;
+
+    if (firstInvalidField) {
+      setErrors(nextErrors);
+      focusField(firstInvalidField);
+      return;
+    }
+
     setStatus('sending');
     const emailSubject = buildLeadSubject(form);
     const selectedServices = formatServices(form.serviceNeeded);
@@ -141,16 +228,25 @@ export default function ContactForm() {
         {
           from_name: form.name,
           from_email: form.email,
+          user_name: form.name,
+          user_email: form.email,
           reply_to: form.email,
           business_name: form.businessName,
+          businessName: form.businessName,
           mobile: form.mobile,
           service_needed: selectedServices,
           services_needed: selectedServices,
+          service_Needed: selectedServices,
           business_message: form.message,
           subject: emailSubject,
+          email_subject: emailSubject,
           message: emailMessage,
+          body: emailMessage,
+          Body: emailMessage,
           email_body: emailMessage,
           html_message: htmlMessage,
+          name: form.name,
+          email: form.email,
           Name: form.name,
           Email: form.email,
           Mobile: form.mobile,
@@ -163,6 +259,8 @@ export default function ContactForm() {
       );
       setStatus('success');
       setForm(initialForm);
+      setErrors({});
+      setServicesOpen(false);
     } catch (error) {
       console.error(error);
       setStatus('error');
@@ -170,33 +268,39 @@ export default function ContactForm() {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-6 rounded-[32px] border border-theme bg-theme-surface-soft p-8 shadow-glow backdrop-blur-xl">
+    <form noValidate onSubmit={handleSubmit} className="space-y-6 rounded-[32px] border border-theme bg-theme-surface-soft p-8 shadow-glow backdrop-blur-xl">
       <div className="grid gap-6 md:grid-cols-2">
         <div className="space-y-1">
           <label htmlFor="name" className="text-sm font-medium text-theme-primary">{content.contact.form.name}</label>
           <input
+            ref={nameRef}
             id="name"
             name="name"
             type="text"
             value={form.name}
             onChange={handleChange}
-            required
-            className="w-full rounded-3xl border border-theme bg-theme-surface-alt px-4 py-3 text-theme-primary outline-none transition focus:border-brand-primary"
+            aria-invalid={Boolean(errors.name)}
+            aria-describedby={errors.name ? 'name-error' : undefined}
+            className={`w-full rounded-3xl border bg-theme-surface-alt px-4 py-3 text-theme-primary outline-none transition focus:border-brand-primary ${errors.name ? 'border-rose-400' : 'border-theme'}`}
           />
+          {errors.name ? <p id="name-error" className="text-sm text-rose-300">{errors.name}</p> : null}
         </div>
 
         <div className="space-y-1">
           <label htmlFor="businessName" className="text-sm font-medium text-theme-primary">{content.contact.form.businessName}</label>
           <input
+            ref={businessNameRef}
             id="businessName"
             name="businessName"
             type="text"
             value={form.businessName}
             onChange={handleChange}
-            required
-            className="w-full rounded-3xl border border-theme bg-theme-surface-alt px-4 py-3 text-theme-primary outline-none transition focus:border-brand-primary"
+            aria-invalid={Boolean(errors.businessName)}
+            aria-describedby={errors.businessName ? 'businessName-error' : undefined}
+            className={`w-full rounded-3xl border bg-theme-surface-alt px-4 py-3 text-theme-primary outline-none transition focus:border-brand-primary ${errors.businessName ? 'border-rose-400' : 'border-theme'}`}
             placeholder="Your company or brand"
           />
+          {errors.businessName ? <p id="businessName-error" className="text-sm text-rose-300">{errors.businessName}</p> : null}
         </div>
       </div>
 
@@ -204,6 +308,7 @@ export default function ContactForm() {
         <div className="space-y-1">
           <label htmlFor="mobile" className="text-sm font-medium text-theme-primary">{content.contact.form.mobile}</label>
           <input
+            ref={mobileRef}
             id="mobile"
             name="mobile"
             type="tel"
@@ -211,71 +316,89 @@ export default function ContactForm() {
             autoComplete="tel"
             value={form.mobile}
             onChange={handleChange}
-            required
-            className="w-full rounded-3xl border border-theme bg-theme-surface-alt px-4 py-3 text-theme-primary outline-none transition focus:border-brand-primary"
+            aria-invalid={Boolean(errors.mobile)}
+            aria-describedby={errors.mobile ? 'mobile-error' : undefined}
+            className={`w-full rounded-3xl border bg-theme-surface-alt px-4 py-3 text-theme-primary outline-none transition focus:border-brand-primary ${errors.mobile ? 'border-rose-400' : 'border-theme'}`}
             placeholder="+91 98765 43210"
           />
+          {errors.mobile ? <p id="mobile-error" className="text-sm text-rose-300">{errors.mobile}</p> : null}
         </div>
 
         <div className="space-y-1">
           <label htmlFor="email" className="text-sm font-medium text-theme-primary">{content.contact.form.email}</label>
           <input
+            ref={emailRef}
             id="email"
             name="email"
             type="email"
             autoComplete="email"
             value={form.email}
             onChange={handleChange}
-            required
-            className="w-full rounded-3xl border border-theme bg-theme-surface-alt px-4 py-3 text-theme-primary outline-none transition focus:border-brand-primary"
+            aria-invalid={Boolean(errors.email)}
+            aria-describedby={errors.email ? 'email-error' : undefined}
+            className={`w-full rounded-3xl border bg-theme-surface-alt px-4 py-3 text-theme-primary outline-none transition focus:border-brand-primary ${errors.email ? 'border-rose-400' : 'border-theme'}`}
             placeholder="you@example.com"
           />
+          {errors.email ? <p id="email-error" className="text-sm text-rose-300">{errors.email}</p> : null}
         </div>
       </div>
 
-      <div className="space-y-1">
-        <p className="text-sm font-medium text-theme-primary">{content.contact.form.serviceNeeded}</p>
-        <div className="grid gap-3 md:grid-cols-2">
-          {serviceOptions.map((service) => (
-            <label
-              key={service}
-              className="flex cursor-pointer items-center gap-3 rounded-3xl border border-theme bg-theme-surface-alt px-4 py-3 text-sm text-theme-secondary transition hover:border-brand-primary/70 hover:text-theme-primary"
-            >
-              <input
-                type="checkbox"
-                name="serviceNeeded"
-                value={service}
-                checked={form.serviceNeeded.includes(service)}
-                onChange={handleServiceChange}
-                className="h-4 w-4 accent-brand-primary"
-              />
-              <span>{service}</span>
-            </label>
-          ))}
-        </div>
-        <input
-          type="text"
-          value={form.serviceNeeded.length > 0 ? 'selected' : ''}
-          onChange={() => undefined}
-          required
-          aria-hidden="true"
-          tabIndex={-1}
-          className="pointer-events-none absolute h-px w-px opacity-0"
-        />
+      <div className="relative space-y-1">
+        <label id="serviceNeeded-label" className="text-sm font-medium text-theme-primary">{content.contact.form.serviceNeeded}</label>
+        <button
+          ref={serviceNeededRef}
+          type="button"
+          aria-labelledby="serviceNeeded-label"
+          aria-expanded={servicesOpen}
+          aria-invalid={Boolean(errors.serviceNeeded)}
+          aria-describedby={errors.serviceNeeded ? 'serviceNeeded-error' : undefined}
+          onClick={() => setServicesOpen((open) => !open)}
+          className={`flex w-full items-center justify-between gap-4 rounded-3xl border bg-theme-surface-alt px-4 py-3 text-left text-theme-primary outline-none transition focus:border-brand-primary ${errors.serviceNeeded ? 'border-rose-400' : 'border-theme'}`}
+        >
+          <span className={form.serviceNeeded.length > 0 ? 'text-theme-primary' : 'text-theme-muted'}>{getServiceSummary(form.serviceNeeded)}</span>
+          <span className="text-sm text-brand-primary">{servicesOpen ? 'Close' : 'Open'}</span>
+        </button>
+        {servicesOpen ? (
+          <div className="absolute left-0 right-0 z-20 mt-2 max-h-72 overflow-y-auto rounded-3xl border border-theme bg-theme-surface-alt p-3 shadow-glow">
+            <div className="grid gap-2">
+              {serviceOptions.map((service) => (
+                <label
+                  key={service}
+                  className="flex cursor-pointer items-center gap-3 rounded-2xl px-3 py-2 text-sm text-theme-secondary transition hover:bg-theme-surface-soft hover:text-theme-primary"
+                >
+                  <input
+                    type="checkbox"
+                    name="serviceNeeded"
+                    value={service}
+                    checked={form.serviceNeeded.includes(service)}
+                    onChange={handleServiceChange}
+                    className="h-4 w-4 accent-brand-primary"
+                  />
+                  <span>{service}</span>
+                </label>
+              ))}
+            </div>
+          </div>
+        ) : null}
+        {form.serviceNeeded.length > 0 ? <p className="text-sm text-theme-muted">{formatServices(form.serviceNeeded)}</p> : null}
+        {errors.serviceNeeded ? <p id="serviceNeeded-error" className="text-sm text-rose-300">{errors.serviceNeeded}</p> : null}
       </div>
 
       <div className="space-y-1">
         <label htmlFor="message" className="text-sm font-medium text-theme-primary">{content.contact.form.message}</label>
         <textarea
+          ref={messageRef}
           id="message"
           name="message"
           rows={6}
           value={form.message}
           onChange={handleChange}
-          required
-          className="w-full rounded-3xl border border-theme bg-theme-surface-alt px-4 py-3 text-theme-primary outline-none transition focus:border-brand-primary"
+          aria-invalid={Boolean(errors.message)}
+          aria-describedby={errors.message ? 'message-error' : undefined}
+          className={`w-full rounded-3xl border bg-theme-surface-alt px-4 py-3 text-theme-primary outline-none transition focus:border-brand-primary ${errors.message ? 'border-rose-400' : 'border-theme'}`}
           placeholder="Tell us what your business does, your current challenge, and what result you want."
         />
+        {errors.message ? <p id="message-error" className="text-sm text-rose-300">{errors.message}</p> : null}
       </div>
 
       <div className="flex items-center justify-between gap-4">
