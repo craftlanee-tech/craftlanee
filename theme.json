@@ -1,0 +1,27 @@
+{
+  "colors": {
+    "primary": "#ff7a00",
+    "secondary": "#ffffff",
+    "accent": "#ff9a2e",
+    "background": "#050505",
+    "surface": "#111111",
+    "surfaceMuted": "#161616",
+    "textPrimary": "#ffffff",
+    "textSecondary": "#d8d8d8",
+    "link": "#ff7a00",
+    "border": "rgba(255,255,255,0.08)",
+    "muted": "#999999"
+  },
+  "button": {
+    "bg": "#ff7a00",
+    "text": "#ffffff",
+    "hoverBg": "#ff9a2e",
+    "secondaryBg": "transparent",
+    "secondaryBorder": "#ffffff",
+    "secondaryText": "#ffffff"
+  },
+  "shadow": {
+    "default": "0 20px 60px rgba(0,0,0,0.35)",
+    "glow": "0 20px 60px rgba(79,195,255,0.18)"
+  }
+}
