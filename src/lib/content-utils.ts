@@ -68,7 +68,7 @@ export type Content = {
     };
     details: {
       label: string;
-      value: string;
+      values: string[];
     }[];
   };
   testimonials: {
@@ -145,6 +145,18 @@ function toLabelValue(value: unknown, path: string): { label: string; value: str
   return {
     label: toString(record.label, `${path}.label`),
     value: toString(record.value, `${path}.value`),
+  };
+}
+
+function toContactDetail(value: unknown, path: string): { label: string; values: string[] } {
+  const record = toRecord(value, path);
+  const values = record.values === undefined
+    ? [toString(record.value, `${path}.value`)]
+    : toArray(record.values, `${path}.values`, toString);
+
+  return {
+    label: toString(record.label, `${path}.label`),
+    values,
   };
 }
 
@@ -229,7 +241,7 @@ export function convertContent(rawContent: unknown): Content {
         serviceNeeded: toString(contactForm.serviceNeeded, 'content.contact.form.serviceNeeded'),
         message: toString(contactForm.message, 'content.contact.form.message'),
       },
-      details: toArray(contact.details, 'content.contact.details', toLabelValue),
+      details: toArray(contact.details, 'content.contact.details', toContactDetail),
     },
     testimonials: toArray(content.testimonials, 'content.testimonials', (item, path) => {
       const testimonial = toRecord(item, path);

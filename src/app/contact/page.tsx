@@ -6,6 +6,20 @@ import { getContent } from '../../lib/content';
 
 const content = getContent();
 
+function getContactHref(label: string, value: string) {
+  const normalizedLabel = label.toLowerCase();
+
+  if (normalizedLabel.includes('email')) {
+    return `mailto:${value}`;
+  }
+
+  if (normalizedLabel.includes('phone') || normalizedLabel.includes('mobile')) {
+    return `tel:${value.replace(/[^\d+]/g, '')}`;
+  }
+
+  return null;
+}
+
 export default function ContactPage() {
   return (
     <main className="min-h-screen bg-theme-background text-theme-primary">
@@ -26,7 +40,21 @@ export default function ContactPage() {
               {content.contact.details.map((detail) => (
                 <div key={detail.label} className="rounded-3xl bg-theme-surface-soft p-5">
                   <p className="text-sm uppercase tracking-[0.35em] text-brand-primary">{detail.label}</p>
-                  <p className="mt-2 text-lg font-medium text-theme-primary">{detail.value}</p>
+                  <div className="mt-3 space-y-2">
+                    {detail.values.map((value) => {
+                      const href = getContactHref(detail.label, value);
+
+                      return href ? (
+                        <a key={value} href={href} className="block text-lg font-medium text-theme-primary transition hover:text-brand-primary">
+                          {value}
+                        </a>
+                      ) : (
+                        <p key={value} className="text-lg font-medium text-theme-primary">
+                          {value}
+                        </p>
+                      );
+                    })}
+                  </div>
                 </div>
               ))}
             </div>

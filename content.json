@@ -145,9 +145,9 @@
       "message": "What's the business?"
     },
     "details": [
-      { "label": "Email", "value": "hello@craftlanee.com" },
-      { "label": "Phone", "value": "+91 99000 00000" },
-      { "label": "Location", "value": "Hyderabad, India" }
+      { "label": "Email", "values": ["hello@craftlanee.com", "support@craftlanee.com"] },
+      { "label": "Phone", "values": ["+91 99000 00000", "+91 98000 00000"] },
+      { "label": "Location", "values": ["Hyderabad, India", "Bengaluru, India"] }
     ]
   },
   "testimonials": [
