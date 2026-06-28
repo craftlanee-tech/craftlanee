@@ -3,8 +3,16 @@ import Footer from '../../components/Footer';
 import SectionHeader from '../../components/SectionHeader';
 import ContactForm from '../../components/ContactForm';
 import { getContent } from '../../lib/content';
+import { createPageMetadata, siteName } from '../../lib/seo';
 
 const content = getContent();
+
+export const metadata = createPageMetadata({
+  title: `Contact ${siteName} | Start Your Website, SEO or Marketing Project`,
+  description: content.contact.description,
+  path: '/contact',
+  keywords: ['contact digital marketing agency', 'website project inquiry', 'SEO consultation', 'Google Ads consultation', 'business growth consultation'],
+});
 
 function getContactHref(label: string, value: string) {
   const normalizedLabel = label.toLowerCase();

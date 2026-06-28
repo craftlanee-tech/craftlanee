@@ -1,10 +1,17 @@
 import type { MetadataRoute } from 'next';
 import { readdir, stat } from 'node:fs/promises';
 import path from 'node:path';
+import { siteUrl } from '../lib/seo';
 
 const appDirectory = path.join(process.cwd(), 'src', 'app');
-const baseUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://craftlanee.com';
 const pageFileNames = new Set(['page.tsx', 'page.ts', 'page.jsx', 'page.js']);
+const routeSeo: Record<string, Pick<MetadataRoute.Sitemap[number], 'changeFrequency' | 'priority'>> = {
+  '/': { changeFrequency: 'weekly', priority: 1 },
+  '/services': { changeFrequency: 'monthly', priority: 0.9 },
+  '/contact': { changeFrequency: 'monthly', priority: 0.85 },
+  '/portfolio': { changeFrequency: 'monthly', priority: 0.8 },
+  '/about': { changeFrequency: 'monthly', priority: 0.75 },
+};
 
 async function findPageFiles(directory: string): Promise<string[]> {
   const entries = await readdir(directory, { withFileTypes: true });
@@ -48,10 +55,10 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       }
 
       return {
-        url: new URL(route, baseUrl).toString(),
+        url: new URL(route, siteUrl).toString(),
         lastModified: fileStat.mtime,
-        changeFrequency: 'monthly' as const,
-        priority: route === '/' ? 1 : 0.8,
+        changeFrequency: routeSeo[route]?.changeFrequency ?? 'monthly',
+        priority: routeSeo[route]?.priority ?? 0.7,
       };
     }),
   );

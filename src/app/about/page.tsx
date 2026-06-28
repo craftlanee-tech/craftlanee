@@ -2,8 +2,16 @@ import Navbar from '../../components/Navbar';
 import Footer from '../../components/Footer';
 import SectionHeader from '../../components/SectionHeader';
 import { getContent } from '../../lib/content';
+import { createPageMetadata, siteName } from '../../lib/seo';
 
 const content = getContent();
+
+export const metadata = createPageMetadata({
+  title: `About ${siteName} | Technology & Digital Growth Partner`,
+  description: content.about.description,
+  path: '/about',
+  keywords: ['about Craftlanee', 'digital growth partner', 'technology consulting company', 'marketing execution partner'],
+});
 
 export default function AboutPage() {
   return (
