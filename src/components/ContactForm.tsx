@@ -1,7 +1,8 @@
 'use client';
 
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import emailjs from '@emailjs/browser';
+import { Mic, MicOff } from 'lucide-react';
 import { getContent } from '../lib/content';
 import Button from './Button';
 
@@ -18,6 +19,40 @@ type ContactFormState = {
 };
 
 type ContactFormErrors = Partial<Record<keyof ContactFormState, string>>;
+
+type SpeechRecognitionAlternative = {
+  transcript: string;
+};
+
+type SpeechRecognitionResultItem = {
+  0?: SpeechRecognitionAlternative;
+  isFinal?: boolean;
+};
+
+type SpeechRecognitionResults = {
+  length: number;
+  [index: number]: SpeechRecognitionResultItem;
+};
+
+type SpeechRecognitionResultEvent = Event & {
+  resultIndex: number;
+  results: SpeechRecognitionResults;
+};
+
+type SpeechRecognitionInstance = EventTarget & {
+  continuous: boolean;
+  interimResults: boolean;
+  lang: string;
+  start: () => void;
+  stop: () => void;
+  abort: () => void;
+  onstart: (() => void) | null;
+  onend: (() => void) | null;
+  onerror: (() => void) | null;
+  onresult: ((event: SpeechRecognitionResultEvent) => void) | null;
+};
+
+type SpeechRecognitionConstructor = new () => SpeechRecognitionInstance;
 
 const initialForm: ContactFormState = {
   name: '',
@@ -55,6 +90,16 @@ function getServiceSummary(services: string[]) {
   }
 
   return `${services.length} services selected`;
+}
+
+function appendSpeechText(baseText: string, speechText: string) {
+  const cleanSpeechText = speechText.trim();
+
+  if (!cleanSpeechText) {
+    return baseText;
+  }
+
+  return `${baseText}${baseText.trim() ? ' ' : ''}${cleanSpeechText}`;
 }
 
 function buildLeadEmail(form: ContactFormState) {
@@ -124,12 +169,62 @@ export default function ContactForm() {
   const [form, setForm] = useState<ContactFormState>(initialForm);
   const [errors, setErrors] = useState<ContactFormErrors>({});
   const [servicesOpen, setServicesOpen] = useState(false);
+  const [speechSupported, setSpeechSupported] = useState(false);
+  const [isListening, setIsListening] = useState(false);
   const nameRef = useRef<HTMLInputElement>(null);
   const businessNameRef = useRef<HTMLInputElement>(null);
   const mobileRef = useRef<HTMLInputElement>(null);
   const emailRef = useRef<HTMLInputElement>(null);
   const serviceNeededRef = useRef<HTMLButtonElement>(null);
   const messageRef = useRef<HTMLTextAreaElement>(null);
+  const recognitionRef = useRef<SpeechRecognitionInstance | null>(null);
+  const speechBaseTextRef = useRef('');
+
+  useEffect(() => {
+    const speechWindow = window as Window &
+      typeof globalThis & {
+        SpeechRecognition?: SpeechRecognitionConstructor;
+        webkitSpeechRecognition?: SpeechRecognitionConstructor;
+      };
+    const SpeechRecognition = speechWindow.SpeechRecognition ?? speechWindow.webkitSpeechRecognition;
+
+    if (!SpeechRecognition) {
+      return;
+    }
+
+    const recognition = new SpeechRecognition();
+    recognition.continuous = true;
+    recognition.interimResults = true;
+    recognition.lang = 'en-IN';
+    recognition.onstart = () => setIsListening(true);
+    recognition.onend = () => setIsListening(false);
+    recognition.onerror = () => setIsListening(false);
+    recognition.onresult = (event) => {
+      const transcript = Array.from({ length: event.results.length }, (_, index) => event.results[index])
+        .map((result) => result[0]?.transcript.trim())
+        .filter(Boolean)
+        .join(' ');
+
+      if (!transcript) {
+        return;
+      }
+
+      setForm((currentForm) => ({
+        ...currentForm,
+        message: appendSpeechText(speechBaseTextRef.current, transcript),
+      }));
+      setErrors((currentErrors) => ({ ...currentErrors, message: undefined }));
+      setStatus('idle');
+    };
+
+    recognitionRef.current = recognition;
+    setSpeechSupported(true);
+
+    return () => {
+      recognition.abort();
+      recognitionRef.current = null;
+    };
+  }, []);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = event.target;
@@ -151,6 +246,30 @@ export default function ContactForm() {
     }));
     setErrors((currentErrors) => ({ ...currentErrors, serviceNeeded: undefined }));
     setStatus('idle');
+  };
+
+  const toggleSpeechInput = () => {
+    const recognition = recognitionRef.current;
+
+    if (!recognition) {
+      return;
+    }
+
+    if (isListening) {
+      setIsListening(false);
+      recognition.stop();
+      return;
+    }
+
+    messageRef.current?.focus();
+    speechBaseTextRef.current = form.message;
+    setIsListening(true);
+
+    try {
+      recognition.start();
+    } catch {
+      setIsListening(false);
+    }
   };
 
   const focusField = (field: keyof ContactFormState) => {
@@ -386,18 +505,37 @@ export default function ContactForm() {
 
       <div className="space-y-1">
         <label htmlFor="message" className="text-sm font-medium text-theme-primary">{content.contact.form.message}</label>
-        <textarea
-          ref={messageRef}
-          id="message"
-          name="message"
-          rows={6}
-          value={form.message}
-          onChange={handleChange}
-          aria-invalid={Boolean(errors.message)}
-          aria-describedby={errors.message ? 'message-error' : undefined}
-          className={`w-full rounded-3xl border bg-theme-surface-alt px-4 py-3 text-theme-primary outline-none transition focus:border-brand-primary ${errors.message ? 'border-rose-400' : 'border-theme'}`}
-          placeholder="Tell us what your business does, your current challenge, and what result you want."
-        />
+        <div className="relative">
+          <textarea
+            ref={messageRef}
+            id="message"
+            name="message"
+            rows={6}
+            value={form.message}
+            onChange={handleChange}
+            aria-invalid={Boolean(errors.message)}
+            aria-describedby={errors.message ? 'message-error' : undefined}
+            className={`w-full resize-none rounded-3xl border bg-theme-surface-alt px-4 py-3 pb-16 pr-16 text-theme-primary outline-none transition focus:border-brand-primary ${errors.message ? 'border-rose-400' : 'border-theme'}`}
+            placeholder="Tell us what your business does, your current challenge, and what result you want."
+          />
+          <button
+            type="button"
+            aria-label={isListening ? 'Stop voice input' : 'Start voice input'}
+            aria-pressed={isListening}
+            disabled={!speechSupported}
+            onClick={toggleSpeechInput}
+            className={`absolute bottom-4 right-4 inline-flex h-11 w-11 items-center justify-center rounded-full border transition ${
+              isListening
+                ? 'border-brand-primary bg-brand-primary text-black'
+                : 'border-theme bg-theme-surface text-theme-primary hover:border-brand-primary/60 hover:text-brand-primary'
+            } disabled:cursor-not-allowed disabled:opacity-45`}
+            title={speechSupported ? 'Speak business details' : 'Voice input is not supported in this browser'}
+          >
+            {isListening ? <MicOff size={19} /> : <Mic size={19} />}
+          </button>
+        </div>
+        {isListening ? <p className="text-sm text-brand-primary">Listening...</p> : null}
+        {!speechSupported ? <p className="text-sm text-theme-muted">Voice input is supported in Chrome and some mobile browsers.</p> : null}
         {errors.message ? <p id="message-error" className="text-sm text-rose-300">{errors.message}</p> : null}
       </div>
 
