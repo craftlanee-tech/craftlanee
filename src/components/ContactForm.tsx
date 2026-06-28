@@ -26,7 +26,6 @@ type SpeechRecognitionAlternative = {
 
 type SpeechRecognitionResultItem = {
   0?: SpeechRecognitionAlternative;
-  isFinal?: boolean;
 };
 
 type SpeechRecognitionResults = {
@@ -44,7 +43,6 @@ type SpeechRecognitionInstance = EventTarget & {
   interimResults: boolean;
   lang: string;
   start: () => void;
-  stop: () => void;
   abort: () => void;
   onstart: (() => void) | null;
   onend: (() => void) | null;
@@ -179,6 +177,7 @@ export default function ContactForm() {
   const messageRef = useRef<HTMLTextAreaElement>(null);
   const recognitionRef = useRef<SpeechRecognitionInstance | null>(null);
   const speechBaseTextRef = useRef('');
+  const recognitionActiveRef = useRef(false);
 
   useEffect(() => {
     const speechWindow = window as Window &
@@ -196,14 +195,25 @@ export default function ContactForm() {
     recognition.continuous = true;
     recognition.interimResults = true;
     recognition.lang = 'en-IN';
-    recognition.onstart = () => setIsListening(true);
-    recognition.onend = () => setIsListening(false);
-    recognition.onerror = () => setIsListening(false);
+    recognition.onstart = () => {
+      recognitionActiveRef.current = true;
+      setIsListening(true);
+    };
+    recognition.onend = () => {
+      recognitionActiveRef.current = false;
+      setIsListening(false);
+    };
+    recognition.onerror = () => {
+      recognitionActiveRef.current = false;
+      setIsListening(false);
+    };
     recognition.onresult = (event) => {
       const transcript = Array.from({ length: event.results.length }, (_, index) => event.results[index])
-        .map((result) => result[0]?.transcript.trim())
+        .map((result) => result[0]?.transcript)
         .filter(Boolean)
-        .join(' ');
+        .join(' ')
+        .replace(/\s+/g, ' ')
+        .trim();
 
       if (!transcript) {
         return;
@@ -255,9 +265,10 @@ export default function ContactForm() {
       return;
     }
 
-    if (isListening) {
+    if (isListening || recognitionActiveRef.current) {
+      recognitionActiveRef.current = false;
       setIsListening(false);
-      recognition.stop();
+      recognition.abort();
       return;
     }
 
@@ -268,6 +279,7 @@ export default function ContactForm() {
     try {
       recognition.start();
     } catch {
+      recognitionActiveRef.current = false;
       setIsListening(false);
     }
   };
