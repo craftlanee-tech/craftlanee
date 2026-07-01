@@ -59,11 +59,10 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         lastModified: fileStat.mtime,
         changeFrequency: routeSeo[route]?.changeFrequency ?? 'monthly',
         priority: routeSeo[route]?.priority ?? 0.7,
-      };
+      } as MetadataRoute.Sitemap[number];
     }),
   );
 
-  return routes
-    .filter((route): route is MetadataRoute.Sitemap[number] => route !== null)
+  return (routes.filter((route) => route !== null) as MetadataRoute.Sitemap)
     .sort((currentRoute, nextRoute) => currentRoute.url.localeCompare(nextRoute.url));
 }
