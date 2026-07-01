@@ -154,6 +154,90 @@ export const rawContent = {
           'We connect tracking, automation, content, and reporting so growth becomes easier to manage.',
       },
     ],
+    whoWeAre: {
+      title: 'Who We Are',
+      paragraph1:
+        "Craftlanee is a team of designers, developers, strategists, and marketers who believe in building digital solutions that actually work. We've worked with startups, service businesses, and growing enterprises to create technology and marketing systems that drive real business results.",
+      paragraph2:
+        "We're not just service providers—we're growth partners. We dive deep into your business, understand your challenges, and build solutions that are sustainable and scalable. Our approach combines data, creativity, and technical expertise to deliver measurable outcomes.",
+      stats: [
+        { value: '500+', label: 'Happy Clients' },
+        { value: '1000+', label: 'Projects Completed' },
+        { value: '$50M+', label: 'Revenue Generated' },
+        { value: '8+', label: 'Years in Business' },
+      ],
+    },
+    direction: {
+      title: 'Our Direction',
+      subtitle: "Where we're heading and what we're building next",
+      items: [
+        {
+          phase: 'Now',
+          title: 'Full-Stack Digital Growth',
+          description:
+            "We're expanding our capabilities to offer end-to-end solutions—from strategy and branding to development, marketing, and ongoing optimization.",
+        },
+        {
+          phase: 'Next',
+          title: 'AI-Powered Solutions',
+          description:
+            'Integrating AI and automation into marketing, customer service, and business operations to help companies scale smarter and faster.',
+        },
+        {
+          phase: 'Future',
+          title: 'Global Growth Partner',
+          description:
+            'Building a network of specialists and tools that help businesses go global, expand markets, and create sustainable competitive advantages.',
+        },
+      ],
+    },
+    whyChoose: {
+      title: 'Why Choose Craftlanee',
+      subtitle: 'What makes us different',
+      items: [
+        {
+          emoji: '🎯',
+          title: 'Results-Driven',
+          description:
+            'We measure success by your growth. Every strategy, design, and campaign is built around deliverable business outcomes.',
+        },
+        {
+          emoji: '🔗',
+          title: 'Integrated Expertise',
+          description:
+            'Technology, marketing, and design work together. We break silos so your website, ads, and systems align perfectly.',
+        },
+        {
+          emoji: '📊',
+          title: 'Data & Transparency',
+          description:
+            "You get real-time dashboards and regular reports. We explain what we're doing and why, so you stay informed every step.",
+        },
+        {
+          emoji: '🤝',
+          title: 'True Partnership',
+          description:
+            "We treat your goals as our goals. Long-term relationships and mutual growth is how we work, not quick fixes.",
+        },
+        {
+          emoji: '⚡',
+          title: 'Fast Execution',
+          description:
+            'We move quickly without cutting corners. Agile processes mean you see results faster and adapt based on real data.',
+        },
+        {
+          emoji: '🌟',
+          title: 'Proven Track Record',
+          description:
+            'Years of successful projects across industries. Case studies and client testimonials show the real impact we deliver.',
+        },
+      ],
+    },
+    cta: {
+      message: "Let's build something great together",
+      description:
+        "Whether you need IT solutions, digital marketing, or a complete growth strategy—we're here to help.",
+    },
   },
   contact: {
     eyebrow: 'Start your growth plan',

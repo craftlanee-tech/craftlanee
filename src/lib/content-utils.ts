@@ -53,6 +53,37 @@ export type Content = {
       title: string;
       description: string;
     }[];
+    whoWeAre: {
+      title: string;
+      paragraph1: string;
+      paragraph2: string;
+      stats: {
+        value: string;
+        label: string;
+      }[];
+    };
+    direction: {
+      title: string;
+      subtitle: string;
+      items: {
+        phase: string;
+        title: string;
+        description: string;
+      }[];
+    };
+    whyChoose: {
+      title: string;
+      subtitle: string;
+      items: {
+        emoji: string;
+        title: string;
+        description: string;
+      }[];
+    };
+    cta: {
+      message: string;
+      description: string;
+    };
   };
   contact: {
     eyebrow: string;
@@ -228,6 +259,52 @@ export function convertContent(rawContent: unknown): Content {
       headline: toString(about.headline, 'content.about.headline'),
       description: toString(about.description, 'content.about.description'),
       values: toArray(about.values, 'content.about.values', toTitleDescription),
+      whoWeAre: (() => {
+        const whoWeAre = toRecord(about.whoWeAre, 'content.about.whoWeAre');
+        return {
+          title: toString(whoWeAre.title, 'content.about.whoWeAre.title'),
+          paragraph1: toString(whoWeAre.paragraph1, 'content.about.whoWeAre.paragraph1'),
+          paragraph2: toString(whoWeAre.paragraph2, 'content.about.whoWeAre.paragraph2'),
+          stats: toArray(whoWeAre.stats, 'content.about.whoWeAre.stats', toLabelValue),
+        };
+      })(),
+      direction: (() => {
+        const direction = toRecord(about.direction, 'content.about.direction');
+        return {
+          title: toString(direction.title, 'content.about.direction.title'),
+          subtitle: toString(direction.subtitle, 'content.about.direction.subtitle'),
+          items: toArray(direction.items, 'content.about.direction.items', (item, path) => {
+            const dirItem = toRecord(item, path);
+            return {
+              phase: toString(dirItem.phase, `${path}.phase`),
+              title: toString(dirItem.title, `${path}.title`),
+              description: toString(dirItem.description, `${path}.description`),
+            };
+          }),
+        };
+      })(),
+      whyChoose: (() => {
+        const whyChoose = toRecord(about.whyChoose, 'content.about.whyChoose');
+        return {
+          title: toString(whyChoose.title, 'content.about.whyChoose.title'),
+          subtitle: toString(whyChoose.subtitle, 'content.about.whyChoose.subtitle'),
+          items: toArray(whyChoose.items, 'content.about.whyChoose.items', (item, path) => {
+            const chooseItem = toRecord(item, path);
+            return {
+              emoji: toString(chooseItem.emoji, `${path}.emoji`),
+              title: toString(chooseItem.title, `${path}.title`),
+              description: toString(chooseItem.description, `${path}.description`),
+            };
+          }),
+        };
+      })(),
+      cta: (() => {
+        const cta = toRecord(about.cta, 'content.about.cta');
+        return {
+          message: toString(cta.message, 'content.about.cta.message'),
+          description: toString(cta.description, 'content.about.cta.description'),
+        };
+      })(),
     },
     contact: {
       eyebrow: toString(contact.eyebrow, 'content.contact.eyebrow'),
