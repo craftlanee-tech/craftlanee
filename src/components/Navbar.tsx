@@ -19,7 +19,7 @@ export default function Navbar() {
       <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
         <Link href="/" className="flex items-center gap-3 text-theme-primary">
           <div className="relative h-10 w-10 md:h-12 md:w-12">
-            <Image src="/images/Craftlanee_logo.png" alt="Craftlanee logo" fill sizes="(max-width: 640px) 40px, 48px" className="object-contain" />
+            <Image src="/images/Craftlanee_logo.png" alt="CraftLanee logo" fill sizes="(max-width: 640px) 40px, 48px" className="object-contain" />
           </div>
           <span className="text-lg font-semibold md:text-xl">
             <span className="text-theme-primary">Craft</span>

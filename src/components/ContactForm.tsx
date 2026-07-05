@@ -71,7 +71,7 @@ function escapeHtml(value: string) {
 }
 
 function buildLeadSubject(form: ContactFormState) {
-  return `New Craftlanee Lead: ${form.businessName}`;
+  return `New CraftLanee Inquiry: ${form.businessName}`;
 }
 
 function formatServices(services: string[]) {
@@ -132,7 +132,7 @@ function buildLeadEmailHtml(form: ContactFormState) {
   return `
     <div style="font-family: Arial, sans-serif; color: #172033; line-height: 1.6; max-width: 640px;">
       <div style="background: #111827; color: #ffffff; padding: 24px; border-radius: 14px 14px 0 0;">
-        <p style="margin: 0 0 6px; color: #f59e0b; font-size: 13px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;">Craftlanee Lead Inquiry</p>
+        <p style="margin: 0 0 6px; color: #f59e0b; font-size: 13px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;">CraftLanee Inquiry</p>
         <h2 style="margin: 0; font-size: 24px;">${escapeHtml(subject)}</h2>
       </div>
       <div style="border: 1px solid #e5e7eb; border-top: 0; padding: 24px; border-radius: 0 0 14px 14px; background: #ffffff;">

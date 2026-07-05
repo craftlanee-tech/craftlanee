@@ -1,8 +1,8 @@
-﻿{
-  "siteTitle": "Craftlanee",
+{
+  "siteTitle": "CraftLanee",
   "meta": {
-    "description": "Craftlanee provides IT services, web development, SEO, paid ads, social media marketing, branding, analytics, and growth automation for modern businesses.",
-    "keywords": ["IT services", "digital marketing", "web development", "SEO", "paid ads", "social media marketing", "branding", "analytics"]
+    "description": "CraftLanee transforms ideas into impactful digital solutions through IT consulting, software development, digital marketing, manpower solutions, internships, and collaborative workspaces.",
+    "keywords": ["IT consulting", "software development", "digital marketing", "manpower solutions", "internships", "coworking space", "Kuppam", "business automation"]
   },
   "nav": [
     { "label": "Home", "href": "/" },
@@ -12,231 +12,232 @@
     { "label": "Contact", "href": "/contact" }
   ],
   "hero": {
-    "eyebrow": "IT solutions + digital marketing",
-    "headline": "Websites, campaigns, and systems built to bring your business more qualified leads.",
-    "highlight": "qualified leads",
-    "description": "Craftlanee helps service brands, local businesses, startups, and growing teams launch stronger websites, rank on search, run smarter ads, and automate the customer journey.",
+    "eyebrow": "Connect - Collaborate - Create",
+    "headline": "Crafting Innovation. Building Opportunities. Driving Digital Success.",
+    "highlight": "Digital Success",
+    "description": "At CraftLanee, we transform ideas into impactful digital solutions. From IT consulting and software development to digital marketing, manpower solutions, internships, and coworking spaces, we empower businesses, startups, and professionals to achieve sustainable growth.",
     "actions": [
-      { "label": "Book a Strategy Call", "href": "/contact", "variant": "primary" },
-      { "label": "Explore Services", "href": "/services", "variant": "secondary" }
+      { "label": "Get Started", "href": "/contact", "variant": "primary" },
+      { "label": "Explore Services", "href": "/services", "variant": "secondary" },
+      { "label": "Contact Us", "href": "/contact", "variant": "secondary" }
     ],
     "stats": [
-      { "value": "360+", "label": "Digital growth setup" },
-      { "value": "SEO + Ads", "label": "Acquisition engine" },
-      { "value": "Web + CRM", "label": "Technology stack" }
+      { "value": "36", "label": "Modern workstations" },
+      { "value": "End-to-end", "label": "Digital services" },
+      { "value": "Kuppam", "label": "Andhra Pradesh" }
     ],
-    "focus": ["SEO", "Google Ads", "Social media", "Brand design", "Automation", "Website development"]
+    "focus": ["IT consulting", "Software development", "Digital marketing", "Manpower solutions", "Internships", "Workspace"]
   },
   "services": {
-    "title": "IT and digital marketing services",
-    "subtitle": "Everything your business needs to look credible, attract the right audience, and convert attention into sales conversations.",
+    "title": "Technology, marketing, talent, and workspace solutions",
+    "subtitle": "End-to-end services for businesses, startups, educational institutions, and professionals who want practical support for digital transformation and growth.",
     "groups": [
       {
         "category": "IT Consulting & Technology Solutions",
-        "description": "Technical strategy and software delivery that make your digital systems faster, smarter, and easier to manage.",
+        "description": "We help organizations use technology to improve efficiency, productivity, and business performance.",
         "items": [
-          "E-commerce Development",
-          "Mobile App Development",
-          "Software Development",
-          "UI/UX Design",
+          "Technology Consulting",
+          "Digital Transformation",
           "Cloud Solutions",
+          "IT Infrastructure",
           "Business Automation",
-          "Technical Consulting",
-          "Website Development"
+          "Technical Support",
+          "Website Development",
+          "Software Development"
         ]
       },
       {
         "category": "Digital Marketing Services",
-        "description": "Growth programs designed to attract the right audience, improve visibility, and generate measurable leads.",
+        "description": "Data-driven marketing programs that improve visibility, build trust, and generate meaningful business opportunities.",
         "items": [
-          "Social Media Management",
           "Search Engine Optimization (SEO)",
-          "Meta & Google Ads",
-          "Branding & Strategy",
+          "Social Media Marketing",
+          "Google Ads",
+          "Meta Ads",
+          "Performance Marketing",
           "Content Marketing",
-          "Lead Generation",
-          "Influencer Marketing",
-          "Personal Branding"
+          "Brand Promotion",
+          "Lead Generation"
         ]
       },
       {
         "category": "Creative Services",
-        "description": "Creative production that makes your brand more memorable through design, video, and storytelling.",
+        "description": "Branding, design, and production support that helps businesses communicate clearly and look professional.",
         "items": [
+          "Logo Design",
+          "Brand Identity",
           "Graphic Design",
-          "Video Editing",
-          "Ad Film Production",
-          "Product Photography",
+          "Packaging Design",
+          "Social Media Creatives",
           "Corporate Branding",
-          "Reels & Short Video Creation",
-          "Motion Graphics",
-          "Presentation Design"
+          "Product Photography",
+          "Video Production"
         ]
       },
       {
         "category": "CraftLanee Media Studio",
-        "description": "A professional studio space for premium content production, campaigns, and visual storytelling.",
+        "description": "A collaborative environment for content creation, practical training, hiring support, and focused work.",
         "items": [
-          "Podcasts",
-          "Product Shoots",
+          "Podcast Recording",
+          "YouTube Studio",
+          "Green Screen Studio",
           "Corporate Videos",
-          "Interviews",
-          "Reels & Content Creation",
-          "Brand Promotions",
-          "YouTube Videos",
-          "Training Sessions"
+          "Training & Internship Programs",
+          "Manpower Solutions",
+          "36 Modern Workstations",
+          "Meeting Room & Training Hall"
         ]
       }
     ]
   },
   "portfolio": {
-    "title": "Work built for real business outcomes",
-    "subtitle": "A mix of IT, web, branding, and marketing execution across service businesses and digital-first brands.",
+    "title": "Solutions built around real growth needs",
+    "subtitle": "A focused view of how CraftLanee supports technology delivery, marketing execution, training, hiring, and collaborative work.",
     "items": [
       {
-        "title": "Local Service Growth Stack",
-        "description": "Website redesign, GBP improvements, SEO pages, and lead forms for a service company.",
+        "title": "Digital Transformation Support",
+        "description": "Technology consulting, web development, software systems, cloud solutions, and automation shaped around business goals.",
         "image": "/images/ROI.png",
-        "result": "More calls, clearer tracking"
+        "result": "Efficient, scalable operations"
       },
       {
-        "title": "Salon Booking Experience",
-        "description": "A polished booking-first web experience with service pages, campaign landing pages, and social launch assets.",
+        "title": "Brand & Marketing Growth",
+        "description": "SEO, social media marketing, paid ads, content marketing, brand promotion, and lead generation for stronger visibility.",
         "image": "/images/Danush_Salon.png",
-        "result": "Better appointment flow"
+        "result": "Clearer reach and inquiries"
       },
       {
-        "title": "Eco Brand Launch",
-        "description": "Brand messaging, ecommerce-ready design, launch creatives, and SEO content structure for a new brand.",
+        "title": "Training, Talent & Workspace",
+        "description": "Internship programs, manpower support, media studio access, meeting spaces, and a workspace designed for collaboration.",
         "image": "/images/Eco.png",
-        "result": "Launch-ready presence"
+        "result": "Opportunities for people and teams"
       }
     ]
   },
   "about": {
-    "eyebrow": "Why Craftlanee",
-    "headline": "A practical growth partner for technology, marketing, and brand execution.",
-    "description": "We combine IT delivery with digital marketing strategy, so the website, campaigns, tracking, and follow-up systems work together instead of sitting in separate silos.",
+    "eyebrow": "Who We Are",
+    "headline": "A technology-driven company creating opportunities through innovation and collaboration.",
+    "description": "CraftLanee helps businesses, startups, educational institutions, and professionals succeed through innovation, collaboration, and digital transformation.",
     "values": [
       {
-        "title": "Strategy before execution",
-        "description": "We map the offer, audience, funnel, and channel mix before design or campaign work begins."
+        "title": "Innovation",
+        "description": "We use creativity, technology, and strategic thinking to solve challenges and create better digital outcomes."
       },
       {
-        "title": "Conversion-focused delivery",
-        "description": "Every page, ad, and form is shaped around trust, clarity, speed, and measurable inquiries."
+        "title": "Collaboration",
+        "description": "We work closely with clients, students, professionals, and startups to turn ideas into practical results."
       },
       {
-        "title": "Systems that scale",
-        "description": "We connect tracking, automation, content, and reporting so growth becomes easier to manage."
+        "title": "Customer Success",
+        "description": "Every solution is built with clarity, trust, professionalism, and long-term business value in mind."
       }
     ],
     "whoWeAre": {
       "title": "Who We Are",
-      "paragraph1": "Craftlanee is a team of designers, developers, strategists, and marketers who believe in building digital solutions that actually work. We've worked with startups, service businesses, and growing enterprises to create technology and marketing systems that drive real business results.",
-      "paragraph2": "We're not just service providers—we're growth partners. We dive deep into your business, understand your challenges, and build solutions that are sustainable and scalable. Our approach combines data, creativity, and technical expertise to deliver measurable outcomes.",
+      "paragraph1": "CraftLanee is a technology-driven company dedicated to helping businesses, startups, educational institutions, and professionals succeed through innovation, collaboration, and digital transformation.",
+      "paragraph2": "We believe technology is not just about software. It is about creating opportunities, solving challenges, and building a better future. Located in Kuppam, Andhra Pradesh, CraftLanee serves clients across India with professional IT services, digital marketing, manpower support, training programs, and collaborative workspaces.",
       "stats": [
-        { "value": "500+", "label": "Happy Clients" },
-        { "value": "1000+", "label": "Projects Completed" },
-        { "value": "$50M+", "label": "Revenue Generated" },
-        { "value": "8+", "label": "Years in Business" }
+        { "value": "36", "label": "Modern Workstations" },
+        { "value": "India", "label": "Service Reach" },
+        { "value": "Live", "label": "Project Training" },
+        { "value": "End-to-end", "label": "Business Support" }
       ]
     },
     "direction": {
-      "title": "Our Direction",
-      "subtitle": "Where we're heading and what we're building next",
+      "title": "Our Mission",
+      "subtitle": "How we support organizations and individuals",
       "items": [
         {
-          "phase": "Now",
-          "title": "Full-Stack Digital Growth",
-          "description": "We're expanding our capabilities to offer end-to-end solutions—from strategy and branding to development, marketing, and ongoing optimization."
+          "phase": "Build",
+          "title": "Innovative Technology Solutions",
+          "description": "Deliver practical IT consulting, websites, software, apps, automation, and infrastructure support for growing organizations."
         },
         {
-          "phase": "Next",
-          "title": "AI-Powered Solutions",
-          "description": "Integrating AI and automation into marketing, customer service, and business operations to help companies scale smarter and faster."
+          "phase": "Grow",
+          "title": "Digital Transformation & Business Scale",
+          "description": "Help startups and enterprises improve visibility, modernize operations, and scale with confidence."
         },
         {
-          "phase": "Future",
-          "title": "Global Growth Partner",
-          "description": "Building a network of specialists and tools that help businesses go global, expand markets, and create sustainable competitive advantages."
+          "phase": "Create",
+          "title": "Career Opportunities & Future-Ready Professionals",
+          "description": "Create career opportunities through practical training, internships, live projects, mentorship, and placement support."
         }
       ]
     },
     "whyChoose": {
-      "title": "Why Choose Craftlanee",
-      "subtitle": "What makes us different",
+      "title": "Why Choose CraftLanee",
+      "subtitle": "What makes us a practical partner for digital growth",
       "items": [
         {
-          "emoji": "🎯",
-          "title": "Results-Driven",
-          "description": "We measure success by your growth. Every strategy, design, and campaign is built around deliverable business outcomes."
+          "emoji": "01",
+          "title": "Experienced Professionals",
+          "description": "Our team combines creativity, technical expertise, and strategic thinking to deliver practical solutions."
         },
         {
-          "emoji": "🔗",
-          "title": "Integrated Expertise",
-          "description": "Technology, marketing, and design work together. We break silos so your website, ads, and systems align perfectly."
+          "emoji": "02",
+          "title": "End-to-End Services",
+          "description": "IT consulting, development, marketing, manpower, training, media production, and workspace support come together in one place."
         },
         {
-          "emoji": "📊",
-          "title": "Data & Transparency",
-          "description": "You get real-time dashboards and regular reports. We explain what we're doing and why, so you stay informed every step."
+          "emoji": "03",
+          "title": "Industry-Oriented Training",
+          "description": "Students and fresh graduates learn through live projects, experienced mentors, portfolio development, and career guidance."
         },
         {
-          "emoji": "🤝",
-          "title": "True Partnership",
-          "description": "We treat your goals as our goals. Long-term relationships and mutual growth is how we work, not quick fixes."
+          "emoji": "04",
+          "title": "Transparent Communication",
+          "description": "We keep goals, timelines, and deliverables clear so clients can move forward with confidence."
         },
         {
-          "emoji": "⚡",
-          "title": "Fast Execution",
-          "description": "We move quickly without cutting corners. Agile processes mean you see results faster and adapt based on real data."
+          "emoji": "05",
+          "title": "Timely Project Delivery",
+          "description": "Our process moves from discovery and planning to design, development, launch, and continued support."
         },
         {
-          "emoji": "🌟",
-          "title": "Proven Track Record",
-          "description": "Years of successful projects across industries. Case studies and client testimonials show the real impact we deliver."
+          "emoji": "06",
+          "title": "Long-Term Partnerships",
+          "description": "We focus on trust, professionalism, customer success, and meaningful growth for every client relationship."
         }
       ]
     },
     "cta": {
-      "message": "Let's build something great together",
-      "description": "Whether you need IT solutions, digital marketing, or a complete growth strategy—we're here to help."
+      "message": "Let's transform ideas into successful realities",
+      "description": "Whether you need IT services, digital marketing, manpower support, training, or a collaborative workspace, CraftLanee is here to help."
     }
   },
   "contact": {
-    "eyebrow": "Start your growth plan",
-    "headline": "Tell us what you need: website, SEO, ads, branding, automation, or the full growth stack.",
-    "description": "Share your business goal and current digital setup. We will respond with a practical next step and the right service mix.",
+    "eyebrow": "Contact Us",
+    "headline": "Tell us what you need: IT services, marketing, manpower support, training, workspace, or the full growth stack.",
+    "description": "Share your business goal or professional requirement. We will respond with a practical next step and the right CraftLanee service mix.",
     "form": {
       "name": "Name",
-      "businessName": "Business Name",
+      "businessName": "Business / Organization Name",
       "mobile": "Mobile Number",
       "email": "Email",
       "serviceNeeded": "Service Needed",
-      "message": "What's the business?"
+      "message": "How can CraftLanee help?"
     },
     "details": [
-      { "label": "Email", "values": ["hello@craftlanee.com", "support@craftlanee.com"] },
-      { "label": "Phone", "values": ["+91 99000 00000", "+91 98000 00000"] },
-      { "label": "Location", "values": ["Hyderabad, India", "Bengaluru, India"] }
+      { "label": "Email", "values": ["info@craftlanee.com"] },
+      { "label": "Phone", "values": ["+91 6301469575"] },
+      { "label": "Location", "values": ["Rajiv Colony Circle, 2nd Floor, Kuppam, Andhra Pradesh - 517425"] }
     ]
   },
   "testimonials": [
     {
-      "quote": "Craftlanee gave us a cleaner website, stronger tracking, and campaigns that finally showed where leads were coming from.",
-      "author": "Priya R.",
-      "role": "Founder, Lifestyle Brand"
+      "quote": "CraftLanee was founded with a simple vision: to create opportunities through technology, innovation, and collaboration.",
+      "author": "Kamishetty Mallikarjuna",
+      "role": "Founder & Business Development"
     },
     {
-      "quote": "Their team understood both the technical side and the marketing side. The new funnel made follow-ups much easier.",
-      "author": "Rohan S.",
-      "role": "Operations Lead, Local Services"
+      "quote": "CraftLanee is more than an office. It is a place where students, freelancers, entrepreneurs, startup founders, and businesses can transform ideas into reality.",
+      "author": "CraftLanee Workspace",
+      "role": "Collaborative environment"
     }
   ],
   "footer": {
-    "company": "Craftlanee",
-    "description": "IT services and digital marketing for businesses that need better websites, stronger visibility, and more reliable lead systems.",
+    "company": "CraftLanee",
+    "description": "Technology, marketing, manpower, training, and workspace solutions for businesses, startups, students, and professionals.",
     "links": [
       { "label": "About", "href": "/about" },
       { "label": "Services", "href": "/services" },
@@ -247,6 +248,6 @@
       { "label": "Privacy Policy", "href": "https://docs.google.com/document/d/13M4qlfeYJS7lVpv6dENWsrwmcfrx8hFO/edit" },
       { "label": "Terms of Service", "href": "https://docs.google.com/document/d/1WxTnoq0zd-ErRHPBDwwFLStgO4owz7tW/edit" }
     ],
-    "copyright": "(c) 2026 Craftlanee. All rights reserved."
+    "copyright": "(c) 2026 CraftLanee. All rights reserved."
   }
 }
