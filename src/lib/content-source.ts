@@ -40,29 +40,48 @@ export const rawContent = {
     focus: ['IT consulting', 'Software development', 'Digital marketing', 'Manpower solutions', 'Internships', 'Workspace'],
   },
   services: {
-    title: 'Technology, marketing, talent, and workspace solutions',
+    title: 'Technology, marketing, talent, training, and workspace services',
     subtitle:
-      'End-to-end services for businesses, startups, educational institutions, and professionals who want practical support for digital transformation and growth.',
+      'End-to-end services for businesses, startups, educational institutions, students, and professionals who want practical support for digital transformation and growth.',
     groups: [
       {
-        category: 'IT Consulting & Technology Solutions',
+        category: 'Website Development',
         description:
-          'We help organizations use technology to improve efficiency, productivity, and business performance.',
+          'Modern, responsive, and SEO-optimized websites designed to strengthen your online presence.',
         items: [
-          'Technology Consulting',
-          'Digital Transformation',
-          'Cloud Solutions',
-          'IT Infrastructure',
-          'Business Automation',
-          'Technical Support',
-          'Website Development',
-          'Software Development',
+          'Business Websites',
+          'Corporate Websites',
+          'E-commerce Websites',
+          'Portfolio Websites',
+          'Landing Pages',
+          'Website Maintenance',
+        ],
+      },
+      {
+        category: 'Software Development',
+        description: 'Custom software solutions designed around your business needs.',
+        items: [
+          'ERP Solutions',
+          'CRM Systems',
+          'HRMS',
+          'Inventory Management',
+          'Billing Software',
+          'Custom Applications',
+        ],
+      },
+      {
+        category: 'Mobile App Development',
+        description: 'We build scalable Android and cross-platform applications.',
+        items: [
+          'Android Apps',
+          'Flutter Apps',
+          'Business Applications',
+          'Enterprise Mobility Solutions',
         ],
       },
       {
         category: 'Digital Marketing Services',
-        description:
-          'Data-driven marketing programs that improve visibility, build trust, and generate meaningful business opportunities.',
+        description: 'Grow your business with data-driven digital marketing strategies.',
         items: [
           'Search Engine Optimization (SEO)',
           'Social Media Marketing',
@@ -75,9 +94,8 @@ export const rawContent = {
         ],
       },
       {
-        category: 'Creative Services',
-        description:
-          'Branding, design, and production support that helps businesses communicate clearly and look professional.',
+        category: 'Branding & Creative Design',
+        description: 'Build a memorable brand identity.',
         items: [
           'Logo Design',
           'Brand Identity',
@@ -90,18 +108,65 @@ export const rawContent = {
         ],
       },
       {
-        category: 'CraftLanee Media Studio',
-        description:
-          'A collaborative environment for content creation, practical training, hiring support, and focused work.',
+        category: 'Media Production Studio',
+        description: 'Professional content creation for brands and businesses.',
         items: [
+          'Product Photography',
           'Podcast Recording',
+          'Video Production',
           'YouTube Studio',
           'Green Screen Studio',
           'Corporate Videos',
-          'Training & Internship Programs',
-          'Manpower Solutions',
+        ],
+      },
+      {
+        category: 'Manpower Solutions',
+        description: 'Connecting organizations with the right talent.',
+        items: [
+          'Permanent Staffing',
+          'Contract Staffing',
+          'Campus Recruitment',
+          'Internship Hiring',
+          'Delivery Executive Hiring',
+          'Sales & Marketing Recruitment',
+          'HR Recruitment',
+          'Workforce Management',
+        ],
+      },
+      {
+        category: 'Training & Internship Programs',
+        description: 'Industry-oriented practical learning for students and fresh graduates.',
+        items: [
+          'Digital Marketing',
+          'Web Development',
+          'App Development',
+          'UI/UX Design',
+          'Graphic Design',
+          'Video Editing',
+          'Artificial Intelligence',
+          'Business Development',
+          'Live Projects',
+          'Experienced Mentors',
+          'Internship Certificate',
+          'Portfolio Development',
+          'Placement Assistance',
+          'Career Guidance',
+        ],
+      },
+      {
+        category: 'CraftLanee Workspace',
+        description: 'A collaborative environment designed for innovation.',
+        items: [
           '36 Modern Workstations',
-          'Meeting Room & Training Hall',
+          'Founder Cabin',
+          'HR Cabin',
+          'Meeting Room',
+          'Digital Marketing Studio',
+          'Creative Studio',
+          'High-Speed Wi-Fi',
+          'Discussion Area',
+          'Client Meeting Space',
+          'Training Hall',
         ],
       },
     ],
@@ -257,7 +322,7 @@ export const rawContent = {
     details: [
       { label: 'Email', values: ['info@craftlanee.com'] },
       { label: 'Phone', values: ['+91 6301469575'] },
-      { label: 'Location', values: ['Rajiv Colony Circle, 2nd Floor, Kuppam, Andhra Pradesh - 517425'] },
+      { label: 'Location', values: ['CraftLanee, Rajiv Colony Circle, 2nd Floor, Kuppam, Andhra Pradesh - 517425'] },
     ],
   },
   testimonials: [
