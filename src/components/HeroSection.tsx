@@ -20,7 +20,7 @@ export default function HeroSection() {
             <SectionIntro title={content.hero.headline} description={content.hero.description} />
             <div className="flex flex-wrap gap-3">
               {content.hero.actions.map((action) => (
-                <Button key={action.href} href={action.href} variant={action.variant as 'primary' | 'secondary'}>
+                <Button key={action.label} href={action.href} variant={action.variant as 'primary' | 'secondary'}>
                   {action.label}
                 </Button>
               ))}

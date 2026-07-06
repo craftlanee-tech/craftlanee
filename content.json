@@ -18,7 +18,6 @@
     "actions": [
       { "label": "Get Started", "href": "/contact", "variant": "primary" },
       { "label": "Explore Services", "href": "/services", "variant": "secondary" },
-      { "label": "Contact Us", "href": "/contact", "variant": "secondary" }
     ],
     "stats": [
       { "value": "36", "label": "Modern workstations" },
