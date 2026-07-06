@@ -1,12 +1,12 @@
 'use client';
 
 import Link from 'next/link';
-import Image from 'next/image';
 import { useState } from 'react';
 import { usePathname } from 'next/navigation';
 import { Menu, X } from 'lucide-react';
 import { getContent } from '../lib/content';
 import Button from './Button';
+import Logo from './Logo';
 
 const content = getContent();
 
@@ -18,9 +18,7 @@ export default function Navbar() {
     <header className="sticky top-0 z-50 border-b border-theme bg-theme-surface/70 backdrop-blur-xl">
       <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
         <Link href="/" className="flex items-center text-theme-primary" aria-label="CraftLanee home">
-          <div className="relative h-10 w-36 md:h-12 md:w-44">
-            <Image src="/images/logo.png" alt="CraftLanee logo" fill priority sizes="(max-width: 768px) 144px, 176px" className="object-contain mix-blend-overlay" />
-          </div>
+          <Logo className="h-11 w-40 text-theme-primary md:h-12 md:w-44" />
         </Link>
 
         <nav className="hidden items-center gap-8 md:flex">
