@@ -8,17 +8,18 @@ import { createPageMetadata, createServiceJsonLd, siteName } from '../../lib/seo
 const content = getContent();
 
 export const metadata = createPageMetadata({
-  title: `Services | ${siteName} IT, SEO, Ads, Branding & Automation`,
+  title: `Services | ${siteName} IT, Marketing, Manpower, Training & Workspace`,
   description: content.services.subtitle,
   path: '/services',
   keywords: [
     'IT consulting services',
     'website development services',
-    'SEO services',
-    'Meta Ads agency',
-    'Google Ads agency',
-    'branding services',
+    'software development services',
+    'digital marketing services',
+    'manpower solutions',
+    'internship programs',
     'business automation',
+    'coworking space Kuppam',
   ],
 });
 
@@ -36,7 +37,7 @@ export default function ServicesPage() {
       <section className="relative overflow-hidden bg-hero-gradient px-6 py-20 sm:px-10">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(79,195,255,0.14),transparent_35%)]" />
         <div className="relative mx-auto max-w-6xl">
-          <SectionHeader eyebrow="Services" title="Digital services that help brands grow" description={content.services.subtitle} />
+          <SectionHeader eyebrow="Services" title="Services designed for innovation, growth, and opportunity" description={content.services.subtitle} />
         </div>
       </section>
 

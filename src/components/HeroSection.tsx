@@ -20,7 +20,7 @@ export default function HeroSection() {
             <SectionIntro title={content.hero.headline} description={content.hero.description} />
             <div className="flex flex-wrap gap-3">
               {content.hero.actions.map((action) => (
-                <Button key={action.href} href={action.href} variant={action.variant as 'primary' | 'secondary'}>
+                <Button key={action.label} href={action.href} variant={action.variant as 'primary' | 'secondary'}>
                   {action.label}
                 </Button>
               ))}
@@ -38,7 +38,7 @@ export default function HeroSection() {
           <div className="order-1 lg:order-2 flex items-center justify-center">
             <div className="w-full max-w-[560px] rounded-[24px] border border-theme bg-theme-surface-soft p-3 shadow-glow backdrop-blur-xl">
               <div className="relative overflow-hidden rounded-[18px] border border-theme bg-theme-surface-soft">
-                <Image src="/images/Hero.png" alt="Craftlanee digital marketing illustration" width={840} height={560} className="w-full h-auto object-cover" priority />
+                <Image src="/images/Hero.png" alt="CraftLanee technology and digital solutions illustration" width={840} height={560} className="w-full h-auto object-cover" priority />
               </div>
               <div className="grid gap-2 pt-4 sm:grid-cols-2">
                 {content.hero.focus.map((item) => (

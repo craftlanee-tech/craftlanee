@@ -3,13 +3,16 @@ import { getContent } from '../lib/content';
 import ThemeToggle from './ThemeToggle';
 
 const content = getContent();
+const emailDetail = content.contact.details.find((detail) => detail.label === 'Email');
+const phoneDetail = content.contact.details.find((detail) => detail.label === 'Phone');
+const locationDetail = content.contact.details.find((detail) => detail.label === 'Location');
 
 export default function Footer() {
   return (
     <footer className="bg-theme-surface-alt px-6 py-16 text-theme-secondary">
       <div className="mx-auto grid max-w-7xl gap-12 lg:grid-cols-[1.4fr_0.7fr_0.7fr_1fr]">
         <div className="space-y-4">
-          <p className="text-xl font-semibold text-theme-primary">Craftlanee</p>
+          <p className="text-xl font-semibold text-theme-primary">{content.footer.company}</p>
           <p className="max-w-sm leading-7 text-theme-secondary">{content.footer.description}</p>
         </div>
 
@@ -37,9 +40,9 @@ export default function Footer() {
 
         <div className="space-y-4">
           <p className="text-sm font-semibold uppercase tracking-[0.28em] text-brand-primary">Connect</p>
-          <p className="text-sm leading-7 text-theme-secondary">hello@craftlanee.com</p>
-          <p className="text-sm leading-7 text-theme-secondary">+91 99000 00000</p>
-          <p className="text-sm leading-7 text-theme-secondary">Hyderabad, India</p>
+          {emailDetail?.values[0] && <p className="text-sm leading-7 text-theme-secondary">{emailDetail.values[0]}</p>}
+          {phoneDetail?.values[0] && <p className="text-sm leading-7 text-theme-secondary">{phoneDetail.values[0]}</p>}
+          {locationDetail?.values[0] && <p className="text-sm leading-7 text-theme-secondary">{locationDetail.values[0]}</p>}
         </div>
 
         <div className="lg:col-span-1">

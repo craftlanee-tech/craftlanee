@@ -5,10 +5,10 @@ import PortfolioGrid from '../../components/PortfolioGrid';
 import { createPageMetadata, siteName } from '../../lib/seo';
 
 export const metadata = createPageMetadata({
-  title: `Portfolio | ${siteName} Web Design & Digital Marketing Work`,
-  description: 'Explore Craftlanee projects across websites, brand systems, SEO, ads, and digital growth campaigns for modern businesses.',
+  title: `Portfolio | ${siteName} Technology, Marketing & Workspace Solutions`,
+  description: 'Explore how CraftLanee supports technology delivery, marketing execution, training, hiring, and collaborative workspace needs.',
   path: '/portfolio',
-  keywords: ['web design portfolio', 'digital marketing portfolio', 'SEO case studies', 'brand launch work', 'business growth projects'],
+  keywords: ['technology solutions', 'digital marketing solutions', 'training programs', 'manpower support', 'workspace Kuppam'],
   image: '/images/ROI.png',
 });
 
@@ -21,8 +21,8 @@ export default function PortfolioPage() {
         <div className="mx-auto max-w-6xl">
           <SectionHeader
             eyebrow="Portfolio"
-            title="Clean digital work for growing brands"
-            description="A focused look at websites, brand systems, and growth campaigns built with clarity, polish, and measurable outcomes."
+            title="Practical solutions for businesses and professionals"
+            description="A focused look at technology, marketing, training, talent, and workspace support built around real growth needs."
           />
         </div>
       </section>

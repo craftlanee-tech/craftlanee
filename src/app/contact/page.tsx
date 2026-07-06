@@ -8,10 +8,10 @@ import { createPageMetadata, siteName } from '../../lib/seo';
 const content = getContent();
 
 export const metadata = createPageMetadata({
-  title: `Contact ${siteName} | Start Your Website, SEO or Marketing Project`,
+  title: `Contact ${siteName} | Start Your Technology, Marketing, Training or Workspace Inquiry`,
   description: content.contact.description,
   path: '/contact',
-  keywords: ['contact digital marketing agency', 'website project inquiry', 'SEO consultation', 'Google Ads consultation', 'business growth consultation'],
+  keywords: ['contact CraftLanee', 'IT services inquiry', 'digital marketing inquiry', 'manpower support', 'internship inquiry', 'workspace Kuppam'],
 });
 
 function getContactHref(label: string, value: string) {

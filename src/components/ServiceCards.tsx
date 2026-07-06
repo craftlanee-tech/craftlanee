@@ -2,16 +2,24 @@
 
 import type { ReactNode } from 'react';
 import Card from './Card';
-import { BarChart3, Laptop, Target, TrendingUp } from 'lucide-react';
+import { BarChart3, Building2, Camera, Code2, GraduationCap, Laptop, Palette, Smartphone, Target, Users } from 'lucide-react';
 import { getContent } from '../lib/content';
 
 const content = getContent();
 
 const icons: Record<string, ReactNode> = {
   'IT Consulting & Technology Solutions': <Laptop size={26} />,
+  'Website Development': <Laptop size={26} />,
+  'Software Development': <Code2 size={26} />,
+  'Mobile App Development': <Smartphone size={26} />,
   'Digital Marketing Services': <Target size={26} />,
-  'Creative Services': <TrendingUp size={26} />,
+  'Branding & Creative Design': <Palette size={26} />,
+  'Creative Services': <Palette size={26} />,
+  'Media Production Studio': <Camera size={26} />,
   'CraftLanee Media Studio': <BarChart3 size={26} />,
+  'Manpower Solutions': <Users size={26} />,
+  'Training & Internship Programs': <GraduationCap size={26} />,
+  'CraftLanee Workspace': <Building2 size={26} />,
 };
 
 export default function ServiceCards() {

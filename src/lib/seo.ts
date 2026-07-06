@@ -38,7 +38,7 @@ export function createPageMetadata({ title, description, path = '/', keywords = 
       images: [
         {
           url: imageUrl,
-          alt: `${siteName} digital marketing and IT services`,
+          alt: `${siteName} technology, marketing, manpower, training, and workspace solutions`,
         },
       ],
       locale: 'en_IN',
@@ -78,7 +78,7 @@ export function createOrganizationJsonLd() {
           addressCountry: 'IN',
         }
       : undefined,
-    areaServed: ['India', 'Hyderabad', 'Bengaluru'],
+    areaServed: ['India', 'Kuppam', 'Andhra Pradesh'],
     serviceType: content.services.groups.flatMap((group) => group.items),
     sameAs: [],
   };

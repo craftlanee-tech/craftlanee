@@ -11,17 +11,18 @@ import { getContent } from '../lib/content';
 const content = getContent();
 
 export const metadata = createPageMetadata({
-  title: `${siteName} | IT Services, Web Development & Digital Marketing`,
+  title: `${siteName} | Technology, Marketing, Training & Workspace Solutions`,
   description: content.hero.description,
   path: '/',
   keywords: [
-    'IT services for businesses',
-    'digital marketing agency',
-    'website development',
-    'lead generation services',
-    'SEO and ads agency',
-    'Craftlanee',
-    'craftlane',
+    'IT consulting for businesses',
+    'software development company',
+    'digital marketing services',
+    'manpower solutions',
+    'internship programs',
+    'workspace in Kuppam',
+    'CraftLanee',
+    'craftlanee',
   ],
 });
 
