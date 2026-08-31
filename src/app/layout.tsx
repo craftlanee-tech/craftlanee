@@ -1,9 +1,23 @@
 import type { Metadata } from 'next';
+import { Inter, Plus_Jakarta_Sans } from 'next/font/google';
 import './globals.css';
 import { getContent } from '../lib/content';
 import { createOrganizationJsonLd, createPageMetadata, createWebsiteJsonLd, siteName, siteUrl } from '../lib/seo';
 
 const content = getContent();
+
+const bodyFont = Inter({
+  subsets: ['latin'],
+  variable: '--font-body',
+  display: 'swap',
+});
+
+const displayFont = Plus_Jakarta_Sans({
+  subsets: ['latin'],
+  weight: ['500', '600', '700', '800'],
+  variable: '--font-display',
+  display: 'swap',
+});
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
@@ -45,7 +59,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   const websiteJsonLd = createWebsiteJsonLd();
 
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en" suppressHydrationWarning data-scroll-behavior="smooth" className={`${bodyFont.variable} ${displayFont.variable}`}>
       <body>
         <script
           type="application/ld+json"

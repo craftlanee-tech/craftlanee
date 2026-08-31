@@ -286,7 +286,8 @@
     "details": [
       { "label": "Email", "values": ["info@craftlanee.com"] },
       { "label": "Phone", "values": ["+91 6301469575"] },
-      { "label": "Location", "values": ["CraftLanee, Rajiv Colony Circle, Kuppam, Andhra Pradesh - 517425"] }
+      { "label": "Location", "values": ["Rajiv Colony Circle, 2nd Floor, Kuppam, Andhra Pradesh - 517425"] },
+      { "label": "Hours", "values": ["Mon - Sat: 9:00 AM - 7:00 PM", "Sunday: Closed"] }
     ]
   },
   "testimonials": [

@@ -1,7 +1,12 @@
 import Navbar from '../../components/Navbar';
 import Footer from '../../components/Footer';
+import PageFooter from '../../components/PageFooter';
 import SectionHeader from '../../components/SectionHeader';
-import ServiceCards from '../../components/ServiceCards';
+import ServicesShowcase from '../../components/ServicesShowcase';
+import GradientMesh from '../../components/GradientMesh';
+import HeroImage from '../../components/HeroImage';
+import Reveal from '../../components/Reveal';
+import { Lightbulb } from 'lucide-react';
 import { getContent } from '../../lib/content';
 import { createPageMetadata, createServiceJsonLd, siteName } from '../../lib/seo';
 
@@ -34,14 +39,27 @@ export default function ServicesPage() {
       />
       <Navbar />
 
-      <section className="relative overflow-hidden bg-hero-gradient px-6 py-20 sm:px-10">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(79,195,255,0.14),transparent_35%)]" />
-        <div className="relative mx-auto max-w-6xl">
-          <SectionHeader eyebrow="Services" title="Services designed for innovation, growth, and opportunity" description={content.services.subtitle} />
+      <section className="relative overflow-hidden bg-hero-gradient px-6 py-20 sm:px-10 sm:py-28">
+        <GradientMesh />
+        <div className="relative mx-auto max-w-7xl">
+          <div className="grid gap-12 lg:grid-cols-[1.05fr_0.95fr] lg:items-center">
+            <Reveal>
+              <SectionHeader eyebrow="Services" title="Services designed for innovation, growth, and opportunity" description={content.services.subtitle} />
+            </Reveal>
+
+            <HeroImage
+              src="/images/port.png"
+              alt="Ideas engineered into connected technology solutions"
+              badgeIcon={Lightbulb}
+              badgeLabel="Approach"
+              badgeValue="Ideas engineered into systems"
+            />
+          </div>
         </div>
       </section>
 
-      <ServiceCards />
+      <ServicesShowcase />
+      <PageFooter />
       <Footer />
     </main>
   );

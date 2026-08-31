@@ -1,7 +1,6 @@
 import Navbar from '../components/Navbar';
 import HeroSection from '../components/HeroSection';
 import ServiceCards from '../components/ServiceCards';
-import PortfolioGrid from '../components/PortfolioGrid';
 import TestimonialSection from '../components/TestimonialSection';
 import Footer from '../components/Footer';
 import PageFooter from '../components/PageFooter';
@@ -32,7 +31,6 @@ export default function HomePage() {
       <Navbar />
       <HeroSection />
       <ServiceCards />
-      <PortfolioGrid />
       <TestimonialSection />
       <PageFooter />
       <Footer />

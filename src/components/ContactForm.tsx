@@ -399,7 +399,7 @@ export default function ContactForm() {
   };
 
   return (
-    <form noValidate onSubmit={handleSubmit} className="space-y-6 rounded-[32px] border border-theme bg-theme-surface-soft p-8 shadow-glow backdrop-blur-xl">
+    <form noValidate onSubmit={handleSubmit} className="shine-border space-y-6 rounded-[32px] border border-theme bg-theme-surface-soft p-8 shadow-glow backdrop-blur-xl">
       <div className="grid gap-6 md:grid-cols-2">
         <div className="space-y-1">
           <label htmlFor="name" className="text-sm font-medium text-theme-primary">{content.contact.form.name}</label>
@@ -538,7 +538,7 @@ export default function ContactForm() {
             onClick={toggleSpeechInput}
             className={`absolute bottom-4 right-4 inline-flex h-11 w-11 items-center justify-center rounded-full border transition ${
               isListening
-                ? 'border-brand-primary bg-brand-primary text-black'
+                ? 'border-brand-primary bg-brand-primary text-white'
                 : 'border-theme bg-theme-surface text-theme-primary hover:border-brand-primary/60 hover:text-brand-primary'
             } disabled:cursor-not-allowed disabled:opacity-45`}
             title={speechSupported ? 'Speak business details' : 'Voice input is not supported in this browser'}

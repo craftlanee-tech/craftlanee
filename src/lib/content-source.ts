@@ -18,7 +18,6 @@ export const rawContent = {
     { label: 'Home', href: '/' },
     { label: 'About', href: '/about' },
     { label: 'Services', href: '/services' },
-    { label: 'Portfolio', href: '/portfolio' },
     { label: 'Contact', href: '/contact' },
   ],
   hero: {
@@ -171,34 +170,29 @@ export const rawContent = {
       },
     ],
   },
-  portfolio: {
-    title: 'Solutions built around real growth needs',
-    subtitle:
-      'A focused view of how CraftLanee supports technology delivery, marketing execution, training, hiring, and collaborative work.',
-    items: [
-      {
-        title: 'Digital Transformation Support',
-        description:
-          'Technology consulting, web development, software systems, cloud solutions, and automation shaped around business goals.',
-        image: '/images/ROI.png',
-        result: 'Efficient, scalable operations',
-      },
-      {
-        title: 'Brand & Marketing Growth',
-        description:
-          'SEO, social media marketing, paid ads, content marketing, brand promotion, and lead generation for stronger visibility.',
-        image: '/images/Danush_Salon.png',
-        result: 'Clearer reach and inquiries',
-      },
-      {
-        title: 'Training, Talent & Workspace',
-        description:
-          'Internship programs, manpower support, media studio access, meeting spaces, and a workspace designed for collaboration.',
-        image: '/images/Eco.png',
-        result: 'Opportunities for people and teams',
-      },
-    ],
-  },
+  projects: [
+    {
+      title: 'Digital Transformation Support',
+      description:
+        'Technology consulting, web development, software systems, cloud solutions, and automation shaped around business goals.',
+      image: '/images/ROI.png',
+      result: 'Efficient, scalable operations',
+    },
+    {
+      title: 'Brand & Marketing Growth',
+      description:
+        'SEO, social media marketing, paid ads, content marketing, brand promotion, and lead generation for stronger visibility.',
+      image: '/images/Danush_Salon.png',
+      result: 'Clearer reach and inquiries',
+    },
+    {
+      title: 'Training, Talent & Workspace',
+      description:
+        'Internship programs, manpower support, media studio access, meeting spaces, and a workspace designed for collaboration.',
+      image: '/images/Eco.png',
+      result: 'Opportunities for people and teams',
+    },
+  ],
   about: {
     eyebrow: 'Who We Are',
     headline: 'A technology-driven company creating opportunities through innovation and collaboration.',
@@ -219,6 +213,11 @@ export const rawContent = {
         title: 'Customer Success',
         description:
           'Every solution is built with clarity, trust, professionalism, and long-term business value in mind.',
+      },
+      {
+        title: 'Integrity',
+        description:
+          'We communicate honestly, deliver on our commitments, and build every partnership on transparency and trust.',
       },
     ],
     whoWeAre: {
@@ -322,7 +321,8 @@ export const rawContent = {
     details: [
       { label: 'Email', values: ['info@craftlanee.com'] },
       { label: 'Phone', values: ['+91 6301469575'] },
-      { label: 'Location', values: ['CraftLanee, Rajiv Colony Circle, 2nd Floor, Kuppam, Andhra Pradesh - 517425'] },
+      { label: 'Location', values: ['Rajiv Colony Circle, 2nd Floor, Kuppam, Andhra Pradesh - 517425'] },
+      { label: 'Hours', values: ['Mon - Sat: 9:00 AM - 7:00 PM', 'Sunday: Closed'] },
     ],
   },
   testimonials: [
@@ -346,7 +346,6 @@ export const rawContent = {
     links: [
       { label: 'About', href: '/about' },
       { label: 'Services', href: '/services' },
-      { label: 'Portfolio', href: '/portfolio' },
       { label: 'Contact', href: '/contact' },
     ],
     legal: [

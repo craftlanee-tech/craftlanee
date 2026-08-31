@@ -35,16 +35,12 @@ export type Content = {
       items: string[];
     }[];
   };
-  portfolio: {
+  projects: {
     title: string;
-    subtitle: string;
-    items: {
-      title: string;
-      description: string;
-      image: string;
-      result: string;
-    }[];
-  };
+    description: string;
+    image: string;
+    result: string;
+  }[];
   about: {
     eyebrow: string;
     headline: string;
@@ -205,7 +201,6 @@ export function convertContent(rawContent: unknown): Content {
   const meta = toRecord(content.meta, 'content.meta');
   const hero = toRecord(content.hero, 'content.hero');
   const services = toRecord(content.services, 'content.services');
-  const portfolio = toRecord(content.portfolio, 'content.portfolio');
   const about = toRecord(content.about, 'content.about');
   const contact = toRecord(content.contact, 'content.contact');
   const contactForm = toRecord(contact.form, 'content.contact.form');
@@ -240,20 +235,16 @@ export function convertContent(rawContent: unknown): Content {
         };
       }),
     },
-    portfolio: {
-      title: toString(portfolio.title, 'content.portfolio.title'),
-      subtitle: toString(portfolio.subtitle, 'content.portfolio.subtitle'),
-      items: toArray(portfolio.items, 'content.portfolio.items', (item, path) => {
-        const portfolioItem = toRecord(item, path);
+    projects: toArray(content.projects, 'content.projects', (item, path) => {
+      const project = toRecord(item, path);
 
-        return {
-          title: toString(portfolioItem.title, `${path}.title`),
-          description: toString(portfolioItem.description, `${path}.description`),
-          image: toString(portfolioItem.image, `${path}.image`),
-          result: toString(portfolioItem.result, `${path}.result`),
-        };
-      }),
-    },
+      return {
+        title: toString(project.title, `${path}.title`),
+        description: toString(project.description, `${path}.description`),
+        image: toString(project.image, `${path}.image`),
+        result: toString(project.result, `${path}.result`),
+      };
+    }),
     about: {
       eyebrow: toString(about.eyebrow, 'content.about.eyebrow'),
       headline: toString(about.headline, 'content.about.headline'),

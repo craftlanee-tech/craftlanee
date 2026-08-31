@@ -1,8 +1,22 @@
 'use client';
 
-import type { ReactNode } from 'react';
+import { useState, type ReactNode } from 'react';
 import Card from './Card';
-import { BarChart3, Building2, Camera, Code2, GraduationCap, Laptop, Palette, Smartphone, Target, Users } from 'lucide-react';
+import Marquee from './Marquee';
+import Reveal, { RevealGroup, RevealItem } from './Reveal';
+import {
+  BarChart3,
+  Building2,
+  Camera,
+  ChevronDown,
+  Code2,
+  GraduationCap,
+  Laptop,
+  Palette,
+  Smartphone,
+  Target,
+  Users,
+} from 'lucide-react';
 import { getContent } from '../lib/content';
 
 const content = getContent();
@@ -22,30 +36,68 @@ const icons: Record<string, ReactNode> = {
   'CraftLanee Workspace': <Building2 size={26} />,
 };
 
+const VISIBLE_COUNT = 6;
+
+type ServiceGroup = (typeof content.services.groups)[number];
+
+function ServiceCard({ group }: { group: ServiceGroup }) {
+  const [expanded, setExpanded] = useState(false);
+  const remaining = group.items.length - VISIBLE_COUNT;
+  const hasMore = remaining > 0;
+  const visibleItems = expanded ? group.items : group.items.slice(0, VISIBLE_COUNT);
+
+  return (
+    <Card
+      icon={icons[group.category]}
+      title={group.category}
+      description={group.description}
+      className="h-full"
+      ctaHref="/contact"
+    >
+      <div className="mt-6 grid gap-2">
+        {visibleItems.map((item) => (
+          <div key={item} className="flex items-center gap-2 text-sm text-theme-secondary">
+            <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-brand-primary" />
+            <span>{item}</span>
+          </div>
+        ))}
+      </div>
+      {hasMore ? (
+        <button
+          type="button"
+          aria-expanded={expanded}
+          onClick={() => setExpanded((value) => !value)}
+          className="mt-3 flex items-center gap-1 text-xs font-semibold uppercase tracking-[0.1em] text-brand-primary transition hover:text-brand-accent"
+        >
+          {expanded ? 'Show less' : `+${remaining} more`}
+          <ChevronDown size={14} className={`transition-transform duration-300 ${expanded ? 'rotate-180' : ''}`} />
+        </button>
+      ) : null}
+    </Card>
+  );
+}
+
 export default function ServiceCards() {
   return (
     <section className="bg-theme-surface-alt px-6 py-20 sm:px-10">
       <div className="mx-auto max-w-7xl">
-        <div className="mb-12 max-w-3xl space-y-4">
+        <Reveal className="mb-8 max-w-3xl space-y-4">
           <p className="text-sm font-semibold uppercase tracking-[0.28em] text-brand-primary">Services</p>
-          <h2 className="text-3xl font-semibold text-theme-primary sm:text-4xl">{content.services.title}</h2>
-          <p className="max-w-2xl leading-7 text-theme-secondary">{content.services.subtitle}</p>
-        </div>
+          <h2 className="font-display text-3xl font-bold text-theme-primary sm:text-4xl">{content.services.title}</h2>
+          <p className="max-w-2xl text-justify leading-7 text-theme-secondary">{content.services.subtitle}</p>
+        </Reveal>
 
-        <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-3">
+        <Reveal delay={0.1} className="mb-12 border-y border-theme py-4">
+          <Marquee items={content.services.groups.map((group) => group.category)} />
+        </Reveal>
+
+        <RevealGroup className="grid gap-5 md:grid-cols-2 xl:grid-cols-3">
           {content.services.groups.map((group) => (
-            <Card key={group.category} icon={icons[group.category]} title={group.category} description={group.description}>
-              <div className="mt-6 grid gap-2">
-                {group.items.map((item) => (
-                  <div key={item} className="flex items-center gap-2 text-sm text-theme-secondary">
-                    <span className="h-1.5 w-1.5 rounded-full bg-brand-primary" />
-                    <span>{item}</span>
-                  </div>
-                ))}
-              </div>
-            </Card>
+            <RevealItem key={group.category} className="h-full">
+              <ServiceCard group={group} />
+            </RevealItem>
           ))}
-        </div>
+        </RevealGroup>
       </div>
     </section>
   );
