@@ -231,41 +231,53 @@ export default function AboutPage() {
             {content.projects.map((project, idx) => {
               const Icon = directionIcons[idx] ?? Code2;
 
+              const card = (
+                <article className="shine-border group flex h-full flex-col overflow-hidden rounded-2xl border border-theme bg-theme-surface shadow-[0_1px_2px_rgba(0,0,0,0.04),0_12px_28px_rgba(0,0,0,0.06)] transition-all duration-300 hover:-translate-y-1.5 hover:border-brand-primary/40 hover:shadow-glow">
+                  <div className="relative aspect-[4/3] overflow-hidden bg-theme-surface-alt">
+                    <Image
+                      src={project.image}
+                      alt={project.title}
+                      fill
+                      sizes="(max-width: 768px) 100vw, 33vw"
+                      className="object-contain p-6 transition duration-500 group-hover:scale-105"
+                    />
+
+                    <div className="absolute left-3 top-3 flex h-9 w-9 items-center justify-center rounded-xl border border-theme bg-theme-surface/95 shadow-sm backdrop-blur-sm">
+                      <Icon size={16} className="text-brand-primary" />
+                    </div>
+                  </div>
+
+                  <div className="flex flex-1 flex-col space-y-4 p-6">
+                    <div className="flex items-start justify-between gap-4">
+                      <p className="text-xs font-semibold uppercase tracking-[0.18em] text-brand-primary">
+                        Project {String(idx + 1).padStart(2, '0')}
+                      </p>
+                      {project.link ? (
+                        <ArrowUpRight size={18} className="shrink-0 text-theme-muted transition duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-brand-primary" />
+                      ) : null}
+                    </div>
+                    <div>
+                      <h3 className="font-display text-xl font-semibold leading-tight text-theme-primary">{project.title}</h3>
+                      {project.client ? <p className="mt-1 text-xs font-medium text-theme-muted">Client: {project.client}</p> : null}
+                    </div>
+                    <p className="flex-1 text-sm leading-7 text-theme-secondary">{project.description}</p>
+                    <div className="border-t border-theme pt-4">
+                      <p className="text-xs font-semibold uppercase tracking-[0.18em] text-theme-muted">Outcome</p>
+                      <p className="mt-1 text-sm font-semibold text-theme-primary">{project.result}</p>
+                    </div>
+                  </div>
+                </article>
+              );
+
               return (
                 <RevealItem key={project.title}>
-                  <article className="shine-border group flex h-full flex-col overflow-hidden rounded-2xl border border-theme bg-theme-surface shadow-[0_1px_2px_rgba(0,0,0,0.04),0_12px_28px_rgba(0,0,0,0.06)] transition-all duration-300 hover:-translate-y-1.5 hover:border-brand-primary/40 hover:shadow-glow">
-                    <div className="relative aspect-[4/3] overflow-hidden bg-theme-surface-alt">
-                      <Image
-                        src={project.image}
-                        alt={project.title}
-                        fill
-                        sizes="(max-width: 768px) 100vw, 33vw"
-                        className="object-contain p-6 transition duration-500 group-hover:scale-105"
-                      />
-
-                      <div className="absolute left-3 top-3 flex h-9 w-9 items-center justify-center rounded-xl border border-theme bg-theme-surface/95 shadow-sm backdrop-blur-sm">
-                        <Icon size={16} className="text-brand-primary" />
-                      </div>
-                    </div>
-
-                    <div className="flex flex-1 flex-col space-y-4 p-6">
-                      <div className="flex items-start justify-between gap-4">
-                        <p className="text-xs font-semibold uppercase tracking-[0.18em] text-brand-primary">
-                          Project {String(idx + 1).padStart(2, '0')}
-                        </p>
-                        <ArrowUpRight size={18} className="shrink-0 text-theme-muted transition duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-brand-primary" />
-                      </div>
-                      <div>
-                        <h3 className="font-display text-xl font-semibold leading-tight text-theme-primary">{project.title}</h3>
-                        {project.client ? <p className="mt-1 text-xs font-medium text-theme-muted">Client: {project.client}</p> : null}
-                      </div>
-                      <p className="flex-1 text-sm leading-7 text-theme-secondary">{project.description}</p>
-                      <div className="border-t border-theme pt-4">
-                        <p className="text-xs font-semibold uppercase tracking-[0.18em] text-theme-muted">Outcome</p>
-                        <p className="mt-1 text-sm font-semibold text-theme-primary">{project.result}</p>
-                      </div>
-                    </div>
-                  </article>
+                  {project.link ? (
+                    <a href={project.link} target="_blank" rel="noreferrer" className="block h-full">
+                      {card}
+                    </a>
+                  ) : (
+                    card
+                  )}
                 </RevealItem>
               );
             })}
