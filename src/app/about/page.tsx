@@ -11,6 +11,7 @@ import { getContent } from '../../lib/content';
 import { createPageMetadata, siteName } from '../../lib/seo';
 import SoundHover from '../../components/SoundHover';
 import StepConnector from '../../components/StepConnector';
+import WhyChooseShowcase from '../../components/WhyChooseShowcase';
 import {
   ArrowRight,
   ArrowUpRight,
@@ -77,6 +78,18 @@ export default function AboutPage() {
   const statIcons = [Building2, Globe, Zap, Users];
   const directionIcons = [Code2, TrendingUp, GraduationCap];
   const whyChooseIcons = [Award, Layers, BookOpen, MessageCircle, Timer, Handshake];
+  const whyChooseCards = whyChooseItems.map((item, idx) => {
+    const Icon = whyChooseIcons[idx] ?? Sparkles;
+
+    return {
+      title: item.title,
+      description: item.description,
+      icon: <Icon size={22} />,
+      watermarkIcon: (
+        <Icon className="pointer-events-none absolute -right-4 -top-4 h-28 w-28 text-brand-primary/[0.06] transition-transform duration-500 group-hover:scale-110" />
+      ),
+    };
+  });
 
   return (
     <main className="min-h-screen bg-theme-background text-theme-primary">
@@ -284,7 +297,7 @@ export default function AboutPage() {
               <div className="shine-border relative aspect-[4/5] overflow-hidden rounded-[28px] border border-theme shadow-glow-lg">
                 <Image
                   src="/images/Founder.jpeg"
-                  alt="Kamishetty Mallikarjuna, Founder of CraftLanee"
+                  alt={`${content.about.founder.name}, Founder of CraftLanee`}
                   fill
                   sizes="(max-width: 1024px) 100vw, 400px"
                   className="object-cover"
@@ -296,18 +309,18 @@ export default function AboutPage() {
             <Reveal direction="right" delay={0.1} className="space-y-6">
               <p className="text-sm font-semibold uppercase tracking-[0.28em] text-brand-primary">Leadership</p>
               <div>
-                <h2 className="font-display text-3xl font-bold text-theme-primary sm:text-4xl">Kamishetty Mallikarjuna</h2>
-                <p className="mt-1 text-theme-muted">Founder & Business Development</p>
+                <h2 className="font-display text-3xl font-bold text-theme-primary sm:text-4xl">{content.about.founder.name}</h2>
+                <p className="mt-1 text-theme-muted">{content.about.founder.role}</p>
               </div>
 
               <div className="relative rounded-2xl border border-brand-primary/20 bg-brand-primary/5 p-6">
                 <Quote className="absolute -left-2 -top-2 h-8 w-8 text-brand-primary/30" />
                 <p className="font-display text-xl italic leading-relaxed text-theme-primary sm:text-2xl">
-                  &ldquo;The One who burns like fire and melts like ice.&rdquo;
+                  &ldquo;{content.about.founder.quote}&rdquo;
                 </p>
               </div>
 
-              <p className="text-lg text-justify leading-8 text-theme-secondary">{content.testimonials[0].quote}</p>
+              <p className="text-lg text-justify leading-8 text-theme-secondary">{content.about.founder.bio}</p>
             </Reveal>
           </div>
         </div>
@@ -356,30 +369,12 @@ export default function AboutPage() {
       {/* Why Choose CraftLanee Section */}
       <section className="bg-theme-surface-alt px-6 py-20 sm:px-10">
         <div className="mx-auto max-w-7xl">
-          <Reveal className="mb-12 text-center">
-            <h2 className="font-display text-4xl font-bold md:text-5xl">{content.about.whyChoose.title}</h2>
-            <p className="mt-4 text-justify text-lg text-theme-secondary">{content.about.whyChoose.subtitle}</p>
-          </Reveal>
-
-          <RevealGroup className="grid gap-8 lg:grid-cols-3">
-            {whyChooseItems.map((item, idx) => {
-              const Icon = whyChooseIcons[idx] ?? Sparkles;
-
-              return (
-                <RevealItem key={idx}>
-                  <SoundHover className="shine-border group relative h-full overflow-hidden rounded-2xl border border-theme bg-theme-background p-8 backdrop-blur-sm transition-all duration-300 hover:-translate-y-1.5 hover:border-brand-primary/40 hover:shadow-glow">
-                    <Icon className="pointer-events-none absolute -right-4 -top-4 h-28 w-28 text-brand-primary/[0.06] transition-transform duration-500 group-hover:scale-110" />
-
-                    <div className="relative flex h-12 w-12 items-center justify-center rounded-2xl bg-brand-primary/15 text-brand-primary transition-transform duration-300 group-hover:-rotate-6 group-hover:scale-110">
-                      <Icon size={22} />
-                    </div>
-                    <h3 className="relative mt-4 text-xl font-semibold text-theme-primary">{item.title}</h3>
-                    <p className="relative mt-3 text-justify leading-7 text-theme-secondary">{item.description}</p>
-                  </SoundHover>
-                </RevealItem>
-              );
-            })}
-          </RevealGroup>
+          <WhyChooseShowcase
+            eyebrow="Why Choose Us"
+            title={content.about.whyChoose.title}
+            subtitle={content.about.whyChoose.subtitle}
+            cards={whyChooseCards}
+          />
         </div>
       </section>
 

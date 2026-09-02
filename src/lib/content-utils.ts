@@ -41,10 +41,30 @@ export type Content = {
     image: string;
     result: string;
   }[];
+  products: {
+    eyebrow: string;
+    title: string;
+    subtitle: string;
+    items: {
+      title: string;
+      tag: string;
+      description: string;
+      highlight: string;
+      highlights: string[];
+      image: string;
+      link: string;
+    }[];
+  };
   about: {
     eyebrow: string;
     headline: string;
     description: string;
+    founder: {
+      name: string;
+      role: string;
+      quote: string;
+      bio: string;
+    };
     values: {
       title: string;
       description: string;
@@ -102,6 +122,8 @@ export type Content = {
     quote: string;
     author: string;
     role: string;
+    service?: string;
+    link?: string;
   }[];
   footer: {
     company: string;
@@ -124,6 +146,14 @@ function toRecord(value: unknown, path: string): UnknownRecord {
   }
 
   throw new Error(`Invalid content at ${path}: expected an object.`);
+}
+
+function toOptionalString(value: unknown, path: string): string | undefined {
+  if (value === undefined) {
+    return undefined;
+  }
+
+  return toString(value, path);
 }
 
 function toString(value: unknown, path: string): string {
@@ -245,10 +275,39 @@ export function convertContent(rawContent: unknown): Content {
         result: toString(project.result, `${path}.result`),
       };
     }),
+    products: (() => {
+      const products = toRecord(content.products, 'content.products');
+      return {
+        eyebrow: toString(products.eyebrow, 'content.products.eyebrow'),
+        title: toString(products.title, 'content.products.title'),
+        subtitle: toString(products.subtitle, 'content.products.subtitle'),
+        items: toArray(products.items, 'content.products.items', (item, path) => {
+          const product = toRecord(item, path);
+          return {
+            title: toString(product.title, `${path}.title`),
+            tag: toString(product.tag, `${path}.tag`),
+            description: toString(product.description, `${path}.description`),
+            highlight: toString(product.highlight, `${path}.highlight`),
+            highlights: toArray(product.highlights, `${path}.highlights`, toString),
+            image: toString(product.image, `${path}.image`),
+            link: toString(product.link, `${path}.link`),
+          };
+        }),
+      };
+    })(),
     about: {
       eyebrow: toString(about.eyebrow, 'content.about.eyebrow'),
       headline: toString(about.headline, 'content.about.headline'),
       description: toString(about.description, 'content.about.description'),
+      founder: (() => {
+        const founder = toRecord(about.founder, 'content.about.founder');
+        return {
+          name: toString(founder.name, 'content.about.founder.name'),
+          role: toString(founder.role, 'content.about.founder.role'),
+          quote: toString(founder.quote, 'content.about.founder.quote'),
+          bio: toString(founder.bio, 'content.about.founder.bio'),
+        };
+      })(),
       values: toArray(about.values, 'content.about.values', toTitleDescription),
       whoWeAre: (() => {
         const whoWeAre = toRecord(about.whoWeAre, 'content.about.whoWeAre');
@@ -318,6 +377,8 @@ export function convertContent(rawContent: unknown): Content {
         quote: toString(testimonial.quote, `${path}.quote`),
         author: toString(testimonial.author, `${path}.author`),
         role: toString(testimonial.role, `${path}.role`),
+        service: toOptionalString(testimonial.service, `${path}.service`),
+        link: toOptionalString(testimonial.link, `${path}.link`),
       };
     }),
     footer: {

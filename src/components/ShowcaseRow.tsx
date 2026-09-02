@@ -1,8 +1,8 @@
 'use client';
 
-import { useRef, useState, type ReactNode } from 'react';
+import { useState, type ReactNode } from 'react';
 import Link from 'next/link';
-import { motion, useScroll, useTransform } from 'motion/react';
+import { motion } from 'motion/react';
 import { ArrowRight } from 'lucide-react';
 
 type ShowcaseRowProps = {
@@ -16,10 +16,7 @@ type ShowcaseRowProps = {
 };
 
 export default function ShowcaseRow({ eyebrow, title, description, items, visual, reversed = false, ctaHref }: ShowcaseRowProps) {
-  const visualRef = useRef<HTMLDivElement>(null);
   const [pulse, setPulse] = useState(0);
-  const { scrollYProgress } = useScroll({ target: visualRef, offset: ['start end', 'end start'] });
-  const rotate = useTransform(scrollYProgress, [0, 1], reversed ? [8, -8] : [-8, 8]);
 
   return (
     <div className="grid items-center gap-10 md:grid-cols-2 md:gap-12">
@@ -54,28 +51,36 @@ export default function ShowcaseRow({ eyebrow, title, description, items, visual
         ) : null}
       </motion.div>
 
-      <motion.div
-        ref={visualRef}
-        initial={{ opacity: 0, x: reversed ? -60 : 60, filter: 'grayscale(100%)' }}
-        whileInView={{ opacity: 1, x: 0, filter: 'grayscale(0%)' }}
-        viewport={{ once: true, amount: 0.4 }}
-        transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
-        whileTap={{ scale: 0.97 }}
-        whileHover={{ scale: 1.015 }}
-        style={{ rotate }}
-        onClick={() => setPulse((value) => value + 1)}
-        className={`relative cursor-pointer select-none [perspective:1000px] ${reversed ? 'md:order-1' : ''}`}
-      >
-        {visual(pulse)}
-
+      <div className={`relative [perspective:1200px] ${reversed ? 'md:order-1' : ''}`}>
         <motion.div
-          key={pulse}
-          initial={pulse > 0 ? { opacity: 0.8, scale: 0.96 } : false}
-          animate={{ opacity: 0, scale: 1.1 }}
-          transition={{ duration: 0.75, ease: 'easeOut' }}
-          className="pointer-events-none absolute -inset-2 rounded-[32px] ring-4 ring-brand-primary"
-        />
-      </motion.div>
+          initial={{ opacity: 0, x: reversed ? -60 : 60, filter: 'grayscale(100%)' }}
+          whileInView={{ opacity: 1, x: 0, filter: 'grayscale(0%)' }}
+          viewport={{ once: true, amount: 0.4 }}
+          transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
+          whileTap={{ scale: 0.96 }}
+          whileHover={{ scale: 1.02 }}
+          onClick={() => setPulse((value) => value + 1)}
+          className="relative cursor-pointer select-none [transform-style:preserve-3d]"
+        >
+          <motion.div
+            key={pulse}
+            initial={pulse > 0 ? { rotateY: -160, scale: 0.94 } : false}
+            animate={{ rotateY: 0, scale: 1 }}
+            transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+            className="[transform-style:preserve-3d]"
+          >
+            {visual(pulse)}
+          </motion.div>
+
+          <motion.div
+            key={`ring-${pulse}`}
+            initial={pulse > 0 ? { opacity: 0.8, scale: 0.96 } : false}
+            animate={{ opacity: 0, scale: 1.1 }}
+            transition={{ duration: 0.75, ease: 'easeOut' }}
+            className="pointer-events-none absolute -inset-2 rounded-[32px] ring-4 ring-brand-primary"
+          />
+        </motion.div>
+      </div>
     </div>
   );
 }

@@ -3,6 +3,7 @@ import { Inter, Plus_Jakarta_Sans } from 'next/font/google';
 import './globals.css';
 import { getContent } from '../lib/content';
 import { createOrganizationJsonLd, createPageMetadata, createWebsiteJsonLd, siteName, siteUrl } from '../lib/seo';
+import WhatsAppButton from '../components/WhatsAppButton';
 
 const content = getContent();
 
@@ -70,6 +71,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd) }}
         />
         {children}
+        <WhatsAppButton />
       </body>
     </html>
   );

@@ -1,7 +1,6 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
-import emailjs from '@emailjs/browser';
 import { Mic, MicOff } from 'lucide-react';
 import { getContent } from '../lib/content';
 import Button from './Button';
@@ -61,19 +60,6 @@ const initialForm: ContactFormState = {
   message: '',
 };
 
-function escapeHtml(value: string) {
-  return value
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;')
-    .replace(/'/g, '&#039;');
-}
-
-function buildLeadSubject(form: ContactFormState) {
-  return `New CraftLanee Inquiry: ${form.businessName}`;
-}
-
 function formatServices(services: string[]) {
   return services.join(', ');
 }
@@ -98,68 +84,6 @@ function appendSpeechText(baseText: string, speechText: string) {
   }
 
   return `${baseText}${baseText.trim() ? ' ' : ''}${cleanSpeechText}`;
-}
-
-function buildLeadEmail(form: ContactFormState) {
-  const services = formatServices(form.serviceNeeded);
-
-  return [
-    'New lead',
-    `Name: ${form.name}`,
-    `Business Name: ${form.businessName}`,
-    `Mobile: ${form.mobile}`,
-    `Email: ${form.email}`,
-    `Services Needed: ${services}`,
-    '',
-    'Business Details:',
-    form.message,
-    '',
-    'Recommended next step: contact the lead and confirm their business goal, timeline, and preferred service package.',
-  ].join('\n');
-}
-
-function buildLeadEmailHtml(form: ContactFormState) {
-  const subject = buildLeadSubject(form);
-  const services = formatServices(form.serviceNeeded);
-  const fields = [
-    ['Name', form.name],
-    ['Business Name', form.businessName],
-    ['Mobile', form.mobile],
-    ['Email', form.email],
-    ['Services Needed', services],
-  ];
-
-  return `
-    <div style="font-family: Arial, sans-serif; color: #172033; line-height: 1.6; max-width: 640px;">
-      <div style="background: #111827; color: #ffffff; padding: 24px; border-radius: 14px 14px 0 0;">
-        <p style="margin: 0 0 6px; color: #f59e0b; font-size: 13px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;">CraftLanee Inquiry</p>
-        <h2 style="margin: 0; font-size: 24px;">${escapeHtml(subject)}</h2>
-      </div>
-      <div style="border: 1px solid #e5e7eb; border-top: 0; padding: 24px; border-radius: 0 0 14px 14px; background: #ffffff;">
-        <table style="width: 100%; border-collapse: collapse; margin-bottom: 22px;">
-          <tbody>
-            ${fields
-              .map(
-                ([label, value]) => `
-                  <tr>
-                    <td style="padding: 10px 0; color: #6b7280; font-size: 13px; width: 150px;">${label}</td>
-                    <td style="padding: 10px 0; color: #111827; font-size: 15px; font-weight: 600;">${escapeHtml(value)}</td>
-                  </tr>
-                `
-              )
-              .join('')}
-          </tbody>
-        </table>
-        <div style="background: #f9fafb; border: 1px solid #eef2f7; border-radius: 12px; padding: 18px;">
-          <p style="margin: 0 0 8px; color: #6b7280; font-size: 13px; font-weight: 700; text-transform: uppercase;">Business Details</p>
-          <p style="margin: 0; color: #111827; white-space: pre-line;">${escapeHtml(form.message)}</p>
-        </div>
-        <p style="margin: 22px 0 0; color: #374151; font-size: 14px;">
-          Recommended next step: contact the lead and confirm their business goal, timeline, and preferred service package.
-        </p>
-      </div>
-    </div>
-  `;
 }
 
 export default function ContactForm() {
@@ -347,47 +271,18 @@ export default function ContactForm() {
     }
 
     setStatus('sending');
-    const emailSubject = buildLeadSubject(form);
-    const selectedServices = formatServices(form.serviceNeeded);
-    const emailMessage = buildLeadEmail(form);
-    const htmlMessage = buildLeadEmailHtml(form);
 
     try {
-      await emailjs.send(
-        'service_drduqdf',
-        'template_zsjz4hx',
-        {
-          from_name: form.name,
-          from_email: form.email,
-          user_name: form.name,
-          user_email: form.email,
-          reply_to: form.email,
-          business_name: form.businessName,
-          businessName: form.businessName,
-          mobile: form.mobile,
-          service_needed: selectedServices,
-          services_needed: selectedServices,
-          service_Needed: selectedServices,
-          business_message: form.message,
-          subject: emailSubject,
-          email_subject: emailSubject,
-          message: emailMessage,
-          body: emailMessage,
-          Body: emailMessage,
-          email_body: emailMessage,
-          html_message: htmlMessage,
-          name: form.name,
-          email: form.email,
-          Name: form.name,
-          Email: form.email,
-          Mobile: form.mobile,
-          Business_Name: form.businessName,
-          Service_Needed: selectedServices,
-          Services_Needed: selectedServices,
-          Message: emailMessage,
-        },
-        'TIYiaQGuGvZsjN3gh'
-      );
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(form),
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to send message.');
+      }
+
       setStatus('success');
       setForm(initialForm);
       setErrors({});

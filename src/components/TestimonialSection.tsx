@@ -1,6 +1,6 @@
 'use client';
 
-import { Quote, Star } from 'lucide-react';
+import { ArrowUpRight, Quote, Star } from 'lucide-react';
 import Reveal, { RevealGroup, RevealItem } from './Reveal';
 import { getContent } from '../lib/content';
 import { playSoftClick } from '../lib/sound';
@@ -31,27 +31,48 @@ export default function TestimonialSection() {
                 <Quote className="pointer-events-none absolute -right-3 -top-3 h-28 w-28 text-brand-primary/[0.06] transition-transform duration-500 ease-out group-hover:scale-110 group-hover:rotate-6" />
 
                 <div className="relative">
-                  <div className="mb-4 flex gap-0.5 text-brand-primary">
-                    {Array.from({ length: 5 }).map((_, starIndex) => (
-                      <Star
-                        key={starIndex}
-                        size={14}
-                        className="fill-current transition-transform duration-300"
-                        style={{ transitionDelay: `${starIndex * 40}ms` }}
-                      />
-                    ))}
+                  <div className="mb-4 flex items-center justify-between gap-3">
+                    <div className="flex gap-0.5 text-brand-primary">
+                      {Array.from({ length: 5 }).map((_, starIndex) => (
+                        <Star
+                          key={starIndex}
+                          size={14}
+                          className="fill-current transition-transform duration-300"
+                          style={{ transitionDelay: `${starIndex * 40}ms` }}
+                        />
+                      ))}
+                    </div>
+                    {testimonial.service ? (
+                      <span className="rounded-full border border-brand-primary/20 bg-brand-primary/10 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.06em] text-brand-primary">
+                        {testimonial.service}
+                      </span>
+                    ) : null}
                   </div>
 
                   <p className="font-display text-lg text-justify leading-8 text-theme-primary">&ldquo;{testimonial.quote}&rdquo;</p>
 
-                  <div className="mt-8 flex items-center gap-3 border-t border-theme pt-6">
-                    <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-brand-primary to-brand-accent text-sm font-semibold text-white shadow-glow ring-2 ring-theme-surface transition-transform duration-300 group-hover:scale-110">
-                      {testimonial.author.charAt(0)}
+                  <div className="mt-8 flex items-center justify-between gap-3 border-t border-theme pt-6">
+                    <div className="flex items-center gap-3">
+                      <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-brand-primary to-brand-accent text-sm font-semibold text-white shadow-glow ring-2 ring-theme-surface transition-transform duration-300 group-hover:scale-110">
+                        {testimonial.author.charAt(0)}
+                      </div>
+                      <div className="space-y-0.5">
+                        <p className="font-semibold text-theme-primary">{testimonial.author}</p>
+                        <p className="text-sm text-theme-muted">{testimonial.role}</p>
+                      </div>
                     </div>
-                    <div className="space-y-0.5">
-                      <p className="font-semibold text-theme-primary">{testimonial.author}</p>
-                      <p className="text-sm text-theme-muted">{testimonial.role}</p>
-                    </div>
+
+                    {testimonial.link ? (
+                      <a
+                        href={testimonial.link}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="group/link flex shrink-0 items-center gap-1 text-xs font-semibold text-brand-primary transition hover:text-brand-accent"
+                      >
+                        Visit site
+                        <ArrowUpRight size={13} className="transition-transform group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5" />
+                      </a>
+                    ) : null}
                   </div>
                 </div>
               </article>

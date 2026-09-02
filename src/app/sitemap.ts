@@ -8,6 +8,7 @@ const pageFileNames = new Set(['page.tsx', 'page.ts', 'page.jsx', 'page.js']);
 const routeSeo: Record<string, Pick<MetadataRoute.Sitemap[number], 'changeFrequency' | 'priority'>> = {
   '/': { changeFrequency: 'weekly', priority: 1 },
   '/services': { changeFrequency: 'monthly', priority: 0.9 },
+  '/products': { changeFrequency: 'monthly', priority: 0.85 },
   '/contact': { changeFrequency: 'monthly', priority: 0.85 },
   '/about': { changeFrequency: 'monthly', priority: 0.75 },
 };

@@ -18,6 +18,7 @@ export const rawContent = {
     { label: 'Home', href: '/' },
     { label: 'About', href: '/about' },
     { label: 'Services', href: '/services' },
+    { label: 'Products', href: '/products' },
     { label: 'Contact', href: '/contact' },
   ],
   hero: {
@@ -84,6 +85,7 @@ export const rawContent = {
         items: [
           'Search Engine Optimization (SEO)',
           'Social Media Marketing',
+          'Social Media Management',  
           'Google Ads',
           'Meta Ads',
           'Performance Marketing',
@@ -193,11 +195,55 @@ export const rawContent = {
       result: 'Opportunities for people and teams',
     },
   ],
+  products: {
+    eyebrow: 'Our Products',
+    title: 'Products built and maintained by CraftLanee',
+    subtitle:
+      'In-house platforms built by CraftLanee for education, learning, and local community discovery — each designed to solve a practical, everyday problem.',
+    items: [
+      {
+        title: 'Smart School Management System',
+        tag: 'School Management',
+        description:
+          'A school administration platform that brings admissions, attendance, academics, staff, and communication into one connected system for schools to manage day-to-day operations.',
+        highlight: 'One system for every school operation',
+        highlights: ['Admissions, attendance & academics in one place', 'Staff and communication tools built in', 'Real-time dashboards for fees, grades & events'],
+        image: '/images/product-school-management.png',
+        link: 'https://app.craftlanee.guru/login',
+      },
+      {
+        title: 'CraftLanee E-Learning Platform',
+        tag: 'E-Learning',
+        description:
+          'Learn, practice, and track progress in one place. A skill-building platform focused on structured courses, hands-on practice, and progress tracking to help learners get job ready.',
+        highlight: 'Learn, practice, and get job-ready',
+        highlights: ['Structured, self-paced course tracks', 'Hands-on practice environments', 'Progress tracking built for placement readiness'],
+        image: '/images/product-elearning-platform-v2.png',
+        link: 'https://elearningplatform-production-91df.up.railway.app',
+      },
+      {
+        title: 'OneTownCity',
+        tag: 'Local Discovery Platform',
+        description:
+          'The one-stop city engine for Kuppam — a single interface for local listings, real estate, shops, jobs, events, restaurants, healthcare, education, transport, news, and upcoming civic projects.',
+        highlight: "Kuppam's entire city, one interface",
+        highlights: ['Listings for shops, real estate & jobs', 'Events, restaurants, healthcare & transport', 'Local news and civic project updates'],
+        image: '/images/product-onetowncity-v2.png',
+        link: 'https://onetowncity.com/',
+      },
+    ],
+  },
   about: {
     eyebrow: 'Who We Are',
     headline: 'A technology-driven company creating opportunities through innovation and collaboration.',
     description:
       'CraftLanee helps businesses, startups, educational institutions, and professionals succeed through innovation, collaboration, and digital transformation.',
+    founder: {
+      name: 'Kamishetty Mallikarjuna',
+      role: 'Founder & Business Development',
+      quote: 'The One who burns like fire and melts like ice.',
+      bio: 'Kamishetty Mallikarjuna founded CraftLanee to give businesses, startups, and students in Kuppam access to practical, end-to-end support — from IT consulting and software development to digital marketing, manpower solutions, training, and a collaborative workspace. Leading business development for CraftLanee, he focuses on building long-term partnerships grounded in transparency, hands-on collaboration, and real outcomes, with a vision to grow CraftLanee into a trusted digital growth partner across India.',
+    },
     values: [
       {
         title: 'Innovation',
@@ -328,15 +374,19 @@ export const rawContent = {
   testimonials: [
     {
       quote:
-        'CraftLanee was founded with a simple vision: to create opportunities through technology, innovation, and collaboration.',
-      author: 'Kamishetty Mallikarjuna',
-      role: 'Founder & Business Development',
+        'Founded by Vankayalapati Anitha Reddy, an entrepreneur with a strong understanding of customer-centric business and service excellence, the brand was created with a clear vision: to build a trustworthy men’s grooming network that balances premium experience with mass affordability.',
+      author: 'Vankayalapati Anitha Reddy',
+      role: 'Founder & CEO, The One & Only Salon Franchise',
+      service: 'Digital Marketing Client',
+      link: 'https://www.theoneandonlysalonfranchise.in/',
     },
     {
       quote:
-        'CraftLanee is more than an office. It is a place where students, freelancers, entrepreneurs, startup founders, and businesses can transform ideas into reality.',
-      author: 'CraftLanee Workspace',
-      role: 'Collaborative environment',
+        'A dedicated women’s healthcare and maternity care center in Kuppam, partnering with CraftLanee for digital marketing and custom software development to strengthen its patient reach and online presence.',
+      author: 'Dr. Shilpa,Gynaecologist',
+      role: 'Dr. Shilpa Women’s Care, KC hospital',
+      service: 'Digital Marketing & Software Development Client',
+      link: 'https://www.drshilpawomenscare.com/',
     },
   ],
   footer: {
@@ -346,6 +396,7 @@ export const rawContent = {
     links: [
       { label: 'About', href: '/about' },
       { label: 'Services', href: '/services' },
+      { label: 'Products', href: '/products' },
       { label: 'Contact', href: '/contact' },
     ],
     legal: [

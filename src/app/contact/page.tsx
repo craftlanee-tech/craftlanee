@@ -25,9 +25,9 @@ export const metadata = createPageMetadata({
   keywords: ['contact CraftLanee', 'IT services inquiry', 'digital marketing inquiry', 'manpower support', 'internship inquiry', 'workspace Kuppam'],
 });
 
-const officeAddress = 'CraftLanee, Rajiv Colony Circle, 2nd Floor, Kuppam, Andhra Pradesh 517425';
-const mapEmbedSrc = `https://www.google.com/maps?q=${encodeURIComponent(officeAddress)}&output=embed`;
-const mapDirectionsHref = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(officeAddress)}`;
+const officeCoordinates = { lat: 12.741245, lng: 78.344534 };
+const mapEmbedSrc = `https://www.google.com/maps?q=${officeCoordinates.lat},${officeCoordinates.lng}&z=18&output=embed`;
+const mapDirectionsHref = `https://www.google.com/maps/search/?api=1&query=${officeCoordinates.lat},${officeCoordinates.lng}`;
 
 function getContactHref(label: string, value: string) {
   const normalizedLabel = label.toLowerCase();
