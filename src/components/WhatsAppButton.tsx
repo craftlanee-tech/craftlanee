@@ -76,7 +76,7 @@ export default function WhatsAppButton() {
             width={233}
             height={440}
             priority
-            className="h-20 w-auto translate-x-[0.1px] drop-shadow-xl sm:h-24"
+            className="h-28 w-auto translate-x-[0.1px] drop-shadow-xl sm:h-32"
           />
         </motion.div>
       </div>
