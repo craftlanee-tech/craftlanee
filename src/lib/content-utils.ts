@@ -40,6 +40,8 @@ export type Content = {
     description: string;
     image: string;
     result: string;
+    client?: string;
+    clientLogo?: string;
   }[];
   products: {
     eyebrow: string;
@@ -273,6 +275,8 @@ export function convertContent(rawContent: unknown): Content {
         description: toString(project.description, `${path}.description`),
         image: toString(project.image, `${path}.image`),
         result: toString(project.result, `${path}.result`),
+        client: toOptionalString(project.client, `${path}.client`),
+        clientLogo: toOptionalString(project.clientLogo, `${path}.clientLogo`),
       };
     }),
     products: (() => {

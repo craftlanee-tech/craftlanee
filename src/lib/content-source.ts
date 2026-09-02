@@ -186,6 +186,8 @@ export const rawContent = {
         'SEO, social media marketing, paid ads, content marketing, brand promotion, and lead generation for stronger visibility.',
       image: '/images/Danush_Salon.png',
       result: 'Clearer reach and inquiries',
+      client: "Affordable Men's Salon",
+      clientLogo: '/images/Danush_Salon.png',
     },
     {
       title: 'Training, Talent & Workspace',
@@ -193,6 +195,8 @@ export const rawContent = {
         'Internship programs, manpower support, media studio access, meeting spaces, and a workspace designed for collaboration.',
       image: '/images/Eco.png',
       result: 'Opportunities for people and teams',
+      client: 'Eco Trio Solutions',
+      clientLogo: '/images/Eco.png',
     },
   ],
   products: {

@@ -7,6 +7,7 @@ import GradientMesh from '../../components/GradientMesh';
 import HeroImage from '../../components/HeroImage';
 import AnimatedCounter from '../../components/AnimatedCounter';
 import Reveal, { RevealGroup, RevealItem } from '../../components/Reveal';
+import FounderCard from '../../components/FounderCard';
 import { getContent } from '../../lib/content';
 import { createPageMetadata, siteName } from '../../lib/seo';
 import SoundHover from '../../components/SoundHover';
@@ -227,36 +228,61 @@ export default function AboutPage() {
           </Reveal>
 
           <RevealGroup className="grid gap-6 md:grid-cols-3">
-            {content.projects.map((project, idx) => (
-              <RevealItem key={project.title}>
-                <article className="shine-border group h-full overflow-hidden rounded-2xl border border-theme bg-theme-surface shadow-[0_1px_2px_rgba(0,0,0,0.04),0_12px_28px_rgba(0,0,0,0.06)] transition-all duration-300 hover:-translate-y-1.5 hover:border-brand-primary/40 hover:shadow-glow">
-                  <div className="relative aspect-[4/3] overflow-hidden bg-theme-surface-alt">
-                    <Image
-                      src={project.image}
-                      alt={project.title}
-                      fill
-                      sizes="(max-width: 768px) 100vw, 33vw"
-                      className="object-cover transition duration-500 group-hover:scale-105"
-                    />
-                    <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
-                  </div>
-                  <div className="space-y-4 p-6">
-                    <div className="flex items-start justify-between gap-4">
-                      <p className="text-xs font-semibold uppercase tracking-[0.18em] text-brand-primary">
-                        Project {String(idx + 1).padStart(2, '0')}
-                      </p>
-                      <ArrowUpRight size={18} className="shrink-0 text-theme-muted transition duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-brand-primary" />
+            {content.projects.map((project, idx) => {
+              const Icon = directionIcons[idx] ?? Code2;
+
+              return (
+                <RevealItem key={project.title}>
+                  <article className="shine-border group flex h-full flex-col overflow-hidden rounded-2xl border border-theme bg-theme-surface shadow-[0_1px_2px_rgba(0,0,0,0.04),0_12px_28px_rgba(0,0,0,0.06)] transition-all duration-300 hover:-translate-y-1.5 hover:border-brand-primary/40 hover:shadow-glow">
+                    <div className="relative flex aspect-[16/10] items-center justify-center overflow-hidden bg-gradient-to-br from-brand-primary to-brand-accent">
+                      <div
+                        aria-hidden="true"
+                        className="absolute inset-0 opacity-[0.15]"
+                        style={{
+                          backgroundImage:
+                            'linear-gradient(rgba(255,255,255,0.6) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.6) 1px, transparent 1px)',
+                          backgroundSize: '28px 28px',
+                        }}
+                      />
+                      <div
+                        aria-hidden="true"
+                        className="absolute -right-10 -top-10 h-40 w-40 rounded-full bg-white/10 blur-2xl"
+                      />
+
+                      <div className="relative flex h-16 w-16 items-center justify-center rounded-2xl border border-white/25 bg-white/10 backdrop-blur-sm transition-transform duration-500 group-hover:scale-110">
+                        <Icon size={30} className="text-white" />
+                      </div>
+
+                      {project.client ? (
+                        <div className="absolute bottom-3 left-3 flex items-center gap-2 rounded-full bg-white/95 py-1 pl-1.5 pr-3 shadow-sm">
+                          {project.clientLogo ? (
+                            <span className="relative h-6 w-6 shrink-0 overflow-hidden rounded-full bg-white">
+                              <Image src={project.clientLogo} alt="" fill sizes="24px" className="object-contain p-0.5" />
+                            </span>
+                          ) : null}
+                          <span className="text-[11px] font-semibold text-slate-700">{project.client}</span>
+                        </div>
+                      ) : null}
                     </div>
-                    <h3 className="font-display text-xl font-semibold leading-tight text-theme-primary">{project.title}</h3>
-                    <p className="text-sm leading-7 text-theme-secondary">{project.description}</p>
-                    <div className="border-t border-theme pt-4">
-                      <p className="text-xs font-semibold uppercase tracking-[0.18em] text-theme-muted">Outcome</p>
-                      <p className="mt-1 text-sm font-semibold text-theme-primary">{project.result}</p>
+
+                    <div className="flex flex-1 flex-col space-y-4 p-6">
+                      <div className="flex items-start justify-between gap-4">
+                        <p className="text-xs font-semibold uppercase tracking-[0.18em] text-brand-primary">
+                          Project {String(idx + 1).padStart(2, '0')}
+                        </p>
+                        <ArrowUpRight size={18} className="shrink-0 text-theme-muted transition duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-brand-primary" />
+                      </div>
+                      <h3 className="font-display text-xl font-semibold leading-tight text-theme-primary">{project.title}</h3>
+                      <p className="flex-1 text-sm leading-7 text-theme-secondary">{project.description}</p>
+                      <div className="border-t border-theme pt-4">
+                        <p className="text-xs font-semibold uppercase tracking-[0.18em] text-theme-muted">Outcome</p>
+                        <p className="mt-1 text-sm font-semibold text-theme-primary">{project.result}</p>
+                      </div>
                     </div>
-                  </div>
-                </article>
-              </RevealItem>
-            ))}
+                  </article>
+                </RevealItem>
+              );
+            })}
           </RevealGroup>
         </div>
       </section>
@@ -292,18 +318,8 @@ export default function AboutPage() {
       <section className="px-6 py-20 sm:px-10">
         <div className="mx-auto max-w-7xl">
           <div className="grid items-center gap-12 lg:grid-cols-[0.85fr_1.15fr]">
-            <Reveal direction="left" className="relative mx-auto w-full max-w-sm lg:mx-0">
-              <div className="pointer-events-none absolute -inset-6 rounded-[32px] bg-brand-primary/20 blur-[60px]" />
-              <div className="shine-border relative aspect-[4/5] overflow-hidden rounded-[28px] border border-theme shadow-glow-lg">
-                <Image
-                  src="/images/Founder.jpeg"
-                  alt={`${content.about.founder.name}, Founder of CraftLanee`}
-                  fill
-                  sizes="(max-width: 1024px) 100vw, 400px"
-                  className="object-cover"
-                />
-                <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
-              </div>
+            <Reveal direction="left">
+              <FounderCard name={content.about.founder.name} imageSrc="/images/Founder.jpeg" />
             </Reveal>
 
             <Reveal direction="right" delay={0.1} className="space-y-6">

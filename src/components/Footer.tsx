@@ -11,8 +11,14 @@ const locationDetail = content.contact.details.find((detail) => detail.label ===
 
 export default function Footer() {
   return (
-    <footer className="relative overflow-hidden bg-[#08090b] px-6 py-16 text-[#c7c9ce] sm:px-10 sm:py-20">
-      <div className="pointer-events-none absolute -top-40 left-1/4 h-72 w-72 rounded-full bg-brand-primary/10 blur-[120px]" />
+    <footer
+      className="relative overflow-hidden px-6 py-16 text-[#c7c9ce] sm:px-10 sm:py-20"
+      style={{
+        backgroundColor: 'color-mix(in srgb, var(--color-primary) 16%, #06070a)',
+      }}
+    >
+      <div className="pointer-events-none absolute -top-40 left-1/4 h-72 w-72 rounded-full bg-brand-primary/20 blur-[120px]" />
+      <div className="pointer-events-none absolute -bottom-40 right-1/4 h-72 w-72 rounded-full bg-theme-accent/15 blur-[120px]" />
 
       <div className="relative mx-auto max-w-7xl">
         <div className="grid gap-12 lg:grid-cols-[1.3fr_0.7fr_0.7fr_1fr]">

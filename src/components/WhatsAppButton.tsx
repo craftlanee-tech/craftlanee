@@ -71,7 +71,7 @@ export default function WhatsAppButton() {
 
         <motion.div ref={monkeyRef} className="absolute left-1/2 -translate-x-1/2" style={{ top: monkeyY }}>
           <Image
-            src="/images/monkey-top.png"
+            src="/images/monkey-top-v2.png"
             alt=""
             width={233}
             height={440}
