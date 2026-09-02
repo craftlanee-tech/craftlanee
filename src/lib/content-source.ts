@@ -187,7 +187,6 @@ export const rawContent = {
       image: '/images/Danush_Salon.png',
       result: 'Clearer reach and inquiries',
       client: "Affordable Men's Salon",
-      clientLogo: '/images/Danush_Salon.png',
     },
     {
       title: 'Training, Talent & Workspace',
@@ -196,7 +195,6 @@ export const rawContent = {
       image: '/images/Eco.png',
       result: 'Opportunities for people and teams',
       client: 'Eco Trio Solutions',
-      clientLogo: '/images/Eco.png',
     },
   ],
   products: {

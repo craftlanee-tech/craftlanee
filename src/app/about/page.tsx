@@ -234,35 +234,18 @@ export default function AboutPage() {
               return (
                 <RevealItem key={project.title}>
                   <article className="shine-border group flex h-full flex-col overflow-hidden rounded-2xl border border-theme bg-theme-surface shadow-[0_1px_2px_rgba(0,0,0,0.04),0_12px_28px_rgba(0,0,0,0.06)] transition-all duration-300 hover:-translate-y-1.5 hover:border-brand-primary/40 hover:shadow-glow">
-                    <div className="relative flex aspect-[16/10] items-center justify-center overflow-hidden bg-gradient-to-br from-brand-primary to-brand-accent">
-                      <div
-                        aria-hidden="true"
-                        className="absolute inset-0 opacity-[0.15]"
-                        style={{
-                          backgroundImage:
-                            'linear-gradient(rgba(255,255,255,0.6) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.6) 1px, transparent 1px)',
-                          backgroundSize: '28px 28px',
-                        }}
-                      />
-                      <div
-                        aria-hidden="true"
-                        className="absolute -right-10 -top-10 h-40 w-40 rounded-full bg-white/10 blur-2xl"
+                    <div className="relative aspect-[4/3] overflow-hidden bg-theme-surface-alt">
+                      <Image
+                        src={project.image}
+                        alt={project.title}
+                        fill
+                        sizes="(max-width: 768px) 100vw, 33vw"
+                        className="object-contain p-6 transition duration-500 group-hover:scale-105"
                       />
 
-                      <div className="relative flex h-16 w-16 items-center justify-center rounded-2xl border border-white/25 bg-white/10 backdrop-blur-sm transition-transform duration-500 group-hover:scale-110">
-                        <Icon size={30} className="text-white" />
+                      <div className="absolute left-3 top-3 flex h-9 w-9 items-center justify-center rounded-xl border border-theme bg-theme-surface/95 shadow-sm backdrop-blur-sm">
+                        <Icon size={16} className="text-brand-primary" />
                       </div>
-
-                      {project.client ? (
-                        <div className="absolute bottom-3 left-3 flex items-center gap-2 rounded-full bg-white/95 py-1 pl-1.5 pr-3 shadow-sm">
-                          {project.clientLogo ? (
-                            <span className="relative h-6 w-6 shrink-0 overflow-hidden rounded-full bg-white">
-                              <Image src={project.clientLogo} alt="" fill sizes="24px" className="object-contain p-0.5" />
-                            </span>
-                          ) : null}
-                          <span className="text-[11px] font-semibold text-slate-700">{project.client}</span>
-                        </div>
-                      ) : null}
                     </div>
 
                     <div className="flex flex-1 flex-col space-y-4 p-6">
@@ -272,7 +255,10 @@ export default function AboutPage() {
                         </p>
                         <ArrowUpRight size={18} className="shrink-0 text-theme-muted transition duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-brand-primary" />
                       </div>
-                      <h3 className="font-display text-xl font-semibold leading-tight text-theme-primary">{project.title}</h3>
+                      <div>
+                        <h3 className="font-display text-xl font-semibold leading-tight text-theme-primary">{project.title}</h3>
+                        {project.client ? <p className="mt-1 text-xs font-medium text-theme-muted">Client: {project.client}</p> : null}
+                      </div>
                       <p className="flex-1 text-sm leading-7 text-theme-secondary">{project.description}</p>
                       <div className="border-t border-theme pt-4">
                         <p className="text-xs font-semibold uppercase tracking-[0.18em] text-theme-muted">Outcome</p>
