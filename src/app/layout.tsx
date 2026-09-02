@@ -60,7 +60,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   const websiteJsonLd = createWebsiteJsonLd();
 
   return (
-    <html lang="en" suppressHydrationWarning data-scroll-behavior="smooth" className={`${bodyFont.variable} ${displayFont.variable}`}>
+    <html lang="en" suppressHydrationWarning data-scroll-behavior="smooth" data-theme="light" className={`${bodyFont.variable} ${displayFont.variable}`}>
       <body>
         <script
           type="application/ld+json"

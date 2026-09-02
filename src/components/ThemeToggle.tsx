@@ -8,7 +8,7 @@ const THEME_KEY = 'craftlanee-theme';
 type ThemeMode = 'light' | 'dark';
 
 function getPreferredTheme(): ThemeMode {
-  if (typeof window === 'undefined') return 'dark';
+  if (typeof window === 'undefined') return 'light';
 
   const stored = localStorage.getItem(THEME_KEY) as ThemeMode | null;
 
@@ -16,7 +16,7 @@ function getPreferredTheme(): ThemeMode {
     return stored;
   }
 
-  return 'dark';
+  return 'light';
 }
 
 function applyTheme(mode: ThemeMode) {
@@ -25,7 +25,7 @@ function applyTheme(mode: ThemeMode) {
 }
 
 export default function ThemeToggle({ onDark = false }: { onDark?: boolean }) {
-  const [theme, setTheme] = useState<ThemeMode>('dark');
+  const [theme, setTheme] = useState<ThemeMode>('light');
 
   useEffect(() => {
     const preferredTheme = getPreferredTheme();
