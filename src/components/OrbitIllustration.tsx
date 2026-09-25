@@ -150,8 +150,9 @@ export default function OrbitIllustration({ items, badges = [], maxWidthClassNam
 
                 {/* Back face */}
                 <div className="absolute inset-0 flex aspect-square w-16 items-center justify-center rounded-2xl bg-gradient-to-br from-brand-primary via-brand-accent to-brand-primary p-[3px] shadow-glow-lg [backface-visibility:hidden] [transform:rotateY(180deg)] sm:w-48">
-                  <div className="flex h-full w-full flex-col items-center justify-center gap-1.5 rounded-[14px] bg-gradient-to-br from-brand-primary to-brand-accent text-white">
-                    <p className="font-display text-[10px] font-bold uppercase tracking-[0.1em] sm:text-lg sm:tracking-[0.2em]">CraftLanee</p>
+                  <div className="relative flex h-full w-full flex-col items-center justify-center gap-1.5 overflow-hidden rounded-[14px] bg-gradient-to-br from-brand-primary to-brand-accent text-white">
+                    <Image src="/images/craftlanee-mark.png" alt="" fill sizes="96px" className="object-cover sm:hidden" />
+                    <p className="hidden font-display text-lg font-bold uppercase tracking-[0.2em] sm:block">CraftLanee</p>
                   </div>
                 </div>
               </motion.div>
