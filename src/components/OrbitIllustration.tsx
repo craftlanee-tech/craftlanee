@@ -30,6 +30,7 @@ export default function OrbitIllustration({ items, badges = [], maxWidthClassNam
   const transform = useMotionTemplate`perspective(1200px) rotateX(${springX}deg) rotateY(${springY}deg)`;
 
   const handlePointerMove = (event: PointerEvent<HTMLDivElement>) => {
+    if (event.pointerType !== 'mouse') return;
     const rect = event.currentTarget.getBoundingClientRect();
     const px = (event.clientX - rect.left) / rect.width - 0.5;
     const py = (event.clientY - rect.top) / rect.height - 0.5;
@@ -47,7 +48,7 @@ export default function OrbitIllustration({ items, badges = [], maxWidthClassNam
 
   return (
     <div
-      className="relative flex items-center justify-center px-10 [perspective:1200px] sm:px-0 sm:pt-24 lg:pt-0"
+      className="relative flex items-center justify-center px-10 [perspective:1200px] sm:px-0 sm:pb-24 sm:pt-24 lg:pb-0 lg:pt-0"
       onPointerMove={handlePointerMove}
       onPointerLeave={handlePointerLeave}
     >
@@ -76,7 +77,7 @@ export default function OrbitIllustration({ items, badges = [], maxWidthClassNam
 
         {bottomRightBadge ? (
           <motion.div
-            className="absolute -bottom-4 -right-2 z-20 hidden sm:block"
+            className="absolute -bottom-28 -right-2 z-20 hidden sm:block"
             animate={{ y: [0, 12, 0] }}
             transition={{ duration: 5.5, repeat: Infinity, ease: 'easeInOut', delay: 0.5 }}
           >
@@ -99,7 +100,7 @@ export default function OrbitIllustration({ items, badges = [], maxWidthClassNam
         <motion.div style={{ transform }} className="relative flex aspect-square w-full items-center justify-center">
           <motion.div
             aria-hidden="true"
-            className="pointer-events-none absolute inset-4 -z-10 rounded-full bg-brand-primary/10 blur-3xl"
+            className="pointer-events-none absolute inset-4 -z-10 hidden rounded-full bg-brand-primary/10 blur-3xl sm:block"
             animate={{ scale: [1, 1.15, 1], opacity: [0.5, 0.8, 0.5] }}
             transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut' }}
           />
@@ -125,7 +126,7 @@ export default function OrbitIllustration({ items, badges = [], maxWidthClassNam
             <div className="relative flex items-center justify-center [perspective:1200px]">
               <motion.span
                 aria-hidden="true"
-                className="absolute -inset-6 rounded-full bg-gradient-to-br from-brand-primary/40 to-brand-accent/40 blur-2xl"
+                className="absolute -inset-6 hidden rounded-full bg-gradient-to-br from-brand-primary/40 to-brand-accent/40 blur-2xl sm:block"
                 animate={{ scale: [1, 1.3, 1], opacity: [0.55, 0.2, 0.55] }}
                 transition={{ duration: 3.5, repeat: Infinity, ease: 'easeInOut' }}
               />
@@ -187,7 +188,7 @@ export default function OrbitIllustration({ items, badges = [], maxWidthClassNam
                   <motion.span
                     animate={{ rotate: [-baseAngle, -(baseAngle + 360)] }}
                     transition={{ duration, repeat: Infinity, ease: 'linear' }}
-                    className="whitespace-nowrap rounded-full border border-theme bg-theme-surface/95 px-2 py-0.5 text-[9px] sm:px-2.5 sm:py-1 sm:text-[11px] font-semibold text-theme-primary shadow-glow backdrop-blur-xl"
+                    className="whitespace-nowrap rounded-full border border-theme bg-theme-surface/95 px-2 py-0.5 text-[9px] sm:px-2.5 sm:py-1 sm:text-[11px] font-semibold text-theme-primary shadow-glow sm:backdrop-blur-xl"
                   >
                     {item.label}
                   </motion.span>
