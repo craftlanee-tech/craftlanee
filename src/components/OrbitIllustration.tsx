@@ -47,14 +47,14 @@ export default function OrbitIllustration({ items, badges = [], maxWidthClassNam
 
   return (
     <div
-      className="relative flex items-center justify-center px-10 [perspective:1200px] sm:px-0"
+      className="relative flex items-center justify-center px-10 [perspective:1200px] sm:px-0 sm:pt-24 lg:pt-0"
       onPointerMove={handlePointerMove}
       onPointerLeave={handlePointerLeave}
     >
       <div className={`relative flex w-full ${maxWidthClassName} items-center justify-center`}>
         {topLeftBadge ? (
           <motion.div
-            className="absolute -left-2 -top-6 z-20 hidden sm:block"
+            className="absolute -left-2 -top-28 z-20 hidden sm:block"
             animate={{ y: [0, -12, 0] }}
             transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut' }}
           >
@@ -135,7 +135,7 @@ export default function OrbitIllustration({ items, badges = [], maxWidthClassNam
                 transition={{ duration: 14, repeat: Infinity, ease: 'linear' }}
               >
                 {/* Front face */}
-                <div className="flex aspect-square w-24 items-center justify-center rounded-2xl bg-gradient-to-br from-brand-primary via-brand-accent to-brand-primary p-[3px] shadow-glow-lg [backface-visibility:hidden] sm:w-48">
+                <div className="flex aspect-square w-16 items-center justify-center rounded-2xl bg-gradient-to-br from-brand-primary via-brand-accent to-brand-primary p-[3px] shadow-glow-lg [backface-visibility:hidden] sm:w-48">
                   <div className="relative h-full w-full overflow-hidden rounded-[14px]">
                     <Image src="/images/craftlanee-mark.png" alt="CraftLanee" fill sizes="192px" className="object-cover" />
                     <motion.div
@@ -148,7 +148,7 @@ export default function OrbitIllustration({ items, badges = [], maxWidthClassNam
                 </div>
 
                 {/* Back face */}
-                <div className="absolute inset-0 flex aspect-square w-24 items-center justify-center rounded-2xl bg-gradient-to-br from-brand-primary via-brand-accent to-brand-primary p-[3px] shadow-glow-lg [backface-visibility:hidden] [transform:rotateY(180deg)] sm:w-48">
+                <div className="absolute inset-0 flex aspect-square w-16 items-center justify-center rounded-2xl bg-gradient-to-br from-brand-primary via-brand-accent to-brand-primary p-[3px] shadow-glow-lg [backface-visibility:hidden] [transform:rotateY(180deg)] sm:w-48">
                   <div className="flex h-full w-full flex-col items-center justify-center gap-1.5 rounded-[14px] bg-gradient-to-br from-brand-primary to-brand-accent text-white">
                     <p className="font-display text-[10px] font-bold uppercase tracking-[0.1em] sm:text-lg sm:tracking-[0.2em]">CraftLanee</p>
                   </div>
