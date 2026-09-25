@@ -44,7 +44,7 @@ const heroBadges = [
 export default function HeroSection() {
   const orbitItems = content.hero.focus.map((label, index) => {
     const Icon = focusIconList[index] ?? Sparkles;
-    return { label, icon: <Icon size={30} className="sm:h-9 sm:w-9" /> };
+    return { label, icon: <Icon size={30} className="h-5 w-5 sm:h-9 sm:w-9" /> };
   });
 
   return (

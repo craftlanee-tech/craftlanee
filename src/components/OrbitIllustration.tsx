@@ -47,7 +47,7 @@ export default function OrbitIllustration({ items, badges = [], maxWidthClassNam
 
   return (
     <div
-      className="relative flex items-center justify-center [perspective:1200px]"
+      className="relative flex items-center justify-center px-10 [perspective:1200px] sm:px-0"
       onPointerMove={handlePointerMove}
       onPointerLeave={handlePointerLeave}
     >
@@ -135,7 +135,7 @@ export default function OrbitIllustration({ items, badges = [], maxWidthClassNam
                 transition={{ duration: 14, repeat: Infinity, ease: 'linear' }}
               >
                 {/* Front face */}
-                <div className="flex aspect-square w-40 items-center justify-center rounded-2xl bg-gradient-to-br from-brand-primary via-brand-accent to-brand-primary p-[3px] shadow-glow-lg [backface-visibility:hidden] sm:w-48">
+                <div className="flex aspect-square w-24 items-center justify-center rounded-2xl bg-gradient-to-br from-brand-primary via-brand-accent to-brand-primary p-[3px] shadow-glow-lg [backface-visibility:hidden] sm:w-48">
                   <div className="relative h-full w-full overflow-hidden rounded-[14px]">
                     <Image src="/images/craftlanee-mark.png" alt="CraftLanee" fill sizes="192px" className="object-cover" />
                     <motion.div
@@ -148,9 +148,9 @@ export default function OrbitIllustration({ items, badges = [], maxWidthClassNam
                 </div>
 
                 {/* Back face */}
-                <div className="absolute inset-0 flex aspect-square w-40 items-center justify-center rounded-2xl bg-gradient-to-br from-brand-primary via-brand-accent to-brand-primary p-[3px] shadow-glow-lg [backface-visibility:hidden] [transform:rotateY(180deg)] sm:w-48">
+                <div className="absolute inset-0 flex aspect-square w-24 items-center justify-center rounded-2xl bg-gradient-to-br from-brand-primary via-brand-accent to-brand-primary p-[3px] shadow-glow-lg [backface-visibility:hidden] [transform:rotateY(180deg)] sm:w-48">
                   <div className="flex h-full w-full flex-col items-center justify-center gap-1.5 rounded-[14px] bg-gradient-to-br from-brand-primary to-brand-accent text-white">
-                    <p className="font-display text-lg font-bold uppercase tracking-[0.2em]">CraftLanee</p>
+                    <p className="font-display text-[10px] font-bold uppercase tracking-[0.1em] sm:text-lg sm:tracking-[0.2em]">CraftLanee</p>
                   </div>
                 </div>
               </motion.div>
@@ -173,7 +173,7 @@ export default function OrbitIllustration({ items, badges = [], maxWidthClassNam
                 <div className="absolute left-1/2 top-0 flex -translate-x-1/2 -translate-y-1/2 flex-col items-center gap-2">
                   <motion.div
                     title={item.label}
-                    className="group relative flex h-16 w-16 items-center justify-center rounded-3xl bg-gradient-to-br from-brand-primary to-brand-accent text-white shadow-glow-lg ring-4 ring-theme-surface transition-transform hover:scale-110 sm:h-20 sm:w-20"
+                    className="group relative flex h-11 w-11 items-center justify-center rounded-2xl sm:rounded-3xl bg-gradient-to-br from-brand-primary to-brand-accent text-white shadow-glow-lg ring-4 ring-theme-surface transition-transform hover:scale-110 sm:h-20 sm:w-20"
                     animate={{ rotate: [-baseAngle, -(baseAngle + 360)] }}
                     transition={{ duration, repeat: Infinity, ease: 'linear' }}
                   >
@@ -187,7 +187,7 @@ export default function OrbitIllustration({ items, badges = [], maxWidthClassNam
                   <motion.span
                     animate={{ rotate: [-baseAngle, -(baseAngle + 360)] }}
                     transition={{ duration, repeat: Infinity, ease: 'linear' }}
-                    className="whitespace-nowrap rounded-full border border-theme bg-theme-surface/95 px-2.5 py-1 text-[11px] font-semibold text-theme-primary shadow-glow backdrop-blur-xl"
+                    className="whitespace-nowrap rounded-full border border-theme bg-theme-surface/95 px-2 py-0.5 text-[9px] sm:px-2.5 sm:py-1 sm:text-[11px] font-semibold text-theme-primary shadow-glow backdrop-blur-xl"
                   >
                     {item.label}
                   </motion.span>
