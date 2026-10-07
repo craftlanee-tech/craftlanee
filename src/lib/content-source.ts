@@ -19,6 +19,7 @@ export const rawContent = {
     { label: 'About', href: '/about' },
     { label: 'Services', href: '/services' },
     { label: 'Products', href: '/products' },
+    { label: 'Internship', href: '/internship' },
     { label: 'Contact', href: '/contact' },
   ],
   hero: {
@@ -201,7 +202,7 @@ export const rawContent = {
     eyebrow: 'Our Products',
     title: 'Products built and maintained by CraftLanee',
     subtitle:
-      'In-house platforms built by CraftLanee for education, learning, and local community discovery — each designed to solve a practical, everyday problem.',
+      'In-house platforms built by CraftLanee for education, learning, and local community discovery â€” each designed to solve a practical, everyday problem.',
     items: [
       {
         title: 'Smart School Management System',
@@ -227,7 +228,7 @@ export const rawContent = {
         title: 'OneTownCity',
         tag: 'Local Discovery Platform',
         description:
-          'The one-stop city engine for Kuppam — a single interface for local listings, real estate, shops, jobs, events, restaurants, healthcare, education, transport, news, and upcoming civic projects.',
+          'The one-stop city engine for Kuppam â€” a single interface for local listings, real estate, shops, jobs, events, restaurants, healthcare, education, transport, news, and upcoming civic projects.',
         highlight: "Kuppam's entire city, one interface",
         highlights: ['Listings for shops, real estate & jobs', 'Events, restaurants, healthcare & transport', 'Local news and civic project updates'],
         image: '/images/product-onetowncity-v2.png',
@@ -244,7 +245,7 @@ export const rawContent = {
       name: 'Kamishetty Mallikarjuna',
       role: 'Founder & Business Development',
       quote: 'The One who burns like fire and melts like ice.',
-      bio: 'Kamishetty Mallikarjuna founded CraftLanee to give businesses, startups, and students in Kuppam access to practical, end-to-end support — from IT consulting and software development to digital marketing, manpower solutions, training, and a collaborative workspace. Leading business development for CraftLanee, he focuses on building long-term partnerships grounded in transparency, hands-on collaboration, and real outcomes, with a vision to grow CraftLanee into a trusted digital growth partner across India.',
+      bio: 'Kamishetty Mallikarjuna founded CraftLanee to give businesses, startups, and students in Kuppam access to practical, end-to-end support â€” from IT consulting and software development to digital marketing, manpower solutions, training, and a collaborative workspace. Leading business development for CraftLanee, he focuses on building long-term partnerships grounded in transparency, hands-on collaboration, and real outcomes, with a vision to grow CraftLanee into a trusted digital growth partner across India.',
     },
     values: [
       {
@@ -367,7 +368,7 @@ export const rawContent = {
       message: 'How can CraftLanee help?',
     },
     details: [
-      { label: 'Email', values: ['info@craftlanee.com'] },
+      { label: 'Email', values: ['hr@craftlanee.com'] },
       { label: 'Phone', values: ['+91 6301469575'] },
       { label: 'Location', values: ['Rajiv Colony Circle, 2nd Floor, Kuppam, Andhra Pradesh - 517425'] },
       { label: 'Hours', values: ['Mon - Sat: 9:00 AM - 7:00 PM', 'Sunday: Closed'] },
@@ -376,7 +377,7 @@ export const rawContent = {
   testimonials: [
     {
       quote:
-        'Founded by Vankayalapati Anitha Reddy, an entrepreneur with a strong understanding of customer-centric business and service excellence, the brand was created with a clear vision: to build a trustworthy men’s grooming network that balances premium experience with mass affordability.',
+        'Founded by Vankayalapati Anitha Reddy, an entrepreneur with a strong understanding of customer-centric business and service excellence, the brand was created with a clear vision: to build a trustworthy menâ€™s grooming network that balances premium experience with mass affordability.',
       author: 'Vankayalapati Anitha Reddy',
       role: 'Founder & CEO, The One & Only Salon Franchise',
       service: 'Digital Marketing Client',
@@ -384,9 +385,9 @@ export const rawContent = {
     },
     {
       quote:
-        'A dedicated women’s healthcare and maternity care center in Kuppam, partnering with CraftLanee for digital marketing and custom software development to strengthen its patient reach and online presence.',
+        'A dedicated womenâ€™s healthcare and maternity care center in Kuppam, partnering with CraftLanee for digital marketing and custom software development to strengthen its patient reach and online presence.',
       author: 'Dr. Shilpa,Gynaecologist',
-      role: 'Dr. Shilpa Women’s Care, KC hospital',
+      role: 'Dr. Shilpa Womenâ€™s Care, KC hospital',
       service: 'Digital Marketing & Software Development Client',
       link: 'https://www.drshilpawomenscare.com/',
     },
@@ -399,6 +400,7 @@ export const rawContent = {
       { label: 'About', href: '/about' },
       { label: 'Services', href: '/services' },
       { label: 'Products', href: '/products' },
+      { label: 'Internship', href: '/internship' },
       { label: 'Contact', href: '/contact' },
     ],
     legal: [

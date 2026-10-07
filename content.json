@@ -1,4 +1,4 @@
-﻿{
+{
   "siteTitle": "CraftLanee",
   "meta": {
     "description": "CraftLanee transforms ideas into impactful digital solutions through IT consulting, software development, digital marketing, manpower solutions, internships, and collaborative workspaces.",
@@ -284,7 +284,7 @@
       "message": "How can CraftLanee help?"
     },
     "details": [
-      { "label": "Email", "values": ["info@craftlanee.com"] },
+      { "label": "Email", "values": ["hr@craftlanee.com"] },
       { "label": "Phone", "values": ["+91 6301469575"] },
       { "label": "Location", "values": ["Rajiv Colony Circle, 2nd Floor, Kuppam, Andhra Pradesh - 517425"] },
       { "label": "Hours", "values": ["Mon - Sat: 9:00 AM - 7:00 PM", "Sunday: Closed"] }

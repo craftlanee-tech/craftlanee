@@ -10,6 +10,7 @@ const routeSeo: Record<string, Pick<MetadataRoute.Sitemap[number], 'changeFreque
   '/services': { changeFrequency: 'monthly', priority: 0.9 },
   '/products': { changeFrequency: 'monthly', priority: 0.85 },
   '/contact': { changeFrequency: 'monthly', priority: 0.85 },
+  '/internship': { changeFrequency: 'monthly', priority: 0.8 },
   '/about': { changeFrequency: 'monthly', priority: 0.75 },
 };
 
