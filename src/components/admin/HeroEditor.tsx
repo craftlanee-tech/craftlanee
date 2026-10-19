@@ -10,7 +10,17 @@ import { formatDateTime } from '../../lib/admin-format';
 const ACCEPT = ['image/jpeg', 'image/png', 'image/webp', 'image/avif'];
 const MAX_BYTES = 5 * 1024 * 1024;
 
-export default function HeroEditor({ initial, useBlob, missingStorage }: { initial: HeroSettings; useBlob: boolean; missingStorage: string[] }) {
+export default function HeroEditor({
+  initial,
+  useBlob,
+  missingStorage,
+  diagnostics,
+}: {
+  initial: HeroSettings;
+  useBlob: boolean;
+  missingStorage: string[];
+  diagnostics: string;
+}) {
   const router = useRouter();
   const inputRef = useRef<HTMLInputElement>(null);
   const [saved, setSaved] = useState(initial);
@@ -118,6 +128,7 @@ export default function HeroEditor({ initial, useBlob, missingStorage }: { initi
               This site runs on Vercel, which can&apos;t save files. In your Vercel project open <strong>Storage</strong>, connect{' '}
               <strong>{missingStorage.join(' and ')}</strong> to this project, then redeploy.
             </p>
+            {diagnostics && <p className="mt-2 font-mono text-xs text-theme-muted">{diagnostics}</p>}
           </div>
         </div>
       )}

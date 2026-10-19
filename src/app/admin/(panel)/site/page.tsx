@@ -10,5 +10,8 @@ export default async function AdminSitePage() {
   const { hero } = await getSiteSettings();
   // On Vercel the filesystem is read-only, so both a Redis database and a Blob store are required.
   const missing = isReadOnlyHost ? [!redis && 'Upstash Redis', !blobEnabled && 'Vercel Blob'].filter(Boolean) as string[] : [];
-  return <HeroEditor initial={hero} useBlob={blobEnabled} missingStorage={missing} />;
+  const diagnostics = isReadOnlyHost
+    ? `Build ${(process.env.VERCEL_GIT_COMMIT_SHA ?? 'unknown').slice(0, 7)} · Redis ${redis ? 'connected' : 'not found'} · Blob ${blobEnabled ? 'connected' : 'not found'}`
+    : '';
+  return <HeroEditor initial={hero} useBlob={blobEnabled} missingStorage={missing} diagnostics={diagnostics} />;
 }
