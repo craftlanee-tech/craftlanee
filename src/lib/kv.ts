@@ -52,8 +52,12 @@ function tcpStore(): JsonStore {
     get: async (key) => parse(await (await connect()).get(key)),
     set: async (key, value) => (await connect()).set(key, JSON.stringify(value)),
     hgetall: async <T>(key: string) => {
-      const raw = await (await connect()).hGetAll(key);
-      return Object.fromEntries(Object.entries(raw).map(([field, value]) => [field, JSON.parse(value) as T]));
+      const raw: unknown = await (await connect()).hGetAll(key);
+      // Depending on protocol version the reply is an object or a flat [field, value, ...] list.
+      const pairs: [string, string][] = Array.isArray(raw)
+        ? Array.from({ length: raw.length / 2 }, (_, index) => [String(raw[index * 2]), String(raw[index * 2 + 1])])
+        : Object.entries(raw as Record<string, string>);
+      return Object.fromEntries(pairs.map(([field, value]) => [field, JSON.parse(value) as T]));
     },
     hget: async (key, field) => parse(await (await connect()).hGet(key, field)),
     hset: async (key, values) =>
