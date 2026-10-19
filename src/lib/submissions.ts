@@ -80,7 +80,7 @@ function assertWritable() {
 }
 
 export async function listSubmissions(): Promise<Submission[]> {
-  const submissions = redis ? Object.values((await redis.hgetall<Record<string, Submission>>(REDIS_KEY)) ?? {}) : await readAll();
+  const submissions = redis ? Object.values((await redis.hgetall<Submission>(REDIS_KEY)) ?? {}) : await readAll();
   return submissions.sort((a, b) => b.createdAt.localeCompare(a.createdAt));
 }
 
