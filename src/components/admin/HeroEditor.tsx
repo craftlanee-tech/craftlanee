@@ -2,14 +2,15 @@
 
 import { useEffect, useRef, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { Check, ExternalLink, ImagePlus, Loader2, Maximize2, Minimize2, Orbit, Trash2, UploadCloud } from 'lucide-react';
+import { upload } from '@vercel/blob/client';
+import { AlertTriangle, Check, ExternalLink, ImagePlus, Loader2, Maximize2, Minimize2, Orbit, Trash2, UploadCloud } from 'lucide-react';
 import type { HeroFit, HeroSettings } from '../../lib/site-settings';
 import { formatDateTime } from '../../lib/admin-format';
 
 const ACCEPT = ['image/jpeg', 'image/png', 'image/webp', 'image/avif'];
 const MAX_BYTES = 5 * 1024 * 1024;
 
-export default function HeroEditor({ initial }: { initial: HeroSettings }) {
+export default function HeroEditor({ initial, useBlob, missingStorage }: { initial: HeroSettings; useBlob: boolean; missingStorage: string[] }) {
   const router = useRouter();
   const inputRef = useRef<HTMLInputElement>(null);
   const [saved, setSaved] = useState(initial);
@@ -27,7 +28,7 @@ export default function HeroEditor({ initial }: { initial: HeroSettings }) {
     if (preview) URL.revokeObjectURL(preview);
   }, [preview]);
 
-  const photoSrc = preview ?? (saved.photo ? `/media/${saved.photo.file}` : null);
+  const photoSrc = preview ?? saved.photo?.src ?? null;
   const dirty = Boolean(file) || mode !== saved.mode || fit !== saved.fit || (saved.photo ? alt !== saved.photo.alt : false);
 
   function pick(next: File | undefined) {
@@ -53,13 +54,32 @@ export default function HeroEditor({ initial }: { initial: HeroSettings }) {
     body.set('mode', mode);
     body.set('fit', fit);
     body.set('alt', alt);
-    if (file) body.set('photo', file);
     Object.entries(extra ?? {}).forEach(([key, value]) => body.set(key, value));
 
     try {
+      if (file && !extra?.remove) {
+        if (useBlob) {
+          // Upload straight from the browser to Vercel Blob; the server only stores the resulting URL.
+          const blob = await upload(`hero/${file.name.replace(/[^\w.-]+/g, '-')}`, file, {
+            access: 'public',
+            handleUploadUrl: '/api/admin/hero/upload',
+            contentType: file.type,
+          });
+          body.set('photoUrl', blob.url);
+        } else {
+          body.set('photo', file);
+        }
+      }
+
       const response = await fetch('/api/admin/hero', { method: 'POST', body });
-      const result = (await response.json()) as { hero?: HeroSettings; error?: string };
-      if (!response.ok || !result.hero) throw new Error(result.error ?? 'Could not save.');
+      const text = await response.text();
+      let result: { hero?: HeroSettings; error?: string } = {};
+      try {
+        result = text ? JSON.parse(text) : {};
+      } catch {
+        result = { error: response.status === 413 ? 'That image is too large to upload.' : `Server error (${response.status}). Please try again.` };
+      }
+      if (!response.ok || !result.hero) throw new Error(result.error ?? `Could not save (${response.status}).`);
       setSaved(result.hero);
       setMode(result.hero.mode);
       setFit(result.hero.fit);
@@ -88,6 +108,19 @@ export default function HeroEditor({ initial }: { initial: HeroSettings }) {
           View homepage <ExternalLink size={15} />
         </a>
       </header>
+
+      {missingStorage.length > 0 && (
+        <div role="alert" className="mt-6 flex gap-3 rounded-2xl border border-amber-500/30 bg-amber-500/10 p-4 text-sm text-theme-secondary">
+          <AlertTriangle size={18} className="mt-0.5 shrink-0 text-amber-500" />
+          <div>
+            <p className="font-semibold text-theme-primary">Connect storage to publish photos</p>
+            <p className="mt-1">
+              This site runs on Vercel, which can&apos;t save files. In your Vercel project open <strong>Storage</strong>, connect{' '}
+              <strong>{missingStorage.join(' and ')}</strong> to this project, then redeploy.
+            </p>
+          </div>
+        </div>
+      )}
 
       <div className="mt-8 grid gap-6 xl:grid-cols-[1fr_1.05fr]">
         {/* Controls */}

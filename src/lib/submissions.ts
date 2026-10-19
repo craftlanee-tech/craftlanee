@@ -1,6 +1,7 @@
 import { randomUUID } from 'node:crypto';
 import { promises as fs } from 'node:fs';
 import path from 'node:path';
+import { isReadOnlyHost, redis, storageMissingMessage } from './kv';
 
 export type SubmissionKind = 'contact' | 'internship';
 export type SubmissionStatus = 'new' | 'progress' | 'done' | 'archived';
@@ -72,8 +73,14 @@ async function writeAll(submissions: Submission[]) {
   await fs.rename(tempFile, dataFile);
 }
 
+const REDIS_KEY = 'craftlanee:submissions';
+
+function assertWritable() {
+  if (!redis && isReadOnlyHost) throw new Error(storageMissingMessage());
+}
+
 export async function listSubmissions(): Promise<Submission[]> {
-  const submissions = await readAll();
+  const submissions = redis ? Object.values((await redis.hgetall<Record<string, Submission>>(REDIS_KEY)) ?? {}) : await readAll();
   return submissions.sort((a, b) => b.createdAt.localeCompare(a.createdAt));
 }
 
@@ -101,6 +108,11 @@ export function saveSubmission(kind: SubmissionKind, data: ContactData | Interns
       data,
     } as Submission;
 
+    assertWritable();
+    if (redis) {
+      await redis.hset(REDIS_KEY, { [submission.id]: submission });
+      return submission;
+    }
     const submissions = await readAll();
     submissions.push(submission);
     await writeAll(submissions);
@@ -110,8 +122,9 @@ export function saveSubmission(kind: SubmissionKind, data: ContactData | Interns
 
 export function updateSubmission(id: string, patch: SubmissionPatch) {
   return withLock(async () => {
-    const submissions = await readAll();
-    const target = submissions.find((item) => item.id === id);
+    assertWritable();
+    const submissions = redis ? [] : await readAll();
+    const target = redis ? await redis.hget<Submission>(REDIS_KEY, id) : submissions.find((item) => item.id === id);
     if (!target) return null;
 
     if (patch.status !== undefined) target.status = patch.status;
@@ -119,13 +132,16 @@ export function updateSubmission(id: string, patch: SubmissionPatch) {
     if (patch.notes !== undefined) target.notes = patch.notes;
     target.updatedAt = new Date().toISOString();
 
-    await writeAll(submissions);
+    if (redis) await redis.hset(REDIS_KEY, { [id]: target });
+    else await writeAll(submissions);
     return target;
   });
 }
 
 export function deleteSubmission(id: string) {
   return withLock(async () => {
+    assertWritable();
+    if (redis) return (await redis.hdel(REDIS_KEY, id)) > 0;
     const submissions = await readAll();
     const remaining = submissions.filter((item) => item.id !== id);
     if (remaining.length === submissions.length) return false;

@@ -126,7 +126,7 @@ export default function HeroSection({ hero }: { hero?: HeroSettings }) {
 
           <motion.div variants={itemVariants}>
             {hero?.mode === 'photo' && hero.photo ? (
-              <HeroPhoto src={`/media/${hero.photo.file}`} alt={hero.photo.alt} fit={hero.fit} badges={heroBadges} />
+              <HeroPhoto src={hero.photo.src} alt={hero.photo.alt} fit={hero.fit} badges={heroBadges} />
             ) : (
               <OrbitIllustration items={orbitItems} badges={heroBadges} />
             )}

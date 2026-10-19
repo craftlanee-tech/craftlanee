@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import AdminSidebar from '../../../components/admin/AdminSidebar';
 import { waitingDays } from '../../../lib/admin-format';
+import { isReadOnlyHost, redis } from '../../../lib/kv';
 import { requireAdmin } from '../../../lib/admin-session';
 import { listSubmissions } from '../../../lib/submissions';
 
@@ -25,7 +26,15 @@ export default async function AdminPanelLayout({ children }: { children: React.R
   return (
     <div className="admin-shell min-h-screen">
       <AdminSidebar stats={stats} />
-      <div className="min-w-0 lg:pl-[272px]">{children}</div>
+      <div className="min-w-0 lg:pl-[272px]">
+        {isReadOnlyHost && !redis && (
+          <p role="alert" className="border-b border-amber-500/30 bg-amber-500/10 px-4 py-2.5 text-sm text-theme-secondary sm:px-8">
+            <strong className="text-theme-primary">New form submissions aren&apos;t being saved yet.</strong> In Vercel → Storage, connect an
+            Upstash Redis database to this project and redeploy. Emails are still being sent.
+          </p>
+        )}
+        {children}
+      </div>
     </div>
   );
 }
