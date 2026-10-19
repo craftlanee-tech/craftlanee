@@ -103,6 +103,54 @@
   );
 }
 
+/* Admin chart series: fixed hues (independent of the accent picker), CVD-validated per theme */
+:root,
+:root[data-theme='light'] {
+  --viz-contact: #3461fd;
+  --viz-internship: #eb6834;
+}
+:root[data-theme='dark'] {
+  --viz-contact: #5b8cff;
+  --viz-internship: #d95926;
+}
+
+/* Admin workspace: a calmer, paper-and-ink palette scoped to /admin so the marketing site is untouched */
+.admin-shell {
+  --color-background: #f4f3ef;
+  --color-surface: #ffffff;
+  --color-surface-alt: #f9f8f5;
+  --color-surface-soft: rgba(20, 22, 30, 0.045);
+  --color-border: rgba(20, 22, 30, 0.09);
+  --color-muted: #6c6f78;
+  --color-text: #12141a;
+  --color-text-secondary: #474a54;
+  --admin-ink: #0d0f15;
+  --admin-card-shadow: 0 1px 0 rgba(20, 22, 30, 0.04), 0 1px 3px rgba(20, 22, 30, 0.04);
+  background-color: var(--color-background);
+  color: var(--color-text);
+}
+:root[data-theme='dark'] .admin-shell {
+  --color-background: #0a0b0f;
+  --color-surface: #111319;
+  --color-surface-alt: #161820;
+  --color-surface-soft: rgba(255, 255, 255, 0.05);
+  --color-border: rgba(255, 255, 255, 0.08);
+  --color-muted: #8a8e99;
+  --color-text: #f1f2f4;
+  --color-text-secondary: #c3c6ce;
+  --admin-ink: #07080b;
+  --admin-card-shadow: none;
+}
+@layer components {
+  .admin-card {
+    background-color: var(--color-surface);
+    border: 1px solid var(--color-border);
+    box-shadow: var(--admin-card-shadow);
+  }
+  .admin-scroll-none { scrollbar-width: none; }
+  .admin-scroll-none::-webkit-scrollbar { display: none; }
+}
+
 /* Same defaults as the dark block above, applied before JS picks a theme so first paint isn't unstyled */
 :root {
   --mesh-alpha-1: 0.28;
@@ -178,6 +226,8 @@ img {
   .bg-theme-accent { background-color: var(--color-accent); }
   .border-theme-accent { border-color: var(--color-accent); }
   .bg-brand-primary { background-color: var(--color-primary); }
+  .bg-theme-primary-ink { background-color: var(--color-text); }
+  .text-theme-inverse { color: var(--color-background); }
 
   .bg-grain {
     position: relative;

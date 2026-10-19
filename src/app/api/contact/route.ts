@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 import nodemailer from 'nodemailer';
+import { saveSubmission } from '../../../lib/submissions';
 
 type ContactPayload = {
   name: string;
@@ -127,12 +128,29 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: validationErrors.join(' ') }, { status: 422 });
   }
 
+  // Store first so the lead shows up in the admin dashboard even if email delivery fails.
+  let stored = false;
+  try {
+    await saveSubmission('contact', {
+      name: body.name.trim(),
+      businessName: body.businessName.trim(),
+      mobile: body.mobile.trim(),
+      email: body.email.trim(),
+      serviceNeeded: body.serviceNeeded,
+      message: body.message.trim(),
+    });
+    stored = true;
+  } catch (error) {
+    console.error('Failed to store contact submission:', error);
+  }
+
   const gmailUser = process.env.GMAIL_USER;
   const gmailAppPassword = process.env.GMAIL_APP_PASSWORD;
   const contactToEmail = process.env.CONTACT_TO_EMAIL;
 
   if (!gmailUser || !gmailAppPassword || !contactToEmail) {
     console.error('Missing GMAIL_USER, GMAIL_APP_PASSWORD, or CONTACT_TO_EMAIL environment variables.');
+    if (stored) return NextResponse.json({ success: true });
     return NextResponse.json({ error: 'Email is not configured on the server.' }, { status: 500 });
   }
 
@@ -157,6 +175,7 @@ export async function POST(request: Request) {
     return NextResponse.json({ success: true });
   } catch (error) {
     console.error('Failed to send contact form email:', error);
+    if (stored) return NextResponse.json({ success: true });
     return NextResponse.json({ error: 'Failed to send message. Please try again.' }, { status: 502 });
   }
 }

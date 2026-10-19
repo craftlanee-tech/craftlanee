@@ -17,6 +17,8 @@ import {
 import Button from './Button';
 import GradientMesh from './GradientMesh';
 import OrbitIllustration from './OrbitIllustration';
+import HeroPhoto from './HeroPhoto';
+import type { HeroSettings } from '../lib/site-settings';
 import AnimatedCounter from './AnimatedCounter';
 import { getContent } from '../lib/content';
 
@@ -41,7 +43,7 @@ const heroBadges = [
   { icon: <Sparkles size={18} />, label: 'Systems', value: 'Automation-ready', tone: 'primary' as const },
 ];
 
-export default function HeroSection() {
+export default function HeroSection({ hero }: { hero?: HeroSettings }) {
   const orbitItems = content.hero.focus.map((label, index) => {
     const Icon = focusIconList[index] ?? Sparkles;
     return { label, icon: <Icon size={30} className="h-5 w-5 sm:h-9 sm:w-9" /> };
@@ -123,7 +125,11 @@ export default function HeroSection() {
           </div>
 
           <motion.div variants={itemVariants}>
-            <OrbitIllustration items={orbitItems} badges={heroBadges} />
+            {hero?.mode === 'photo' && hero.photo ? (
+              <HeroPhoto src={`/media/${hero.photo.file}`} alt={hero.photo.alt} fit={hero.fit} badges={heroBadges} />
+            ) : (
+              <OrbitIllustration items={orbitItems} badges={heroBadges} />
+            )}
           </motion.div>
         </motion.div>
       </div>

@@ -6,6 +6,7 @@ import Footer from '../components/Footer';
 import PageFooter from '../components/PageFooter';
 import { createPageMetadata, siteName } from '../lib/seo';
 import { getContent } from '../lib/content';
+import { getSiteSettings } from '../lib/site-settings';
 
 const content = getContent();
 
@@ -25,11 +26,13 @@ export const metadata = createPageMetadata({
   ],
 });
 
-export default function HomePage() {
+export default async function HomePage() {
+  const { hero } = await getSiteSettings();
+
   return (
     <main className="min-h-screen bg-theme-background text-theme-primary">
       <Navbar />
-      <HeroSection />
+      <HeroSection hero={hero} />
       <ServiceCards />
       <TestimonialSection />
       <PageFooter />

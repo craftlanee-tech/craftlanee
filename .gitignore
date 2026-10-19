@@ -45,3 +45,6 @@ coverage/
 
 # Misc
 *.log
+
+# Admin dashboard submission store (contains personal data)
+data/

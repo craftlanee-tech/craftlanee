@@ -2,10 +2,12 @@
 
 import { useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
+import { usePathname } from 'next/navigation';
 import { motion, useScroll, useSpring, useTransform } from 'motion/react';
 import { playSoftClick } from '../lib/sound';
 
 export default function WhatsAppButton() {
+  const pathname = usePathname();
   const [visible, setVisible] = useState(true);
   const ropeRef = useRef<HTMLDivElement>(null);
   const monkeyRef = useRef<HTMLDivElement>(null);
@@ -52,6 +54,8 @@ export default function WhatsAppButton() {
   const { scrollYProgress } = useScroll();
   const smoothProgress = useSpring(scrollYProgress, { stiffness: 120, damping: 24, mass: 0.5 });
   const monkeyY = useTransform(smoothProgress, [0, 1], [0, travelRange]);
+
+  if (pathname?.startsWith('/admin')) return null;
 
   return (
     <motion.div
