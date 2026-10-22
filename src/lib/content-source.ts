@@ -24,17 +24,16 @@ export const rawContent = {
   ],
   hero: {
     eyebrow: 'Connect - Collaborate - Create',
-    headline: 'Crafting Innovation. Building Opportunities. Driving Digital Success.',
-    highlight: 'Digital Success',
+    headline: 'We craft ideas into momentum.',
+    highlight: 'momentum',
     description:
-      'At CraftLanee, we transform ideas into impactful digital solutions. From IT consulting and software development to digital marketing, manpower solutions, internships, and coworking spaces, we empower businesses, startups, and professionals to achieve sustainable growth.',
+      'Software, marketing, talent and workspace, brought together under one roof so your business can launch faster and grow with confidence.',
     actions: [
-      { label: 'Get Started', href: '/contact', variant: 'primary' },
-      { label: 'Explore Services', href: '/services', variant: 'secondary' },
-      { label: 'Contact Us', href: '/contact', variant: 'secondary' },
+      { label: 'Start a project', href: '/contact', variant: 'primary' },
+      { label: 'Explore services', href: '/services', variant: 'secondary' },
     ],
     stats: [
-      { value: '36', label: 'Modern workstations' },
+      { value: '36', label: 'Workstations' },
       { value: 'End-to-end', label: 'Digital services' },
       { value: 'Kuppam', label: 'Andhra Pradesh' },
     ],

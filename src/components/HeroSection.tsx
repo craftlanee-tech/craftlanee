@@ -75,7 +75,7 @@ export default function HeroSection({ hero }: { hero?: HeroSettings }) {
 
             <motion.h1
               variants={itemVariants}
-              className="font-display text-[2.6rem] font-bold leading-[1.05] tracking-tight text-theme-primary sm:text-6xl lg:text-[4.2rem]"
+              className="max-w-xl font-display text-[2.5rem] font-semibold leading-[1.08] tracking-[-0.03em] text-theme-primary sm:text-[3.5rem] lg:text-[4rem]"
             >
               {content.hero.headline.split(content.hero.highlight).map((part, index, arr) => (
                 <span key={index}>
@@ -87,7 +87,7 @@ export default function HeroSection({ hero }: { hero?: HeroSettings }) {
               ))}
             </motion.h1>
 
-            <motion.p variants={itemVariants} className="max-w-xl text-justify text-base leading-8 text-theme-secondary sm:text-lg">
+            <motion.p variants={itemVariants} className="max-w-md text-base leading-relaxed text-theme-secondary sm:text-lg">
               {content.hero.description}
             </motion.p>
 
