@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { upload } from '@vercel/blob/client';
 import { AlertTriangle, Check, ExternalLink, ImagePlus, Loader2, Maximize2, Minimize2, Orbit, Trash2, UploadCloud } from 'lucide-react';
-import type { HeroFit, HeroSettings } from '../../lib/site-settings';
+import type { HeroButtons, HeroFit, HeroSettings } from '../../lib/site-settings';
 import { formatDateTime } from '../../lib/admin-format';
 
 const ACCEPT = ['image/jpeg', 'image/png', 'image/webp', 'image/avif'];
@@ -33,13 +33,19 @@ export default function HeroEditor({
   const [busy, setBusy] = useState(false);
   const [message, setMessage] = useState<{ tone: 'ok' | 'error'; text: string } | null>(null);
   const [confirmRemove, setConfirmRemove] = useState(false);
+  const [buttons, setButtons] = useState<HeroButtons>(initial.buttons);
 
   useEffect(() => () => {
     if (preview) URL.revokeObjectURL(preview);
   }, [preview]);
 
   const photoSrc = preview ?? saved.photo?.src ?? null;
-  const dirty = Boolean(file) || mode !== saved.mode || fit !== saved.fit || (saved.photo ? alt !== saved.photo.alt : false);
+  const buttonsDirty = JSON.stringify(buttons) !== JSON.stringify(saved.buttons);
+  const dirty = Boolean(file) || mode !== saved.mode || fit !== saved.fit || (saved.photo ? alt !== saved.photo.alt : false) || buttonsDirty;
+
+  function setButton(which: 'primary' | 'secondary', field: 'label' | 'href', value: string) {
+    setButtons((current) => ({ ...current, [which]: { ...current[which], [field]: value } }));
+  }
 
   function pick(next: File | undefined) {
     if (!next) return;
@@ -64,6 +70,11 @@ export default function HeroEditor({
     body.set('mode', mode);
     body.set('fit', fit);
     body.set('alt', alt);
+    body.set('primaryLabel', buttons.primary.label);
+    body.set('primaryHref', buttons.primary.href);
+    body.set('secondaryLabel', buttons.secondary.label);
+    body.set('secondaryHref', buttons.secondary.href);
+    body.set('secondaryVisible', buttons.secondary.visible ? '1' : '0');
     Object.entries(extra ?? {}).forEach(([key, value]) => body.set(key, value));
 
     try {
@@ -91,6 +102,7 @@ export default function HeroEditor({
       }
       if (!response.ok || !result.hero) throw new Error(result.error ?? `Could not save (${response.status}).`);
       setSaved(result.hero);
+      setButtons(result.hero.buttons);
       setMode(result.hero.mode);
       setFit(result.hero.fit);
       setAlt(result.hero.photo?.alt ?? '');
@@ -229,6 +241,60 @@ export default function HeroEditor({
             </div>
           )}
 
+          <h2 className="mt-8 text-[11px] font-semibold uppercase tracking-[0.18em] text-theme-muted">3 · Buttons</h2>
+          <div className="mt-4 space-y-3">
+            {(['primary', 'secondary'] as const).map((which) => {
+              const hidden = which === 'secondary' && !buttons.secondary.visible;
+              return (
+                <div key={which} className="rounded-2xl border border-theme bg-theme-surface-alt p-4">
+                  <div className="mb-3 flex items-center justify-between">
+                    <span className="flex items-center gap-2 text-sm font-semibold text-theme-primary">
+                      <span
+                        aria-hidden="true"
+                        className={`h-3 w-6 rounded-full ${which === 'primary' ? 'bg-brand-primary' : 'border-2 border-brand-primary/60'}`}
+                      />
+                      {which === 'primary' ? 'Main button' : 'Second button'}
+                    </span>
+                    {which === 'secondary' && (
+                      <label className="flex cursor-pointer items-center gap-2 text-xs font-medium text-theme-muted">
+                        Show
+                        <input
+                          type="checkbox"
+                          checked={buttons.secondary.visible}
+                          onChange={(event) => setButtons((current) => ({ ...current, secondary: { ...current.secondary, visible: event.target.checked } }))}
+                          className="h-4 w-4 accent-[var(--color-primary)]"
+                        />
+                      </label>
+                    )}
+                  </div>
+                  <div className={`grid gap-3 sm:grid-cols-2 ${hidden ? 'pointer-events-none opacity-40' : ''}`}>
+                    <label className="block">
+                      <span className="mb-1 block text-xs font-medium text-theme-muted">Text</span>
+                      <input
+                        value={buttons[which].label}
+                        onChange={(event) => setButton(which, 'label', event.target.value)}
+                        maxLength={40}
+                        placeholder={which === 'primary' ? 'Start a project' : 'Explore services'}
+                        className="w-full rounded-xl border border-theme bg-theme-surface px-3.5 py-2.5 text-sm text-theme-primary outline-none transition placeholder:text-theme-muted focus:border-brand-primary"
+                      />
+                    </label>
+                    <label className="block">
+                      <span className="mb-1 block text-xs font-medium text-theme-muted">Link</span>
+                      <input
+                        value={buttons[which].href}
+                        onChange={(event) => setButton(which, 'href', event.target.value)}
+                        maxLength={300}
+                        placeholder="/services or https://wa.me/91…"
+                        className="w-full rounded-xl border border-theme bg-theme-surface px-3.5 py-2.5 font-mono text-[13px] text-theme-primary outline-none transition placeholder:text-theme-muted focus:border-brand-primary"
+                      />
+                    </label>
+                  </div>
+                </div>
+              );
+            })}
+            <p className="text-xs text-theme-muted">Links can be a page on your site (like /services), a full web address, mailto: or tel:.</p>
+          </div>
+
           <div className="mt-8 flex flex-wrap items-center gap-3 border-t border-theme pt-6">
             <button
               type="button"
@@ -244,6 +310,7 @@ export default function HeroEditor({
                 type="button"
                 onClick={() => {
                   setMode(saved.mode);
+                  setButtons(saved.buttons);
                   setFit(saved.fit);
                   setAlt(saved.photo?.alt ?? '');
                   setFile(null);
@@ -306,8 +373,12 @@ export default function HeroEditor({
                 <div className="h-1.5 w-[70%] rounded-full bg-theme-primary-ink/15" />
               </div>
               <div className="flex gap-2 pt-3">
-                <div className="h-6 w-20 rounded-full bg-brand-primary" />
-                <div className="h-6 w-16 rounded-full border border-theme" />
+                <span className="max-w-[9rem] truncate rounded-full bg-brand-primary px-3 py-1 text-[10px] font-semibold text-white">{buttons.primary.label || 'Button'}</span>
+                {buttons.secondary.visible && (
+                  <span className="max-w-[9rem] truncate rounded-full border border-brand-primary/50 px-3 py-1 text-[10px] font-semibold text-theme-secondary">
+                    {buttons.secondary.label || 'Button'}
+                  </span>
+                )}
               </div>
             </div>
             <div className="relative">

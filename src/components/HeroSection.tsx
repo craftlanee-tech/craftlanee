@@ -92,7 +92,13 @@ export default function HeroSection({ hero }: { hero?: HeroSettings }) {
             </motion.p>
 
             <motion.div variants={itemVariants} className="flex flex-wrap gap-3">
-              {content.hero.actions.map((action) => (
+              {(hero
+                ? [
+                    { ...hero.buttons.primary, variant: 'primary' },
+                    ...(hero.buttons.secondary.visible ? [{ ...hero.buttons.secondary, variant: 'secondary' }] : []),
+                  ]
+                : content.hero.actions
+              ).map((action) => (
                 <Button key={action.label} href={action.href} variant={action.variant as 'primary' | 'secondary'}>
                   {action.label}
                   {action.variant === 'primary' ? <ArrowRight size={18} /> : null}
@@ -126,7 +132,7 @@ export default function HeroSection({ hero }: { hero?: HeroSettings }) {
 
           <motion.div variants={itemVariants}>
             {hero?.mode === 'photo' && hero.photo ? (
-              <HeroPhoto src={hero.photo.src} alt={hero.photo.alt} fit={hero.fit} badges={heroBadges} />
+              <HeroPhoto src={hero.photo.src} alt={hero.photo.alt} fit={hero.fit} />
             ) : (
               <OrbitIllustration items={orbitItems} badges={heroBadges} />
             )}

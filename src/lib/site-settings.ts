@@ -2,6 +2,7 @@ import { randomUUID } from 'node:crypto';
 import { promises as fs } from 'node:fs';
 import path from 'node:path';
 import { del } from '@vercel/blob';
+import { getContent } from './content';
 import { isReadOnlyHost, redis, storageMissingMessage } from './kv';
 
 export type HeroFit = 'cover' | 'contain';
@@ -13,15 +14,36 @@ export type HeroPhoto = {
   uploadedAt: string;
 };
 
+export type HeroButton = { label: string; href: string };
+
+export type HeroButtons = {
+  primary: HeroButton;
+  secondary: HeroButton & { visible: boolean };
+};
+
 export type HeroSettings = {
   mode: 'illustration' | 'photo';
   fit: HeroFit;
   photo: HeroPhoto | null;
+  buttons: HeroButtons;
 };
 
 export type SiteSettings = { hero: HeroSettings };
 
-const defaults: SiteSettings = { hero: { mode: 'illustration', fit: 'cover', photo: null } };
+const [defaultPrimary, defaultSecondary] = getContent().hero.actions;
+
+export const defaultButtons: HeroButtons = {
+  primary: { label: defaultPrimary?.label ?? 'Start a project', href: defaultPrimary?.href ?? '/contact' },
+  secondary: { label: defaultSecondary?.label ?? 'Explore services', href: defaultSecondary?.href ?? '/services', visible: Boolean(defaultSecondary) },
+};
+
+const defaults: SiteSettings = { hero: { mode: 'illustration', fit: 'cover', photo: null, buttons: defaultButtons } };
+
+/** Accepts site paths, full web URLs, mailto:, tel: and #anchors; anything else (e.g. javascript:) is rejected. */
+export function cleanLink(value: unknown) {
+  const link = typeof value === 'string' ? value.trim() : '';
+  return /^(\/(?!\/)|https?:\/\/|mailto:|tel:|#)/i.test(link) ? link.slice(0, 300) : null;
+}
 
 const REDIS_KEY = 'craftlanee:settings';
 const dataDir = process.env.SUBMISSIONS_DIR || path.join(process.cwd(), 'data');
@@ -60,7 +82,16 @@ function normalise(hero: StoredHero | undefined): HeroSettings {
   const merged = { ...defaults.hero, ...hero };
   // Settings saved before photos had `src` stored only the local file name.
   const photo = hero?.photo ? { ...hero.photo, src: hero.photo.src ?? `/media/${hero.photo.file}` } : null;
-  return { mode: merged.mode, fit: merged.fit, photo: photo ? { src: photo.src, alt: photo.alt, uploadedAt: photo.uploadedAt } : null };
+  const buttons: HeroButtons = {
+    primary: { ...defaultButtons.primary, ...hero?.buttons?.primary },
+    secondary: { ...defaultButtons.secondary, ...hero?.buttons?.secondary },
+  };
+  return {
+    mode: merged.mode,
+    fit: merged.fit,
+    photo: photo ? { src: photo.src, alt: photo.alt, uploadedAt: photo.uploadedAt } : null,
+    buttons,
+  };
 }
 
 async function readSettings(): Promise<SiteSettings> {

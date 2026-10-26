@@ -3,6 +3,7 @@ import { revalidatePath } from 'next/cache';
 import { isAdminSession } from '../../../../lib/admin-session';
 import {
   MAX_UPLOAD_BYTES,
+  cleanLink,
   getSiteSettings,
   imageTypes,
   isBlobUrl,
@@ -53,6 +54,29 @@ export async function POST(request: Request) {
       patch.photo = { src: await storeUpload(bytes, type.ext), alt: altText, uploadedAt: new Date().toISOString() };
     } else if (current.photo && typeof alt === 'string') {
       patch.photo = { ...current.photo, alt: altText };
+    }
+
+    if (form.has('primaryLabel')) {
+      const primaryLabel = String(form.get('primaryLabel') ?? '').trim().slice(0, 40);
+      const secondaryLabel = String(form.get('secondaryLabel') ?? '').trim().slice(0, 40);
+      const primaryHref = cleanLink(form.get('primaryHref'));
+      const secondaryHref = cleanLink(form.get('secondaryHref'));
+      const secondaryVisible = form.get('secondaryVisible') === '1';
+
+      if (!primaryLabel || !primaryHref) {
+        return NextResponse.json({ error: 'The main button needs text and a link starting with /, https://, mailto: or tel:.' }, { status: 422 });
+      }
+      if (secondaryVisible && (!secondaryLabel || !secondaryHref)) {
+        return NextResponse.json({ error: 'The second button needs text and a link starting with /, https://, mailto: or tel:.' }, { status: 422 });
+      }
+      patch.buttons = {
+        primary: { label: primaryLabel, href: primaryHref },
+        secondary: {
+          label: secondaryLabel || current.buttons.secondary.label,
+          href: secondaryHref ?? current.buttons.secondary.href,
+          visible: secondaryVisible,
+        },
+      };
     }
 
     if (patch.mode === 'photo' && !(patch.photo ?? current.photo)) {
