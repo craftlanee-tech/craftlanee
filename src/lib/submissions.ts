@@ -12,6 +12,7 @@ export type ContactData = {
   mobile: string;
   email: string;
   serviceNeeded: string[];
+  serviceTypes?: string[];
   message: string;
 };
 

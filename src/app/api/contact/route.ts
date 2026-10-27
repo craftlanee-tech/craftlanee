@@ -8,6 +8,7 @@ type ContactPayload = {
   mobile: string;
   email: string;
   serviceNeeded: string[];
+  serviceTypes?: string[];
   message: string;
 };
 
@@ -25,7 +26,9 @@ function isContactPayload(value: unknown): value is ContactPayload {
     typeof record.email === 'string' &&
     typeof record.message === 'string' &&
     Array.isArray(record.serviceNeeded) &&
-    record.serviceNeeded.every((service) => typeof service === 'string')
+    record.serviceNeeded.every((service) => typeof service === 'string') &&
+    (record.serviceTypes === undefined ||
+      (Array.isArray(record.serviceTypes) && record.serviceTypes.every((type) => typeof type === 'string')))
   );
 }
 
@@ -44,6 +47,19 @@ function validatePayload(payload: ContactPayload) {
   return errors;
 }
 
+function formatServices(payload: ContactPayload) {
+  const types = payload.serviceTypes ?? [];
+
+  return payload.serviceNeeded
+    .map((service) => {
+      const prefix = `${service}: `;
+      const picked = types.filter((type) => type.startsWith(prefix)).map((type) => type.slice(prefix.length));
+
+      return picked.length > 0 ? `${service} (${picked.join(', ')})` : service;
+    })
+    .join(', ');
+}
+
 function escapeHtml(value: string) {
   return value
     .replace(/&/g, '&amp;')
@@ -60,7 +76,7 @@ function buildLeadText(payload: ContactPayload) {
     `Business Name: ${payload.businessName}`,
     `Mobile: ${payload.mobile}`,
     `Email: ${payload.email}`,
-    `Services Needed: ${payload.serviceNeeded.join(', ')}`,
+    `Services Needed: ${formatServices(payload)}`,
     '',
     'Business Details:',
     payload.message,
@@ -73,7 +89,7 @@ function buildLeadHtml(payload: ContactPayload) {
     ['Business Name', payload.businessName],
     ['Mobile', payload.mobile],
     ['Email', payload.email],
-    ['Services Needed', payload.serviceNeeded.join(', ')],
+    ['Services Needed', formatServices(payload)],
   ];
 
   return `
@@ -137,6 +153,10 @@ export async function POST(request: Request) {
       mobile: body.mobile.trim(),
       email: body.email.trim(),
       serviceNeeded: body.serviceNeeded,
+      // Only keep sub-types that belong to a selected service.
+      serviceTypes: (body.serviceTypes ?? []).filter((type) =>
+        body.serviceNeeded.some((service) => type.startsWith(`${service}: `))
+      ),
       message: body.message.trim(),
     });
     stored = true;

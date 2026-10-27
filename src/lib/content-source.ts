@@ -54,6 +54,8 @@ export const rawContent = {
           'E-commerce Websites',
           'Portfolio Websites',
           'Landing Pages',
+          'Blog Websites',
+          'Web Applications',
           'Website Maintenance',
         ],
       },

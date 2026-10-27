@@ -25,7 +25,7 @@ export async function GET(request: Request) {
 
   if (type === 'contact') {
     rows = (await listContacts()).map(({ id, createdAt, status, starred, notes, data }) => ({
-      id, submittedAt: createdAt, status, starred, ...data, notes,
+      id, submittedAt: createdAt, status, starred, ...data, serviceTypes: data.serviceTypes ?? [], notes,
     }));
   } else if (type === 'internship') {
     rows = (await listInternships()).map(({ id, createdAt, status, starred, notes, data }) => ({

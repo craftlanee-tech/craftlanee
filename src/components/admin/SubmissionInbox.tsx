@@ -466,6 +466,7 @@ function Detail({ item, now, onBack, onPatch, onDelete }: DetailProps) {
           ['Business', item.data.businessName],
           ['Email', item.data.email],
           ['Mobile', item.data.mobile],
+          ...(item.data.serviceTypes?.length ? [['Service types', item.data.serviceTypes.join(', ')] as [string, string]] : []),
         ]
       : [
           ['College', item.data.college],

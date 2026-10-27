@@ -6,7 +6,7 @@ import { getContent } from '../lib/content';
 import Button from './Button';
 
 const content = getContent();
-const serviceOptions = content.services.groups.map((group) => group.category);
+const serviceOptions = content.services.groups.map((group) => ({ category: group.category, types: group.items }));
 
 type ContactFormState = {
   name: string;
@@ -14,6 +14,7 @@ type ContactFormState = {
   mobile: string;
   email: string;
   serviceNeeded: string[];
+  serviceTypes: string[];
   message: string;
 };
 
@@ -57,11 +58,23 @@ const initialForm: ContactFormState = {
   mobile: '',
   email: '',
   serviceNeeded: [],
+  serviceTypes: [],
   message: '',
 };
 
-function formatServices(services: string[]) {
-  return services.join(', ');
+function toServiceType(category: string, type: string) {
+  return `${category}: ${type}`;
+}
+
+function formatServiceSelection(services: string[], serviceTypes: string[]) {
+  return services
+    .map((service) => {
+      const prefix = `${service}: `;
+      const types = serviceTypes.filter((type) => type.startsWith(prefix)).map((type) => type.slice(prefix.length));
+
+      return types.length > 0 ? `${service} (${types.join(', ')})` : service;
+    })
+    .join(', ');
 }
 
 function getServiceSummary(services: string[]) {
@@ -177,8 +190,23 @@ export default function ContactForm() {
       serviceNeeded: checked
         ? [...currentForm.serviceNeeded, value]
         : currentForm.serviceNeeded.filter((service) => service !== value),
+      serviceTypes: checked
+        ? currentForm.serviceTypes
+        : currentForm.serviceTypes.filter((type) => !type.startsWith(`${value}: `)),
     }));
     setErrors((currentErrors) => ({ ...currentErrors, serviceNeeded: undefined }));
+    setStatus('idle');
+  };
+
+  const handleServiceTypeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const { checked, value } = event.target;
+
+    setForm((currentForm) => ({
+      ...currentForm,
+      serviceTypes: checked
+        ? [...currentForm.serviceTypes, value]
+        : currentForm.serviceTypes.filter((type) => type !== value),
+    }));
     setStatus('idle');
   };
 
@@ -215,6 +243,7 @@ export default function ContactForm() {
       mobile: mobileRef,
       email: emailRef,
       serviceNeeded: serviceNeededRef,
+      serviceTypes: serviceNeededRef,
       message: messageRef,
     };
     const fieldRef = refs[field];
@@ -387,26 +416,56 @@ export default function ContactForm() {
         {servicesOpen ? (
           <div className="absolute left-0 right-0 z-20 mt-2 max-h-72 overflow-y-auto rounded-3xl border border-theme bg-theme-surface-alt p-3 shadow-glow">
             <div className="grid gap-2">
-              {serviceOptions.map((service) => (
-                <label
-                  key={service}
-                  className="flex cursor-pointer items-center gap-3 rounded-2xl px-3 py-2 text-sm text-theme-secondary transition hover:bg-theme-surface-soft hover:text-theme-primary"
-                >
-                  <input
-                    type="checkbox"
-                    name="serviceNeeded"
-                    value={service}
-                    checked={form.serviceNeeded.includes(service)}
-                    onChange={handleServiceChange}
-                    className="h-4 w-4 accent-brand-primary"
-                  />
-                  <span>{service}</span>
-                </label>
-              ))}
+              {serviceOptions.map(({ category, types }) => {
+                const selected = form.serviceNeeded.includes(category);
+
+                return (
+                  <div key={category}>
+                    <label className="flex cursor-pointer items-center gap-3 rounded-2xl px-3 py-2 text-sm text-theme-secondary transition hover:bg-theme-surface-soft hover:text-theme-primary">
+                      <input
+                        type="checkbox"
+                        name="serviceNeeded"
+                        value={category}
+                        checked={selected}
+                        onChange={handleServiceChange}
+                        className="h-4 w-4 accent-brand-primary"
+                      />
+                      <span>{category}</span>
+                    </label>
+                    {selected && types.length > 0 ? (
+                      <div className="mb-2 ml-6 mt-1 border-l border-theme pl-3">
+                        <p className="px-3 pb-1 text-xs text-theme-muted">What type? (optional)</p>
+                        <div className="grid gap-1 sm:grid-cols-2">
+                          {types.map((type) => {
+                            const value = toServiceType(category, type);
+
+                            return (
+                              <label
+                                key={value}
+                                className="flex cursor-pointer items-center gap-3 rounded-2xl px-3 py-1.5 text-sm text-theme-secondary transition hover:bg-theme-surface-soft hover:text-theme-primary"
+                              >
+                                <input
+                                  type="checkbox"
+                                  name="serviceTypes"
+                                  value={value}
+                                  checked={form.serviceTypes.includes(value)}
+                                  onChange={handleServiceTypeChange}
+                                  className="h-4 w-4 accent-brand-primary"
+                                />
+                                <span>{type}</span>
+                              </label>
+                            );
+                          })}
+                        </div>
+                      </div>
+                    ) : null}
+                  </div>
+                );
+              })}
             </div>
           </div>
         ) : null}
-        {form.serviceNeeded.length > 0 ? <p className="text-sm text-theme-muted">{formatServices(form.serviceNeeded)}</p> : null}
+        {form.serviceNeeded.length > 0 ? <p className="text-sm text-theme-muted">{formatServiceSelection(form.serviceNeeded, form.serviceTypes)}</p> : null}
         {errors.serviceNeeded ? <p id="serviceNeeded-error" className="text-sm text-rose-300">{errors.serviceNeeded}</p> : null}
       </div>
 
