@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="brand_primary">#2563EB</color>
+    <color name="admin_ink">#07091A</color>
+    <color name="viz_contact">#5B8CFF</color>
+    <color name="viz_internship">#D95926</color>
+</resources>

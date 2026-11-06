@@ -47,4 +47,15 @@ coverage/
 *.log
 
 # Admin dashboard submission store (contains personal data)
-data/
+/data/
+
+# Android build & release secrets
+android/.gradle/
+android/app/build/
+android/build/
+android/local.properties
+android/keystore/
+*.jks
+*.keystore
+keystore.properties
+
