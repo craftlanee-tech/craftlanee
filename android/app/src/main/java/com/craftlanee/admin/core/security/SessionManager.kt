@@ -66,7 +66,7 @@ class SessionManager(context: Context) {
         prefs.edit()
             .putString(KEY_AUTH_TOKEN, token)
             .putLong(KEY_EXPIRES_AT, expiresAt)
-            .apply()
+            .commit()
         _isAuthenticated.value = true
     }
 
@@ -74,7 +74,7 @@ class SessionManager(context: Context) {
         prefs.edit()
             .remove(KEY_AUTH_TOKEN)
             .remove(KEY_EXPIRES_AT)
-            .apply()
+            .commit()
         _isAuthenticated.value = false
         _isBiometricLocked.value = false
     }

@@ -85,6 +85,12 @@ fun OverviewScreen(
     val snackbarHostState = remember { SnackbarHostState() }
     val pullRefreshState = rememberPullToRefreshState()
 
+    LaunchedEffect(Unit) {
+        if (uiState.overview == null) {
+            viewModel.refresh()
+        }
+    }
+
     if (pullRefreshState.isRefreshing) {
         LaunchedEffect(true) {
             viewModel.refresh()

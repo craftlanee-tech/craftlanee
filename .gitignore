@@ -53,6 +53,7 @@ coverage/
 android/.gradle/
 android/app/build/
 android/build/
+android/*.apk
 android/local.properties
 android/keystore/
 *.jks

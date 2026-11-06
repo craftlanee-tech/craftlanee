@@ -4,6 +4,7 @@ import android.content.Context
 import android.net.Uri
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.craftlanee.admin.core.security.SessionManager
 import com.craftlanee.admin.data.model.HeroButton
 import com.craftlanee.admin.data.model.HeroButtons
 import com.craftlanee.admin.data.model.HeroSettings
@@ -36,17 +37,24 @@ data class HeroEditorUiState(
 
 class HeroEditorViewModel(
     private val repository: SiteSettingsRepository,
+    private val sessionManager: SessionManager,
     private val context: Context
 ) : ViewModel() {
 
-    private val _uiState = MutableStateFlow(HeroEditorUiState(isFetching = true))
+    private val _uiState = MutableStateFlow(HeroEditorUiState(isFetching = false))
     val uiState: StateFlow<HeroEditorUiState> = _uiState.asStateFlow()
 
     init {
-        loadSettings()
+        if (sessionManager.hasValidSession()) {
+            loadSettings()
+        }
     }
 
     fun loadSettings() {
+        if (!sessionManager.hasValidSession()) {
+            _uiState.update { it.copy(isFetching = false) }
+            return
+        }
         viewModelScope.launch {
             _uiState.update { it.copy(isFetching = true, error = null) }
             repository.getSettings().fold(

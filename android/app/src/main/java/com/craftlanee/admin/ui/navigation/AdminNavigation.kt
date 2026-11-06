@@ -93,10 +93,10 @@ fun AdminNavigation(
 
     // Reusable viewmodels
     val loginViewModel = remember { LoginViewModel(authRepository, sessionManager) }
-    val overviewViewModel = remember { OverviewViewModel(overviewRepository) }
-    val contactsViewModel = remember { SubmissionsViewModel(submissionRepository, exportManager, "contact") }
-    val internshipsViewModel = remember { SubmissionsViewModel(submissionRepository, exportManager, "internship") }
-    val heroEditorViewModel = remember { HeroEditorViewModel(siteSettingsRepository, context) }
+    val overviewViewModel = remember { OverviewViewModel(overviewRepository, sessionManager) }
+    val contactsViewModel = remember { SubmissionsViewModel(submissionRepository, exportManager, sessionManager, "contact") }
+    val internshipsViewModel = remember { SubmissionsViewModel(submissionRepository, exportManager, sessionManager, "internship") }
+    val heroEditorViewModel = remember { HeroEditorViewModel(siteSettingsRepository, sessionManager, context) }
 
     Scaffold(
         containerColor = AdminInk,
@@ -232,6 +232,10 @@ fun AdminNavigation(
                     LoginScreen(
                         viewModel = loginViewModel,
                         onLoginSuccess = {
+                            overviewViewModel.refresh()
+                            contactsViewModel.refresh()
+                            internshipsViewModel.refresh()
+                            heroEditorViewModel.loadSettings()
                             navController.navigate(Screen.Overview.route) {
                                 popUpTo(Screen.Login.route) { inclusive = true }
                             }
@@ -243,6 +247,10 @@ fun AdminNavigation(
                     BiometricGateScreen(
                         biometricLockManager = biometricLockManager,
                         onUnlocked = {
+                            overviewViewModel.refresh()
+                            contactsViewModel.refresh()
+                            internshipsViewModel.refresh()
+                            heroEditorViewModel.loadSettings()
                             navController.navigate(Screen.Overview.route) {
                                 popUpTo(Screen.BiometricLock.route) { inclusive = true }
                             }

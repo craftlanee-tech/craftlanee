@@ -21,10 +21,10 @@ class AuthInterceptor(private val sessionManager: SessionManager) : Interceptor 
         val response = chain.proceed(requestBuilder.build())
         if (response.code in listOf(302, 303, 307, 308)) {
             val location = response.header("Location").orEmpty()
-            if (location.contains("login")) {
+            if (location.contains("login") && !token.isNullOrBlank()) {
                 sessionManager.clearSession()
             }
-        } else if (response.code == 401) {
+        } else if (response.code == 401 && !token.isNullOrBlank()) {
             sessionManager.clearSession()
         }
 

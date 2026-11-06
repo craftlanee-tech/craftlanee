@@ -2,15 +2,14 @@ package com.craftlanee.admin.ui.overview
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.craftlanee.admin.core.security.SessionManager
 import com.craftlanee.admin.data.model.OverviewResponse
 import com.craftlanee.admin.data.repository.OverviewRepository
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.stateIn
-import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 data class OverviewUiState(
@@ -20,7 +19,8 @@ data class OverviewUiState(
 )
 
 class OverviewViewModel(
-    private val overviewRepository: OverviewRepository
+    private val overviewRepository: OverviewRepository,
+    private val sessionManager: SessionManager
 ) : ViewModel() {
 
     private val _isRefreshing = MutableStateFlow(false)
@@ -39,14 +39,20 @@ class OverviewViewModel(
     }.stateIn(
         viewModelScope,
         SharingStarted.WhileSubscribed(5000),
-        OverviewUiState(isRefreshing = true)
+        OverviewUiState(isRefreshing = false)
     )
 
     init {
-        refresh()
+        if (sessionManager.hasValidSession()) {
+            refresh()
+        }
     }
 
     fun refresh() {
+        if (!sessionManager.hasValidSession()) {
+            _isRefreshing.value = false
+            return
+        }
         viewModelScope.launch {
             _isRefreshing.value = true
             _error.value = null

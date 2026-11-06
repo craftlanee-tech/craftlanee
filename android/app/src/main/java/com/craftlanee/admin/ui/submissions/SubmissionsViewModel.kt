@@ -3,6 +3,7 @@ package com.craftlanee.admin.ui.submissions
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.craftlanee.admin.core.export.ExportManager
+import com.craftlanee.admin.core.security.SessionManager
 import com.craftlanee.admin.data.model.Submission
 import com.craftlanee.admin.data.model.SubmissionCounts
 import com.craftlanee.admin.data.model.SubmissionPatch
@@ -37,6 +38,7 @@ data class SubmissionsUiState(
 class SubmissionsViewModel(
     private val submissionRepository: SubmissionRepository,
     private val exportManager: ExportManager,
+    private val sessionManager: SessionManager,
     private val defaultKind: String = "contact"
 ) : ViewModel() {
 
@@ -131,7 +133,9 @@ class SubmissionsViewModel(
     )
 
     init {
-        refresh()
+        if (sessionManager.hasValidSession()) {
+            refresh()
+        }
     }
 
     fun setKind(kind: String) {
@@ -165,6 +169,10 @@ class SubmissionsViewModel(
     }
 
     fun refresh() {
+        if (!sessionManager.hasValidSession()) {
+            _isRefreshing.value = false
+            return
+        }
         viewModelScope.launch {
             _isRefreshing.value = true
             _error.value = null

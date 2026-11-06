@@ -89,6 +89,10 @@ fun HeroEditorScreen(
         viewModel.onImageSelected(uri)
     }
 
+    LaunchedEffect(Unit) {
+        viewModel.loadSettings()
+    }
+
     LaunchedEffect(uiState.successMessage) {
         uiState.successMessage?.let {
             snackbarHostState.showSnackbar(it)

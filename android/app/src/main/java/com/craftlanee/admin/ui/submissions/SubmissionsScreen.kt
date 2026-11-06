@@ -89,6 +89,12 @@ fun SubmissionsScreen(
     val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
     var facetDropdownExpanded by remember { mutableStateOf(false) }
 
+    LaunchedEffect(Unit) {
+        if (uiState.items.isEmpty()) {
+            viewModel.refresh()
+        }
+    }
+
     if (pullRefreshState.isRefreshing) {
         LaunchedEffect(true) {
             viewModel.refresh()
