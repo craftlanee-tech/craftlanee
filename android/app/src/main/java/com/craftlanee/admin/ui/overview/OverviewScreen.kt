@@ -1,5 +1,6 @@
 package com.craftlanee.admin.ui.overview
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -45,10 +46,13 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.nestedscroll.nestedScroll
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.craftlanee.admin.R
 import com.craftlanee.admin.data.model.OverviewResponse
 import com.craftlanee.admin.data.model.PipelineSummary
 import com.craftlanee.admin.data.model.Submission
@@ -424,15 +428,28 @@ fun OverviewHeader(
     onNavigateToHero: () -> Unit
 ) {
     Column(modifier = Modifier.fillMaxWidth()) {
-        Text(
-            text = stamp.uppercase(),
-            fontSize = 11.sp,
-            fontWeight = FontWeight.SemiBold,
-            letterSpacing = 1.5.sp,
-            color = TextMutedDark
-        )
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.SpaceBetween,
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Image(
+                painter = painterResource(id = R.drawable.craftlanee_logo_white),
+                contentDescription = "CraftLanee",
+                modifier = Modifier.height(28.dp),
+                contentScale = ContentScale.Fit
+            )
 
-        Spacer(modifier = Modifier.height(4.dp))
+            Text(
+                text = stamp.uppercase(),
+                fontSize = 11.sp,
+                fontWeight = FontWeight.SemiBold,
+                letterSpacing = 1.5.sp,
+                color = TextMutedDark
+            )
+        }
+
+        Spacer(modifier = Modifier.height(10.dp))
 
         Text(
             text = "$greeting.",

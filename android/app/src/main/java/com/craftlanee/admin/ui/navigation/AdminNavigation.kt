@@ -1,5 +1,6 @@
 package com.craftlanee.admin.ui.navigation
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Box
@@ -30,9 +31,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.craftlanee.admin.R
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
@@ -168,18 +172,16 @@ fun AdminNavigation(
                                 .padding(top = 16.dp, bottom = 24.dp)
                                 .size(44.dp)
                                 .clip(RoundedCornerShape(12.dp))
-                                .background(
-                                    Brush.linearGradient(
-                                        listOf(BrandPrimary, BrandAccent)
-                                    )
-                                ),
+                                .background(SurfaceDark)
+                                .border(1.dp, SurfaceBorder, RoundedCornerShape(12.dp))
+                                .padding(6.dp),
                             contentAlignment = Alignment.Center
                         ) {
-                            Text(
-                                text = "CL",
-                                fontWeight = FontWeight.Black,
-                                fontSize = 16.sp,
-                                color = Color.White
+                            Image(
+                                painter = painterResource(id = R.drawable.ic_craftlanee_logo),
+                                contentDescription = "CraftLanee",
+                                modifier = Modifier.fillMaxSize(),
+                                contentScale = ContentScale.Fit
                             )
                         }
                     }

@@ -1,5 +1,6 @@
 package com.craftlanee.admin.ui.biometric
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
@@ -31,12 +32,15 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.fragment.app.FragmentActivity
+import com.craftlanee.admin.R
 import com.craftlanee.admin.core.security.BiometricLockManager
 import com.craftlanee.admin.ui.theme.AdminInk
 import com.craftlanee.admin.ui.theme.BrandPrimary
@@ -92,6 +96,17 @@ fun BiometricGateScreen(
                 .border(1.dp, SurfaceBorder, RoundedCornerShape(24.dp))
                 .padding(28.dp)
         ) {
+            Image(
+                painter = painterResource(id = R.drawable.craftlanee_logo_white),
+                contentDescription = "CraftLanee",
+                modifier = Modifier
+                    .height(30.dp)
+                    .padding(horizontal = 8.dp),
+                contentScale = ContentScale.Fit
+            )
+
+            Spacer(modifier = Modifier.height(24.dp))
+
             Box(
                 modifier = Modifier
                     .size(76.dp)

@@ -3,6 +3,7 @@ package com.craftlanee.admin.ui.auth
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
@@ -54,6 +55,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.PasswordVisualTransformation
@@ -61,6 +64,7 @@ import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.craftlanee.admin.R
 import com.craftlanee.admin.ui.theme.AdminInk
 import com.craftlanee.admin.ui.theme.BrandAccent
 import com.craftlanee.admin.ui.theme.BrandPrimary
@@ -149,27 +153,36 @@ fun LoginScreen(
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.Center
             ) {
-                // CraftLanee Brand Emblem
+                // CraftLanee Brand Emblem & Logo from Website
                 Box(
                     modifier = Modifier
-                        .size(60.dp)
-                        .clip(RoundedCornerShape(18.dp))
-                        .background(
-                            Brush.linearGradient(
-                                colors = listOf(BrandPrimary, BrandAccent)
-                            )
-                        ),
+                        .size(68.dp)
+                        .clip(RoundedCornerShape(20.dp))
+                        .background(SurfaceDark)
+                        .border(1.dp, SurfaceBorder, RoundedCornerShape(20.dp))
+                        .padding(10.dp),
                     contentAlignment = Alignment.Center
                 ) {
-                    Text(
-                        text = "CL",
-                        fontWeight = FontWeight.Black,
-                        fontSize = 22.sp,
-                        color = Color.White
+                    Image(
+                        painter = painterResource(id = R.drawable.ic_craftlanee_logo),
+                        contentDescription = "CraftLanee Emblem",
+                        modifier = Modifier.fillMaxSize(),
+                        contentScale = ContentScale.Fit
                     )
                 }
 
-                Spacer(modifier = Modifier.height(18.dp))
+                Spacer(modifier = Modifier.height(16.dp))
+
+                Image(
+                    painter = painterResource(id = R.drawable.craftlanee_logo_white),
+                    contentDescription = "CraftLanee",
+                    modifier = Modifier
+                        .height(34.dp)
+                        .padding(horizontal = 8.dp),
+                    contentScale = ContentScale.Fit
+                )
+
+                Spacer(modifier = Modifier.height(14.dp))
 
                 Text(
                     text = "CONTROL ROOM",
