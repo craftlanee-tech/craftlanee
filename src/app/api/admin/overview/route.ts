@@ -48,7 +48,7 @@ export async function GET() {
 
   const awaiting = submissions.filter((item) => item.status === 'new');
   const newContacts = awaiting.filter((item) => item.kind === 'contact').length;
-  const newInterns = awaiting.length - newContacts;
+  const newInterns = awaiting.filter((item) => item.kind === 'internship').length;
   const oldest = [...awaiting].sort((a, b) => a.createdAt.localeCompare(b.createdAt));
   const overdue = oldest.filter((item) => waitingDays(item.createdAt, now) >= 3).length;
 
@@ -75,7 +75,7 @@ export async function GET() {
   const byDayMap = new Map(byDay.map((d) => [d.key, d]));
   submissions.forEach((item) => {
     const day = byDayMap.get(dayKey(new Date(item.createdAt)));
-    if (day) day[item.kind] += 1;
+    if (day && item.kind !== 'booking') day[item.kind] += 1;
   });
 
   const services = countBy(contacts.flatMap((item) => (item.kind === 'contact' ? item.data.serviceNeeded : []))).slice(0, 6);

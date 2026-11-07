@@ -6,6 +6,12 @@ function searchableText(item: Submission) {
   return Object.values(item.data).flat().join(' ').concat(' ', item.notes).toLowerCase();
 }
 
+function itemFacets(item: Submission) {
+  if (item.kind === 'contact') return item.data.serviceNeeded;
+  if (item.kind === 'booking') return [item.data.bookingType];
+  return [item.data.domain];
+}
+
 export async function GET(request: Request) {
   if (!(await isAdminSession())) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
@@ -22,7 +28,7 @@ export async function GET(request: Request) {
     all = all.filter((item) => item.kind === kind);
   }
 
-  const facetValues = all.flatMap((item) => (item.kind === 'contact' ? item.data.serviceNeeded : [item.data.domain]));
+  const facetValues = all.flatMap(itemFacets);
   const facets = Array.from(new Set(facetValues)).sort();
 
   const counts = {
@@ -36,8 +42,7 @@ export async function GET(request: Request) {
 
   let filtered = all.filter((item) => {
     if (facet) {
-      const values = item.kind === 'contact' ? item.data.serviceNeeded : [item.data.domain];
-      if (!values.includes(facet)) return false;
+      if (!itemFacets(item).includes(facet)) return false;
     }
     return !query || searchableText(item).includes(query);
   });
