@@ -3,7 +3,7 @@ import { promises as fs } from 'node:fs';
 import path from 'node:path';
 import { isReadOnlyHost, redis, storageMissingMessage } from './kv';
 
-export type SubmissionKind = 'contact' | 'internship';
+export type SubmissionKind = 'contact' | 'internship' | 'booking';
 export type SubmissionStatus = 'new' | 'progress' | 'done' | 'archived';
 
 export type ContactData = {
@@ -29,6 +29,16 @@ export type InternshipData = {
   message: string;
 };
 
+export type BookingData = {
+  name: string;
+  email: string;
+  mobile: string;
+  bookingType: string;
+  date: string;
+  time: string;
+  message: string;
+};
+
 type SubmissionBase = {
   id: string;
   createdAt: string;
@@ -40,7 +50,8 @@ type SubmissionBase = {
 
 export type ContactSubmission = SubmissionBase & { kind: 'contact'; data: ContactData };
 export type InternshipSubmission = SubmissionBase & { kind: 'internship'; data: InternshipData };
-export type Submission = ContactSubmission | InternshipSubmission;
+export type BookingSubmission = SubmissionBase & { kind: 'booking'; data: BookingData };
+export type Submission = ContactSubmission | InternshipSubmission | BookingSubmission;
 
 export type SubmissionPatch = Partial<Pick<SubmissionBase, 'status' | 'starred' | 'notes'>>;
 
@@ -93,9 +104,14 @@ export async function listInternships() {
   return (await listSubmissions()).filter((item): item is InternshipSubmission => item.kind === 'internship');
 }
 
+export async function listBookings() {
+  return (await listSubmissions()).filter((item): item is BookingSubmission => item.kind === 'booking');
+}
+
 export function saveSubmission(kind: 'contact', data: ContactData): Promise<ContactSubmission>;
 export function saveSubmission(kind: 'internship', data: InternshipData): Promise<InternshipSubmission>;
-export function saveSubmission(kind: SubmissionKind, data: ContactData | InternshipData): Promise<Submission> {
+export function saveSubmission(kind: 'booking', data: BookingData): Promise<BookingSubmission>;
+export function saveSubmission(kind: SubmissionKind, data: ContactData | InternshipData | BookingData): Promise<Submission> {
   return withLock(async () => {
     const now = new Date().toISOString();
     const submission = {

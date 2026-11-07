@@ -3,6 +3,15 @@ import type { SubmissionKind, SubmissionStatus } from './submissions';
 export const stageLabels: Record<SubmissionKind, Record<SubmissionStatus, string>> = {
   contact: { new: 'New', progress: 'In talks', done: 'Closed', archived: 'Archived' },
   internship: { new: 'New', progress: 'Shortlisted', done: 'Onboarded', archived: 'Archived' },
+  booking: { new: 'New', progress: 'Confirmed', done: 'Completed', archived: 'Archived' },
+};
+
+export const kindPaths: Record<SubmissionKind, string> = { contact: 'contacts', internship: 'internships', booking: 'bookings' };
+
+export const kindColors: Record<SubmissionKind, string> = {
+  contact: 'var(--viz-contact)',
+  internship: 'var(--viz-internship)',
+  booking: 'var(--viz-booking)',
 };
 
 export const pipeline: SubmissionStatus[] = ['new', 'progress', 'done'];

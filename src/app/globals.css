@@ -108,10 +108,12 @@
 :root[data-theme='light'] {
   --viz-contact: #3461fd;
   --viz-internship: #eb6834;
+  --viz-booking: #0d9488;
 }
 :root[data-theme='dark'] {
   --viz-contact: #5b8cff;
   --viz-internship: #d95926;
+  --viz-booking: #14b8a6;
 }
 
 /* Admin workspace: a calmer, paper-and-ink palette scoped to /admin so the marketing site is untouched */

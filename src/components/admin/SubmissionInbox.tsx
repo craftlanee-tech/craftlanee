@@ -19,7 +19,7 @@ import {
   Trash2,
 } from 'lucide-react';
 import { patchSubmission, removeSubmission } from '../../app/admin/actions';
-import { formatDateTime, initials, phoneDigits, pipeline, relativeTime, stageLabels, waitingDays } from '../../lib/admin-format';
+import { formatDateTime, initials, kindColors, phoneDigits, pipeline, relativeTime, stageLabels, waitingDays } from '../../lib/admin-format';
 import type { Submission, SubmissionKind, SubmissionPatch, SubmissionStatus } from '../../lib/submissions';
 
 type Filter = 'active' | SubmissionStatus | 'starred';
@@ -36,10 +36,30 @@ type Props = {
 const kindCopy = {
   contact: { title: 'Contact leads', eyebrow: 'Business enquiries', empty: 'No enquiries yet. They’ll land here the moment someone submits the contact form.' },
   internship: { title: 'Internship applications', eyebrow: 'Student registrations', empty: 'No applications yet. New registrations from the internship page will appear here.' },
+  booking: { title: 'Slot bookings', eyebrow: 'Booked slots', empty: 'No bookings yet. Slots booked from the Book a Slot page will appear here.' },
+};
+
+const facetLabels: Record<SubmissionKind, [string, string]> = {
+  contact: ['Filter by service', 'All services'],
+  internship: ['Filter by domain', 'All domains'],
+  booking: ['Filter by booking type', 'All booking types'],
 };
 
 function subtitle(item: Submission) {
-  return item.kind === 'contact' ? item.data.businessName : `${item.data.domain} · ${item.data.college}`;
+  if (item.kind === 'contact') return item.data.businessName;
+  if (item.kind === 'booking') return `${item.data.bookingType} · ${formatSlot(item.data.date, item.data.time)}`;
+  return `${item.data.domain} · ${item.data.college}`;
+}
+
+function facetValues(item: Submission) {
+  if (item.kind === 'contact') return item.data.serviceNeeded;
+  if (item.kind === 'booking') return [item.data.bookingType];
+  return [item.data.domain];
+}
+
+function formatSlot(date: string, time: string) {
+  const day = new Date(`${date}T00:00:00`).toLocaleDateString('en-IN', { weekday: 'short', day: 'numeric', month: 'short', year: 'numeric' });
+  return `${day}, ${time}`;
 }
 
 function searchableText(item: Submission) {
@@ -79,7 +99,7 @@ export default function SubmissionInbox({ kind, items: initialItems, now, initia
   }, [toast]);
 
   const facetOptions = useMemo(() => {
-    const values = items.flatMap((item) => (item.kind === 'contact' ? item.data.serviceNeeded : [item.data.domain]));
+    const values = items.flatMap(facetValues);
     return Array.from(new Set(values)).sort();
   }, [items]);
 
@@ -99,8 +119,7 @@ export default function SubmissionInbox({ kind, items: initialItems, now, initia
     const needle = query.trim().toLowerCase();
     return items.filter((item) => {
       if (facet) {
-        const values = item.kind === 'contact' ? item.data.serviceNeeded : [item.data.domain];
-        if (!values.includes(facet)) return false;
+        if (!facetValues(item).includes(facet)) return false;
       }
       return !needle || searchableText(item).includes(needle);
     });
@@ -312,10 +331,10 @@ export default function SubmissionInbox({ kind, items: initialItems, now, initia
             <select
               value={facet}
               onChange={(event) => setFacet(event.target.value)}
-              aria-label={kind === 'contact' ? 'Filter by service' : 'Filter by domain'}
+              aria-label={facetLabels[kind][0]}
               className="ml-auto rounded-full border border-theme bg-theme-surface px-3.5 py-1.5 text-sm text-theme-secondary outline-none focus:border-brand-primary"
             >
-              <option value="">{kind === 'contact' ? 'All services' : 'All domains'}</option>
+              <option value="">{facetLabels[kind][1]}</option>
               {facetOptions.map((option) => (
                 <option key={option} value={option}>
                   {option}
@@ -416,7 +435,7 @@ export default function SubmissionInbox({ kind, items: initialItems, now, initia
 }
 
 function Avatar({ name, kind }: { name: string; kind: SubmissionKind }) {
-  const color = kind === 'contact' ? 'var(--viz-contact)' : 'var(--viz-internship)';
+  const color = kindColors[kind];
   return (
     <span
       aria-hidden="true"
@@ -461,7 +480,14 @@ function Detail({ item, now, onBack, onPatch, onDelete }: DetailProps) {
   const phone = phoneDigits(item.data.mobile);
 
   const fields: [string, string][] =
-    item.kind === 'contact'
+    item.kind === 'booking'
+      ? [
+          ['Booking type', item.data.bookingType],
+          ['Slot', formatSlot(item.data.date, item.data.time)],
+          ['Email', item.data.email],
+          ['Mobile', item.data.mobile],
+        ]
+      : item.kind === 'contact'
       ? [
           ['Business', item.data.businessName],
           ['Email', item.data.email],
@@ -478,7 +504,7 @@ function Detail({ item, now, onBack, onPatch, onDelete }: DetailProps) {
           ['Duration', item.data.duration],
         ];
 
-  const tags = item.kind === 'contact' ? item.data.serviceNeeded : [item.data.domain];
+  const tags = facetValues(item);
 
   return (
     <article className="mx-auto max-w-3xl px-4 pb-16 pt-4 sm:px-8 lg:pt-8">
@@ -512,7 +538,13 @@ function Detail({ item, now, onBack, onPatch, onDelete }: DetailProps) {
 
       <div className="mt-6 flex flex-wrap gap-2">
         {item.data.email && (
-          <QuickAction href={`mailto:${item.data.email}?subject=${encodeURIComponent(item.kind === 'contact' ? `Re: your enquiry with CraftLanee` : `Your CraftLanee internship application`)}`} icon={Mail} label="Email" primary />
+          <QuickAction href={`mailto:${item.data.email}?subject=${encodeURIComponent(
+            item.kind === 'contact'
+              ? `Re: your enquiry with CraftLanee`
+              : item.kind === 'booking'
+                ? `Your CraftLanee ${item.data.bookingType} slot on ${formatSlot(item.data.date, item.data.time)}`
+                : `Your CraftLanee internship application`,
+          )}`} icon={Mail} label="Email" primary />
         )}
         <QuickAction href={`tel:+${phone}`} icon={Phone} label="Call" />
         <QuickAction href={`https://wa.me/${phone}`} icon={MessageCircle} label="WhatsApp" external />
@@ -539,7 +571,7 @@ function Detail({ item, now, onBack, onPatch, onDelete }: DetailProps) {
 
       <section className="mt-6">
         <h3 className="text-[11px] font-semibold uppercase tracking-[0.16em] text-theme-muted">
-          {item.kind === 'contact' ? 'Business details' : 'About the student'}
+          {item.kind === 'contact' ? 'Business details' : item.kind === 'booking' ? 'Notes from the visitor' : 'About the student'}
         </h3>
         <blockquote className="mt-3 whitespace-pre-line border-l-2 border-brand-primary pl-5 text-[15px] leading-relaxed text-theme-secondary">
           {item.data.message || 'No message provided.'}

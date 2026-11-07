@@ -68,7 +68,7 @@ export default function Navbar() {
             );
           })}
           <ThemePicker />
-          <Button href="/contact" variant="primary">Book a Call</Button>
+          <Button href="/book-slot" variant="primary">Book a Slot</Button>
         </nav>
 
         <div className="flex items-center gap-2 md:hidden">
@@ -116,8 +116,8 @@ export default function Navbar() {
                   </motion.div>
                 );
               })}
-              <Button href="/contact" variant="primary" onClick={() => setOpen(false)}>
-                Book a Call
+              <Button href="/book-slot" variant="primary" onClick={() => setOpen(false)}>
+                Book a Slot
               </Button>
             </div>
           </motion.div>

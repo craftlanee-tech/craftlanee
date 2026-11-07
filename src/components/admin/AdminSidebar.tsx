@@ -3,12 +3,12 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { ChevronRight, ExternalLink, GraduationCap, ImageIcon, Keyboard, LayoutGrid, LogOut, MessagesSquare } from 'lucide-react';
+import { CalendarClock, ChevronRight, ExternalLink, GraduationCap, ImageIcon, Keyboard, LayoutGrid, LogOut, MessagesSquare } from 'lucide-react';
 import ThemeToggle from '../ThemeToggle';
 import { logout } from '../../app/admin/actions';
 
 type Props = {
-  stats: { newContacts: number; newInternships: number; overdue: number; total: number };
+  stats: { newContacts: number; newInternships: number; newBookings: number; overdue: number; total: number };
 };
 
 const shortcuts: [string, string][] = [
@@ -22,12 +22,13 @@ const shortcuts: [string, string][] = [
 
 export default function AdminSidebar({ stats }: Props) {
   const pathname = usePathname();
-  const awaiting = stats.newContacts + stats.newInternships;
+  const awaiting = stats.newContacts + stats.newInternships + stats.newBookings;
 
   const links = [
     { href: '/admin', label: 'Overview', short: 'Overview', icon: LayoutGrid, count: 0 },
     { href: '/admin/contacts', label: 'Contact leads', short: 'Leads', icon: MessagesSquare, count: stats.newContacts },
     { href: '/admin/internships', label: 'Internships', short: 'Interns', icon: GraduationCap, count: stats.newInternships },
+    { href: '/admin/bookings', label: 'Slot bookings', short: 'Bookings', icon: CalendarClock, count: stats.newBookings },
     { href: '/admin/site', label: 'Homepage hero', short: 'Hero', icon: ImageIcon, count: 0 },
   ];
 

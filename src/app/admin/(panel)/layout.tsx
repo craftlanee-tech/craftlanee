@@ -19,6 +19,7 @@ export default async function AdminPanelLayout({ children }: { children: React.R
   const stats = {
     newContacts: fresh.filter((item) => item.kind === 'contact').length,
     newInternships: fresh.filter((item) => item.kind === 'internship').length,
+    newBookings: fresh.filter((item) => item.kind === 'booking').length,
     overdue: fresh.filter((item) => waitingDays(item.createdAt, now) >= 3).length,
     total: submissions.length,
   };

@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 import { isAdminSession } from '../../../../lib/admin-session';
-import { listContacts, listInternships } from '../../../../lib/submissions';
+import { listBookings, listContacts, listInternships } from '../../../../lib/submissions';
 
 function csvCell(value: unknown) {
   let text = Array.isArray(value) ? value.join('; ') : String(value ?? '');
@@ -29,6 +29,10 @@ export async function GET(request: Request) {
     }));
   } else if (type === 'internship') {
     rows = (await listInternships()).map(({ id, createdAt, status, starred, notes, data }) => ({
+      id, submittedAt: createdAt, status, starred, ...data, notes,
+    }));
+  } else if (type === 'booking') {
+    rows = (await listBookings()).map(({ id, createdAt, status, starred, notes, data }) => ({
       id, submittedAt: createdAt, status, starred, ...data, notes,
     }));
   } else {

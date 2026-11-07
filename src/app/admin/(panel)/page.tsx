@@ -2,7 +2,7 @@ import Link from 'next/link';
 import { connection } from 'next/server';
 import { ArrowRight, ArrowUpRight, CheckCircle2, Clock, GraduationCap, Hourglass, ImageIcon, MessagesSquare, Trophy } from 'lucide-react';
 import ActivityChart, { type ActivityDay } from '../../../components/admin/ActivityChart';
-import { dayKey, initials, relativeTime, stageLabels, waitingDays } from '../../../lib/admin-format';
+import { dayKey, initials, kindColors, kindPaths, relativeTime, stageLabels, waitingDays } from '../../../lib/admin-format';
 import { listSubmissions, type Submission, type SubmissionKind } from '../../../lib/submissions';
 
 export const metadata = { title: 'Overview | CraftLanee Admin' };
@@ -12,7 +12,7 @@ const WINDOW = 30;
 const SPARK_DAYS = 14;
 
 // The pipeline card is always ink-dark, so it uses the dark-surface steps of each series hue.
-const inkSeries: Record<SubmissionKind, string> = { contact: '#5b8cff', internship: '#d95926' };
+const inkSeries: Record<SubmissionKind, string> = { contact: '#5b8cff', internship: '#d95926', booking: '#0d9488' };
 
 function greeting(now: number) {
   const hour = Number(new Date(now).toLocaleString('en-IN', { hour: 'numeric', hour12: false, timeZone: 'Asia/Kolkata' }));
@@ -56,7 +56,7 @@ export default async function AdminOverviewPage() {
 
   const awaiting = submissions.filter((item) => item.status === 'new');
   const newContacts = awaiting.filter((item) => item.kind === 'contact').length;
-  const newInterns = awaiting.length - newContacts;
+  const newInterns = awaiting.filter((item) => item.kind === 'internship').length;
   const oldest = [...awaiting].sort((a, b) => a.createdAt.localeCompare(b.createdAt));
   const overdue = oldest.filter((item) => waitingDays(item.createdAt, now) >= 3).length;
 
@@ -82,7 +82,7 @@ export default async function AdminOverviewPage() {
   }
   submissions.forEach((item) => {
     const day = byDay.get(dayKey(new Date(item.createdAt)));
-    if (day) day[item.kind] += 1;
+    if (day && item.kind !== 'booking') day[item.kind] += 1;
   });
 
   const services = countBy(contacts.flatMap((item) => (item.kind === 'contact' ? item.data.serviceNeeded : []))).slice(0, 6);
@@ -176,11 +176,11 @@ export default async function AdminOverviewPage() {
             <ul className="-mx-2">
               {oldest.slice(0, 6).map((item) => {
                 const days = waitingDays(item.createdAt, now);
-                const color = item.kind === 'contact' ? 'var(--viz-contact)' : 'var(--viz-internship)';
+                const color = kindColors[item.kind];
                 return (
                   <li key={item.id}>
                     <Link
-                      href={`/admin/${item.kind === 'contact' ? 'contacts' : 'internships'}?id=${item.id}`}
+                      href={`/admin/${kindPaths[item.kind]}?id=${item.id}`}
                       className="group flex items-center gap-3 rounded-xl px-2 py-2.5 transition hover:bg-theme-surface-soft"
                     >
                       <span
@@ -193,7 +193,11 @@ export default async function AdminOverviewPage() {
                       <span className="min-w-0 flex-1">
                         <span className="block truncate text-sm font-semibold text-theme-primary">{item.data.name}</span>
                         <span className="block truncate text-xs text-theme-muted">
-                          {item.kind === 'contact' ? `Lead · ${item.data.businessName}` : `Intern · ${item.data.domain}`}
+                          {item.kind === 'contact'
+                            ? `Lead · ${item.data.businessName}`
+                            : item.kind === 'booking'
+                              ? `Booking · ${item.data.bookingType} · ${item.data.date} ${item.data.time}`
+                              : `Intern · ${item.data.domain}`}
                         </span>
                       </span>
                       <span
